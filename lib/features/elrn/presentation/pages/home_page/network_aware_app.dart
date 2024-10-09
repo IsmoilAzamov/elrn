@@ -34,6 +34,7 @@ class _NetworkAwareAppState extends State<NetworkAwareApp> {
     setState(() {});
   }
 
+
   @override
   void dispose() {
     _subscription.cancel();
