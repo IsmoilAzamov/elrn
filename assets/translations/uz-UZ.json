@@ -1,0 +1,15 @@
+{
+  "hello": "Salom!",
+  "please_select_language": "Iltimos, tilni tanlang",
+  "select_app_language": "Dastur tilini tanlang",
+  "next": "Keyingisi",
+  "boarding0": "E-learning mobil ilovasi vazifasi qanday?",
+  "boarding1": "Raqamli texnologiyalar orqali saralangan onlayn resurslardan foydalanish imkoni.",
+  "boarding2": "Foydalanuvchilar onlayn kurslar, interfaol darsliklar,  virtual sinfxona, mustaqil o'rganish uslublari orqali ma'lumotlarni aniq va lo'nda qabul qiladilar.",
+  "boarding3": "Ushbu imkoniyatlar ta'limni minglab foydalanuvchilar uchun bir vaqtning o'zida qulay va moslashuvchanligini ta'minlaydi.",
+  "success_bottom_sheet_text": "Ajoooyib! E-learning profilingizga muvoffaqiyatli kirdingiz! “Davom etish” ga bosing va o’quv jarayonini boshlang",
+  "profile": "Profil",
+  "main": "Asosiy",
+  "certificates": "Sertifikatlar",
+  "continue": "Davom etish"
+}
