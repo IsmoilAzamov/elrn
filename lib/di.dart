@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:elrn/features/elrn/data/datasources/remote/login_api_service.dart';
+import 'package:elrn/features/elrn/presentation/bloc/connection/connection_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/start/login_oauth2/login_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -37,6 +38,7 @@ Future<void> initializeDependencies() async {
 //bloc
 sl.registerFactory(() => LoginBloc(sl()));
 sl.registerFactory(() => ThemeBloc());
+sl.registerFactory(() => ConnectionBloc());
 
 
 

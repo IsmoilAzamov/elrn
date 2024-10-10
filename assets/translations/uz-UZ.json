@@ -11,5 +11,7 @@
   "profile": "Profil",
   "main": "Asosiy",
   "certificates": "Sertifikatlar",
+  "network_connection_lost_try_again": "Internetga aloqasi yo`q, qayta urinib ko`ring",
+  "check_internet_connection": "Internetga aloqasini tekshirib ko`ring",
   "continue": "Davom etish"
 }

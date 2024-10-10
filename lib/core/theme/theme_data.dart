@@ -212,14 +212,23 @@ final lightTheme = ThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(AppColors.blueColor),
       foregroundColor: WidgetStateProperty.all(Colors.white),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      elevation: WidgetStateProperty.all(2.0),
+
       textStyle: WidgetStateProperty.all(
         TextStyle(
           fontSize: 16,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
         ),
       ),
     ),
   ),
+
 
   // OutlinedButton Theme
   outlinedButtonTheme: OutlinedButtonThemeData(
@@ -425,12 +434,19 @@ final darkTheme = ThemeData(
   // ElevatedButton Theme
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(AppColors.blueColor),
-      foregroundColor: WidgetStateProperty.all(Colors.white),
+      backgroundColor: WidgetStateProperty.all(Colors.white),
+      foregroundColor: WidgetStateProperty.all(AppColors.bgDark),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      elevation: WidgetStateProperty.all(2.0),
       textStyle: WidgetStateProperty.all(
         TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
+          color: AppColors.bgDark,
         ),
       ),
     ),

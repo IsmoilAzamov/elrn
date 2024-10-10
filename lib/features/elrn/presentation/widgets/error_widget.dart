@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/get_logo.dart';
 import '../../../../main.dart';
 
@@ -23,10 +22,7 @@ Widget errorWidget({required String text, required VoidCallback onPressed, Strin
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: onPressed,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.secondaryColor,
-            ),
-            child:  Text('retry'.tr(), style: const TextStyle(color: Colors.white),),
+            child:  Text('retry'.tr(),),
           ),
         ],
       ),

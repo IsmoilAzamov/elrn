@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/constants/app_colors.dart';
 import '../../../../../main.dart';
 
 enum ThemeEvent { toggleDark, toggleLight }
@@ -11,10 +12,10 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     on<ThemeEvent>((event, emit) {
 
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: event==ThemeEvent.toggleLight ? const Color(0xffFFFFFF) : Colors.black,
+        statusBarColor: event==ThemeEvent.toggleLight ? const Color(0xffFFFFFF) : AppColors.bgDark,
         statusBarIconBrightness: event==ThemeEvent.toggleLight ? Brightness.dark : Brightness.light,
         statusBarBrightness: event==ThemeEvent.toggleLight  ? Brightness.light : Brightness.dark,
-        systemNavigationBarColor: event==ThemeEvent.toggleLight  ? Colors.white : Colors.black,
+        systemNavigationBarColor: event==ThemeEvent.toggleLight  ? Colors.white : AppColors.bgDark,
         systemNavigationBarIconBrightness: event==ThemeEvent.toggleLight ? Brightness.dark : Brightness.light,
       ));
       if (event == ThemeEvent.toggleDark) {

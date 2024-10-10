@@ -1,6 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:elrn/core/utils/get_logo.dart';
-import 'package:elrn/features/elrn/presentation/pages/home_page/network_aware_app.dart';
 import 'package:elrn/features/elrn/presentation/widgets/error_widget.dart';
 import 'package:elrn/features/elrn/presentation/widgets/my_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +38,7 @@ class _LoginOauth2PageState extends State<LoginOauth2Page> {
             if(state is LoginSuccessState){
               if(context.mounted){
                 Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) =>  NetworkAwareApp()), (route) => false);
+                    MaterialPageRoute(builder: (context) =>  HomePage(pageIndex: 0, initialLogin: true,)), (route) => false);
               }
             }
           },
@@ -52,10 +50,10 @@ class _LoginOauth2PageState extends State<LoginOauth2Page> {
               return loadingIndicator();
             }
             if (state is LoginInitialState) {
-              return errorWidget(text: "something_went_wrong".tr(), onPressed: () {
+              return errorWidget(text: "loading".tr(), onPressed: () {
                 _bloc.add(LoginInitialEvent());
               },
-                imageUrl: "assets/images/no_internet.png",
+                imageUrl: "assets/images/elrn_logo.png",
 
               );
             }

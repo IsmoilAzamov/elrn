@@ -7,6 +7,10 @@ import '../../../../core/logs/write_logs_to_storage.dart';
 import '../../presentation/widgets/toasts.dart';
 
 DioException errorHandler(DioException e) {
+
+  if(e is SocketException){
+    showErrorToast('no_internet'.tr());
+  }
   // print(e.requestOptions.path);
 
   try {
