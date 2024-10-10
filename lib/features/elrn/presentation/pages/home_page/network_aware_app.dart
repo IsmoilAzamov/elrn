@@ -6,8 +6,10 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'home_page.dart';
 
 class NetworkAwareApp extends StatefulWidget {
+  const NetworkAwareApp({super.key});
+
   @override
-  _NetworkAwareAppState createState() => _NetworkAwareAppState();
+  State<NetworkAwareApp> createState() => _NetworkAwareAppState();
 }
 
 class _NetworkAwareAppState extends State<NetworkAwareApp> {
