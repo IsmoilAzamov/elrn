@@ -15,6 +15,7 @@ class AccountRepositoryImpl  extends AccountRepository{
 
   AccountRepositoryImpl(this._accountApiService);
 
+
   @override
   Future<DataState<AuthInfoEntity>> getAuthInfo() async {
     try {
