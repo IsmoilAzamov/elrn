@@ -19,7 +19,6 @@ import '../../bloc/main/main_bloc.dart';
 import '../../bloc/theme/theme_bloc.dart';
 import '../../widgets/toasts.dart';
 import '../courses/courses_page.dart';
-import '../home_page/home_page.dart';
 import '../personal_info/personal_info_page.dart';
 
 class MainPage extends StatefulWidget {
