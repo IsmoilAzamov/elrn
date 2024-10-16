@@ -7,6 +7,8 @@ final lightTheme = ThemeData(
   primaryColor: Colors.white,
   primarySwatch: Colors.blue,
   fontFamily: "Montserrat",
+  primaryColorDark: AppColors.blueColor,
+  primaryColorLight: AppColors.blueColor,
   // AppBar Theme
   appBarTheme: const AppBarTheme(
     backgroundColor: AppColors.blueColor,
@@ -252,10 +254,12 @@ final darkTheme = ThemeData(
   useMaterial3: true,
   primaryColor: AppColors.bgDark,
   primarySwatch: Colors.green,
+  primaryColorDark: AppColors.bgDark,
+  primaryColorLight: AppColors.lightBlue,
   fontFamily: "Montserrat",
   // AppBar Theme
   appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.darkBgBlue,
+    backgroundColor: AppColors.bgDark,
     foregroundColor: Colors.white,
     titleTextStyle: TextStyle(color: Colors.white),
     iconTheme: IconThemeData(color: Colors.white),

@@ -176,7 +176,7 @@ class _StartPageState extends State<StartPage> {
       // Toggle the theme and save the new preference
       isDark = !isDark;
       box.put('theme', isDark ? 'dark' : 'light');
-      _bloc.add(isDark ? ThemeEvent.toggleDark : ThemeEvent.toggleLight);
+      _bloc.add(isDark ? ToggleDark() : ToggleLight());
     });
   }
 }

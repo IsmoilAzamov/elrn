@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:elrn/core/utils/get_language_code.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../main.dart';
@@ -20,7 +21,7 @@ class TokenInterceptor extends Interceptor {
       ) async {
     String token = await TokenService.accessToken();
 
-    options.headers['Authorization'] = token;
+    options.headers['Authorization'] = "Bearer $token";
     //contentType: 'application/json;
     options.headers['Content-Type'] = 'application/json-patch+json';
     // accept: plain/text
@@ -28,6 +29,7 @@ class TokenInterceptor extends Interceptor {
     // accept language: locale
     options.headers['Accept-Language'] = "uz-latn";
     options.headers['Cookie'] = "Authorization=$token";
+    options.headers['Lang'] = getLangCode();
     //content language: locale
     print(options.uri);
      print(options.headers);
@@ -48,7 +50,7 @@ class TokenInterceptor extends Interceptor {
 
       await TokenService.deleteToken();
       if(navigatorKey.currentContext!.mounted) {
-        Navigator.of(navigatorKey.currentContext!).pushNamedAndRemoveUntil('/phone_input', (route) => false);
+        Navigator.of(navigatorKey.currentContext!).pushNamedAndRemoveUntil('/start', (route) => false);
       }
     }
     return super.onError(err, handler);
@@ -57,7 +59,7 @@ class TokenInterceptor extends Interceptor {
   @override
   Future onResponse(Response response, ResponseInterceptorHandler handler) async {
     // print(response.statusCode);
-    log(response.data.toString());
+    // log(response.data.toString());
     return super.onResponse(response, handler);
   }
 }

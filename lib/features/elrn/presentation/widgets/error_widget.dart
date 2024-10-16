@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/get_logo.dart';
 import '../../../../main.dart';
 
-Widget errorWidget({required String text, required VoidCallback onPressed, String? imageUrl}) {
+Widget errorWidget({required String text, required VoidCallback onPressed, String? imageUrl, String? buttonText}) {
   return Container(
     padding: const EdgeInsets.all(16),
     color: Colors.transparent,
@@ -22,7 +22,7 @@ Widget errorWidget({required String text, required VoidCallback onPressed, Strin
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: onPressed,
-            child:  Text('retry'.tr(),),
+            child:  Text(buttonText??'retry'.tr(),),
           ),
         ],
       ),

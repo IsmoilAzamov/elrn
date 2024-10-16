@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 Widget loadingIndicator() {
   return Container(
-    padding: const EdgeInsets.all(16),
+    padding: const EdgeInsets.all(8),
     child: const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

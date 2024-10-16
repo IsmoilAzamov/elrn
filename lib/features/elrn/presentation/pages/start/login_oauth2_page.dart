@@ -35,10 +35,15 @@ class _LoginOauth2PageState extends State<LoginOauth2Page> {
         create: (context) => _bloc,
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
-            if(state is LoginSuccessState){
-              if(context.mounted){
+            if (state is LoginSuccessState) {
+              if (context.mounted) {
                 Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) =>  HomePage(pageIndex: 0, initialLogin: true,)), (route) => false);
+                    MaterialPageRoute(
+                        builder: (context) => HomePage(
+                              pageIndex: 0,
+                              initialLogin: true,
+                            )),
+                    (route) => false);
               }
             }
           },
@@ -50,33 +55,37 @@ class _LoginOauth2PageState extends State<LoginOauth2Page> {
               return loadingIndicator();
             }
             if (state is LoginInitialState) {
-              return errorWidget(text: "loading".tr(), onPressed: () {
-                _bloc.add(LoginInitialEvent());
-              },
-                imageUrl: "assets/images/elrn_logo.png",
-
+              return errorWidget(
+                text: "login".tr(),
+                buttonText: "login".tr(),
+                onPressed: () {
+                  _bloc.add(LoginInitialEvent());
+                },
               );
             }
+
 
             if (state is LoginSuccessState || state is OfflineLoginState) {
               return loadingIndicator();
             }
             if (state is LoginErrorState) {
-              return errorWidget(text: state.error.toString(), onPressed: () {
-                _bloc.add(LoginInitialEvent());
-              });
+              return errorWidget(
+                  text: state.error.toString(),
+                  onPressed: () {
+                    _bloc.add(LoginInitialEvent());
+                  });
             }
 
-            return errorWidget(text: "something_went_wrong".tr(), onPressed: () {
-              _bloc.add(LoginInitialEvent());
-            },
-            imageUrl: "assets/images/no_internet.png",
-
+            return errorWidget(
+              text: "something_went_wrong".tr(),
+              buttonText: "login".tr(),
+              onPressed: () {
+                _bloc.add(LoginInitialEvent());
+              },
             );
           },
         ),
       ),
     );
   }
-
 }

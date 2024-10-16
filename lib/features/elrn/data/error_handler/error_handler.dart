@@ -15,7 +15,7 @@ DioException errorHandler(DioException e) {
 
   try {
     if (e.response?.statusCode == 401) {
-      showErrorToast('unauthorized'.tr());
+      // showErrorToast('unauthorized'.tr());
       return DioException(error: 'unauthorized'.tr(), requestOptions: RequestOptions(path: ''));
     }
     if (e.error is SocketException) {

@@ -9,21 +9,20 @@ String getLangCode(){
     BuildContext context= navigatorKey.currentContext!;
     String langCode="";
     // print(context.locale);
+    print(context.locale.toString());
     switch(context.locale.toString()){
-      case "uz_Latn_UZ":
+
+      case "uz_UZ":
         langCode="uz-latn";
-        break;
-      case "uz_Cyrl_UZ":
-        langCode="uz-cyrl";
         break;
       case "ru_RU":
         langCode="ru";
         break;
-      case "kk_Cyrl_UZ":
+      case "kk_KZ":
         langCode="qr";
         break;
       default:
-        langCode="uz-Latn";
+        langCode="uz-latn";
         break;
     }
     return langCode;

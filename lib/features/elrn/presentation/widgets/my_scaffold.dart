@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../main.dart';
 import '../bloc/connection/connection_state.dart';
+import '../bloc/theme/theme_bloc.dart';
 
 class MyScaffold extends StatefulWidget {
   final AppBar? appBar;
@@ -46,8 +47,7 @@ class _MyScaffoldState extends State<MyScaffold> {
         builder: (context) => PopScope(
           canPop: false,
           child: Scaffold(
-            backgroundColor: isDark ? AppColors.darkBgBlue : AppColors.lightBgBlue,
-
+            backgroundColor: isDark ? AppColors.bgDark : AppColors.lightBgBlue,
             body: Stack(
               children: [
                 Positioned.fill(
@@ -102,45 +102,57 @@ class _MyScaffoldState extends State<MyScaffold> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: BlocProvider(
-        create: (context) => _bloc,
-        child: BlocConsumer<ConnectionBloc, ConnectionBlocState>(
-          listener: (context, state) {
-            if (state is ConnectionFailureState) {
-              _showNoNetworkDialog();
-            } else if (state is ConnectionSuccess) {
-              _closeNoNetworkDialog();
-            }
+        create: (context) => context.read<ThemeBloc>(),
+        child: BlocConsumer<ThemeBloc, ThemeState>(
+          bloc: context.read<ThemeBloc>(),
+          listener: (context, themeState) {
+            // print(themeState);
+            // showSuccessToast(themeState.toString());
+            setState(() {
+              isDark = box.get("theme") == "dark";
+            });
           },
-          builder: (context, state) {
-
-              return Scaffold(
-                key: widget.key,
-                backgroundColor: isDark ? AppColors.darkBgBlue : AppColors.lightBgBlue,
-                appBar: widget.appBar,
-                resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-                body: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Image.asset(
-                        isDark ? 'assets/background_pattern.png' : 'assets/background_pattern_light.png',
-                        fit: BoxFit.fill,
-                      ),
+          builder: (context, themeState) {
+            return BlocProvider(
+              create: (context) => _bloc,
+              child: BlocConsumer<ConnectionBloc, ConnectionBlocState>(
+                listener: (context, state) {
+                  print(state);
+                  if (state is ConnectionFailureState) {
+                    _showNoNetworkDialog();
+                  } else if (state is ConnectionSuccess) {
+                    _closeNoNetworkDialog();
+                  }
+                },
+                builder: (context, state) {
+                  return Scaffold(
+                    key: widget.key,
+                    backgroundColor: isDark ? AppColors.bgDark : AppColors.lightBgBlue,
+                    appBar: widget.appBar,
+                    resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+                    body: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: Image.asset(
+                            isDark ? 'assets/background_pattern.png' : 'assets/background_pattern_light.png',
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        widget.body ?? Container(),
+                      ],
                     ),
-                    widget.body ?? Container(),
-                  ],
-                ),
-                floatingActionButton: widget.floatingActionButton,
-                bottomNavigationBar: widget.bottomNavigationBar,
-                bottomSheet: widget.bottomSheet,
-              );
-
+                    floatingActionButton: widget.floatingActionButton,
+                    bottomNavigationBar: widget.bottomNavigationBar,
+                    bottomSheet: widget.bottomSheet,
+                  );
+                },
+              ),
+            );
           },
         ),
       ),
     );
   }
 }
-

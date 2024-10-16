@@ -16,6 +16,7 @@ class TokenService {
   static Future<bool> deleteToken() async {
     try{
       await box.put('token', null);
+      prefs.setString('token', '');
       print('Token deleted');
       return true;
     } catch (e) {

@@ -31,10 +31,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    if(widget.initialLogin == true) {
+    if (widget.initialLogin == true) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-      showSuccessBottomSheet('login_success'.tr());
-    });
+        showSuccessBottomSheet('login_success'.tr());
+      });
     }
 
     super.initState();
@@ -72,10 +72,9 @@ class _HomePageState extends State<HomePage> {
           child: MyScaffold(
             //bottom navigation bar
             bottomSheet: Container(
-              color: Colors.transparent,
+                color: Colors.transparent,
                 height: 65,
                 width: double.infinity,
-
                 child: Column(
                   children: [
                     Divider(
@@ -180,16 +179,15 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
-  void showSuccessBottomSheet(String message)  {
-     showModalBottomSheet(context: context,
-         shape: const RoundedRectangleBorder(
-           borderRadius: BorderRadius.only(
-             topLeft: Radius.circular(20),
-             topRight: Radius.circular(20),
-           ),
-         ),
-         builder: (context) => SuccessBottomSheet(message: message));
+  void showSuccessBottomSheet(String message) {
+    showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        builder: (context) => SuccessBottomSheet(message: message));
   }
 }
-
-
