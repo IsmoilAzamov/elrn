@@ -4,7 +4,6 @@ import 'package:elrn/features/elrn/domain/entities/my_lesson/my_lesson_entity.da
 import 'package:elrn/features/elrn/presentation/bloc/modules/topics/topic_children/topic_children_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../core/widgets/loading_indicator.dart';
 import '../../../../../../../di.dart';
@@ -95,7 +94,7 @@ class _TopicsPageState extends State<TopicsPage> {
               const SizedBox(height: 12),
               Column(
                 children: List.generate(
-                  myLesson.topics.length,
+                  myLesson.topics?.length ?? 0,
                   (index) => GestureDetector(
                     onTap: () {
                       // if(myLesson.topics[index].canStart==false){
@@ -103,7 +102,7 @@ class _TopicsPageState extends State<TopicsPage> {
                       // }
                     },
                     child: TopicItem(
-                      item: myLesson.topics[index],
+                      item: myLesson.topics![index],
                     ),
                   ),
                 ).toList(),
@@ -162,9 +161,9 @@ class TopicItem extends StatelessWidget {
               " ${item.courseTopic}",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily: GoogleFonts.poppins().fontFamily),
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
             ),
-            children: [TopicChildren(topicId: item.courseTopicId??"")],
+            children: [TopicChildren(topicId: item.courseTopicId ?? "")],
           ),
           if (item.childTopics?.isNotEmpty == true)
             Container(
@@ -241,24 +240,25 @@ class _TopicChildrenState extends State<TopicChildren> {
   Widget _loadedUI(MyLessonTopicEntity myLessonTopic) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: myLessonTopic.childTopics?.length??0,
+      itemCount: myLessonTopic.childTopics?.length ?? 0,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return GestureDetector(
             onTap: () {
-
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  CourseTopicContentsPage(topicId: myLessonTopic.childTopics?[index].courseTopicId??"", title: myLessonTopic.childTopics?[index].courseTopic??"",)));
-
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CourseTopicContentsPage(
+                            topicId: myLessonTopic.childTopics?[index].courseTopicId ?? "",
+                            title: myLessonTopic.childTopics?[index].courseTopic ?? "",
+                          )));
             },
-
-
             child: Column(
               children: [
                 Divider(height: 0, thickness: 1, color: AppColors.lightBlue, endIndent: 20, indent: 20),
                 Container(
                     padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
                     margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
-
                     child: ListTile(
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
@@ -269,13 +269,8 @@ class _TopicChildrenState extends State<TopicChildren> {
                       visualDensity: VisualDensity(horizontal: 0, vertical: -4),
 
                       dense: true,
-
-                      // leading: CircleAvatar(
-                      //   radius: 30,
-                      //   backgroundColor: AppColors.lightBlue,
-                      // ),
                       title: Text(
-                        " ${myLessonTopic.childTopics?[index].courseTopic??""}",
+                        " ${myLessonTopic.childTopics?[index].courseTopic ?? ""}",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: Colors.white),

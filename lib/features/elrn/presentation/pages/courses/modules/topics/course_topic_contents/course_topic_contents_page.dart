@@ -97,7 +97,6 @@ class _CourseTopicContentsPageState extends State<CourseTopicContentsPage> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
                 ),
                 textAlign: TextAlign.left,
               ),
@@ -122,7 +121,6 @@ class _CourseTopicContentsPageState extends State<CourseTopicContentsPage> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
                 ),
                 textAlign: TextAlign.left,
               ),
@@ -148,7 +146,6 @@ class _CourseTopicContentsPageState extends State<CourseTopicContentsPage> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
                 ),
                 textAlign: TextAlign.left,
               ),
@@ -169,6 +166,7 @@ class _CourseTopicContentsPageState extends State<CourseTopicContentsPage> {
   }
 }
 
+
 class VideoCard extends StatelessWidget {
   final VideoLessonEntity videoLesson;
 
@@ -181,7 +179,7 @@ class VideoCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => VideoPlayerWidget(),
+            builder: (context) => VideoLessonPage(lessonId: videoLesson.id??"", title: videoLesson.title??"",lessonTypeId: videoLesson.lessonTypeId??0),
           ),
         );
       },

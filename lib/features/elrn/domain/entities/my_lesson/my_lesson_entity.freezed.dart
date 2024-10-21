@@ -22,7 +22,7 @@ MyLessonEntity _$MyLessonEntityFromJson(Map<String, dynamic> json) {
 mixin _$MyLessonEntity {
   String? get courseTitle => throw _privateConstructorUsedError;
   String? get iconFileId => throw _privateConstructorUsedError;
-  List<MyLessonTopicEntity> get topics => throw _privateConstructorUsedError;
+  List<MyLessonTopicEntity>? get topics => throw _privateConstructorUsedError;
 
   /// Serializes this MyLessonEntity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $MyLessonEntityCopyWith<$Res> {
   $Res call(
       {String? courseTitle,
       String? iconFileId,
-      List<MyLessonTopicEntity> topics});
+      List<MyLessonTopicEntity>? topics});
 }
 
 /// @nodoc
@@ -63,7 +63,7 @@ class _$MyLessonEntityCopyWithImpl<$Res, $Val extends MyLessonEntity>
   $Res call({
     Object? courseTitle = freezed,
     Object? iconFileId = freezed,
-    Object? topics = null,
+    Object? topics = freezed,
   }) {
     return _then(_value.copyWith(
       courseTitle: freezed == courseTitle
@@ -74,10 +74,10 @@ class _$MyLessonEntityCopyWithImpl<$Res, $Val extends MyLessonEntity>
           ? _value.iconFileId
           : iconFileId // ignore: cast_nullable_to_non_nullable
               as String?,
-      topics: null == topics
+      topics: freezed == topics
           ? _value.topics
           : topics // ignore: cast_nullable_to_non_nullable
-              as List<MyLessonTopicEntity>,
+              as List<MyLessonTopicEntity>?,
     ) as $Val);
   }
 }
@@ -93,7 +93,7 @@ abstract class _$$MyLessonEntityImplCopyWith<$Res>
   $Res call(
       {String? courseTitle,
       String? iconFileId,
-      List<MyLessonTopicEntity> topics});
+      List<MyLessonTopicEntity>? topics});
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class __$$MyLessonEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? courseTitle = freezed,
     Object? iconFileId = freezed,
-    Object? topics = null,
+    Object? topics = freezed,
   }) {
     return _then(_$MyLessonEntityImpl(
       courseTitle: freezed == courseTitle
@@ -122,10 +122,10 @@ class __$$MyLessonEntityImplCopyWithImpl<$Res>
           ? _value.iconFileId
           : iconFileId // ignore: cast_nullable_to_non_nullable
               as String?,
-      topics: null == topics
+      topics: freezed == topics
           ? _value._topics
           : topics // ignore: cast_nullable_to_non_nullable
-              as List<MyLessonTopicEntity>,
+              as List<MyLessonTopicEntity>?,
     ));
   }
 }
@@ -134,9 +134,9 @@ class __$$MyLessonEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MyLessonEntityImpl implements _MyLessonEntity {
   const _$MyLessonEntityImpl(
-      {required this.courseTitle,
-      required this.iconFileId,
-      required final List<MyLessonTopicEntity> topics})
+      {this.courseTitle,
+      this.iconFileId,
+      final List<MyLessonTopicEntity>? topics})
       : _topics = topics;
 
   factory _$MyLessonEntityImpl.fromJson(Map<String, dynamic> json) =>
@@ -146,12 +146,14 @@ class _$MyLessonEntityImpl implements _MyLessonEntity {
   final String? courseTitle;
   @override
   final String? iconFileId;
-  final List<MyLessonTopicEntity> _topics;
+  final List<MyLessonTopicEntity>? _topics;
   @override
-  List<MyLessonTopicEntity> get topics {
+  List<MyLessonTopicEntity>? get topics {
+    final value = _topics;
+    if (value == null) return null;
     if (_topics is EqualUnmodifiableListView) return _topics;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_topics);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -195,9 +197,9 @@ class _$MyLessonEntityImpl implements _MyLessonEntity {
 
 abstract class _MyLessonEntity implements MyLessonEntity {
   const factory _MyLessonEntity(
-      {required final String? courseTitle,
-      required final String? iconFileId,
-      required final List<MyLessonTopicEntity> topics}) = _$MyLessonEntityImpl;
+      {final String? courseTitle,
+      final String? iconFileId,
+      final List<MyLessonTopicEntity>? topics}) = _$MyLessonEntityImpl;
 
   factory _MyLessonEntity.fromJson(Map<String, dynamic> json) =
       _$MyLessonEntityImpl.fromJson;
@@ -207,7 +209,7 @@ abstract class _MyLessonEntity implements MyLessonEntity {
   @override
   String? get iconFileId;
   @override
-  List<MyLessonTopicEntity> get topics;
+  List<MyLessonTopicEntity>? get topics;
 
   /// Create a copy of MyLessonEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -338,9 +340,9 @@ class __$$MyLessonTopicEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MyLessonTopicEntityImpl implements _MyLessonTopicEntity {
   const _$MyLessonTopicEntityImpl(
-      {required this.courseTopic,
-      required this.courseTopicId,
-      required final List<MyLessonTopicChildEntity>? childTopics})
+      {this.courseTopic,
+      this.courseTopicId,
+      final List<MyLessonTopicChildEntity>? childTopics})
       : _childTopics = childTopics;
 
   factory _$MyLessonTopicEntityImpl.fromJson(Map<String, dynamic> json) =>
@@ -402,9 +404,9 @@ class _$MyLessonTopicEntityImpl implements _MyLessonTopicEntity {
 
 abstract class _MyLessonTopicEntity implements MyLessonTopicEntity {
   const factory _MyLessonTopicEntity(
-          {required final String? courseTopic,
-          required final String? courseTopicId,
-          required final List<MyLessonTopicChildEntity>? childTopics}) =
+          {final String? courseTopic,
+          final String? courseTopicId,
+          final List<MyLessonTopicChildEntity>? childTopics}) =
       _$MyLessonTopicEntityImpl;
 
   factory _MyLessonTopicEntity.fromJson(Map<String, dynamic> json) =
@@ -577,11 +579,11 @@ class __$$MyLessonTopicChildEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MyLessonTopicChildEntityImpl implements _MyLessonTopicChildEntity {
   const _$MyLessonTopicChildEntityImpl(
-      {required this.courseTopic,
-      required this.courseTopicId,
-      required final List<VideoLessonEntity>? videoLessons,
-      required final List<LessonTestEntity>? lessonTests,
-      required final List<String>? homeworks})
+      {this.courseTopic,
+      this.courseTopicId,
+      final List<VideoLessonEntity>? videoLessons,
+      final List<LessonTestEntity>? lessonTests,
+      final List<String>? homeworks})
       : _videoLessons = videoLessons,
         _lessonTests = lessonTests,
         _homeworks = homeworks;
@@ -674,11 +676,11 @@ class _$MyLessonTopicChildEntityImpl implements _MyLessonTopicChildEntity {
 
 abstract class _MyLessonTopicChildEntity implements MyLessonTopicChildEntity {
   const factory _MyLessonTopicChildEntity(
-      {required final String? courseTopic,
-      required final String? courseTopicId,
-      required final List<VideoLessonEntity>? videoLessons,
-      required final List<LessonTestEntity>? lessonTests,
-      required final List<String>? homeworks}) = _$MyLessonTopicChildEntityImpl;
+      {final String? courseTopic,
+      final String? courseTopicId,
+      final List<VideoLessonEntity>? videoLessons,
+      final List<LessonTestEntity>? lessonTests,
+      final List<String>? homeworks}) = _$MyLessonTopicChildEntityImpl;
 
   factory _MyLessonTopicChildEntity.fromJson(Map<String, dynamic> json) =
       _$MyLessonTopicChildEntityImpl.fromJson;
@@ -719,6 +721,19 @@ mixin _$VideoLessonEntity {
   double? get completionPercentage => throw _privateConstructorUsedError;
   String? get videoThumbnailId => throw _privateConstructorUsedError;
   bool? get isVideoClip => throw _privateConstructorUsedError;
+  String? get course => throw _privateConstructorUsedError;
+  String? get courseId => throw _privateConstructorUsedError;
+  String? get courseTopic => throw _privateConstructorUsedError;
+  String? get courseTopicId => throw _privateConstructorUsedError;
+  String? get lessonId => throw _privateConstructorUsedError;
+  String? get details => throw _privateConstructorUsedError;
+  String? get nextVideoLessonId => throw _privateConstructorUsedError;
+  String? get nextVideoLessonTitle => throw _privateConstructorUsedError;
+  double? get watchedPercent => throw _privateConstructorUsedError;
+  bool? get canRate => throw _privateConstructorUsedError;
+  List<VideoFileEntity>? get videoFiles => throw _privateConstructorUsedError;
+  List<MaterialFileEntity>? get materialFiles =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this VideoLessonEntity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -747,7 +762,19 @@ abstract class $VideoLessonEntityCopyWith<$Res> {
       bool? locked,
       double? completionPercentage,
       String? videoThumbnailId,
-      bool? isVideoClip});
+      bool? isVideoClip,
+      String? course,
+      String? courseId,
+      String? courseTopic,
+      String? courseTopicId,
+      String? lessonId,
+      String? details,
+      String? nextVideoLessonId,
+      String? nextVideoLessonTitle,
+      double? watchedPercent,
+      bool? canRate,
+      List<VideoFileEntity>? videoFiles,
+      List<MaterialFileEntity>? materialFiles});
 }
 
 /// @nodoc
@@ -776,6 +803,18 @@ class _$VideoLessonEntityCopyWithImpl<$Res, $Val extends VideoLessonEntity>
     Object? completionPercentage = freezed,
     Object? videoThumbnailId = freezed,
     Object? isVideoClip = freezed,
+    Object? course = freezed,
+    Object? courseId = freezed,
+    Object? courseTopic = freezed,
+    Object? courseTopicId = freezed,
+    Object? lessonId = freezed,
+    Object? details = freezed,
+    Object? nextVideoLessonId = freezed,
+    Object? nextVideoLessonTitle = freezed,
+    Object? watchedPercent = freezed,
+    Object? canRate = freezed,
+    Object? videoFiles = freezed,
+    Object? materialFiles = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -822,6 +861,54 @@ class _$VideoLessonEntityCopyWithImpl<$Res, $Val extends VideoLessonEntity>
           ? _value.isVideoClip
           : isVideoClip // ignore: cast_nullable_to_non_nullable
               as bool?,
+      course: freezed == course
+          ? _value.course
+          : course // ignore: cast_nullable_to_non_nullable
+              as String?,
+      courseId: freezed == courseId
+          ? _value.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      courseTopic: freezed == courseTopic
+          ? _value.courseTopic
+          : courseTopic // ignore: cast_nullable_to_non_nullable
+              as String?,
+      courseTopicId: freezed == courseTopicId
+          ? _value.courseTopicId
+          : courseTopicId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lessonId: freezed == lessonId
+          ? _value.lessonId
+          : lessonId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      details: freezed == details
+          ? _value.details
+          : details // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nextVideoLessonId: freezed == nextVideoLessonId
+          ? _value.nextVideoLessonId
+          : nextVideoLessonId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nextVideoLessonTitle: freezed == nextVideoLessonTitle
+          ? _value.nextVideoLessonTitle
+          : nextVideoLessonTitle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      watchedPercent: freezed == watchedPercent
+          ? _value.watchedPercent
+          : watchedPercent // ignore: cast_nullable_to_non_nullable
+              as double?,
+      canRate: freezed == canRate
+          ? _value.canRate
+          : canRate // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      videoFiles: freezed == videoFiles
+          ? _value.videoFiles
+          : videoFiles // ignore: cast_nullable_to_non_nullable
+              as List<VideoFileEntity>?,
+      materialFiles: freezed == materialFiles
+          ? _value.materialFiles
+          : materialFiles // ignore: cast_nullable_to_non_nullable
+              as List<MaterialFileEntity>?,
     ) as $Val);
   }
 }
@@ -845,7 +932,19 @@ abstract class _$$VideoLessonEntityImplCopyWith<$Res>
       bool? locked,
       double? completionPercentage,
       String? videoThumbnailId,
-      bool? isVideoClip});
+      bool? isVideoClip,
+      String? course,
+      String? courseId,
+      String? courseTopic,
+      String? courseTopicId,
+      String? lessonId,
+      String? details,
+      String? nextVideoLessonId,
+      String? nextVideoLessonTitle,
+      double? watchedPercent,
+      bool? canRate,
+      List<VideoFileEntity>? videoFiles,
+      List<MaterialFileEntity>? materialFiles});
 }
 
 /// @nodoc
@@ -872,6 +971,18 @@ class __$$VideoLessonEntityImplCopyWithImpl<$Res>
     Object? completionPercentage = freezed,
     Object? videoThumbnailId = freezed,
     Object? isVideoClip = freezed,
+    Object? course = freezed,
+    Object? courseId = freezed,
+    Object? courseTopic = freezed,
+    Object? courseTopicId = freezed,
+    Object? lessonId = freezed,
+    Object? details = freezed,
+    Object? nextVideoLessonId = freezed,
+    Object? nextVideoLessonTitle = freezed,
+    Object? watchedPercent = freezed,
+    Object? canRate = freezed,
+    Object? videoFiles = freezed,
+    Object? materialFiles = freezed,
   }) {
     return _then(_$VideoLessonEntityImpl(
       id: freezed == id
@@ -918,6 +1029,54 @@ class __$$VideoLessonEntityImplCopyWithImpl<$Res>
           ? _value.isVideoClip
           : isVideoClip // ignore: cast_nullable_to_non_nullable
               as bool?,
+      course: freezed == course
+          ? _value.course
+          : course // ignore: cast_nullable_to_non_nullable
+              as String?,
+      courseId: freezed == courseId
+          ? _value.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      courseTopic: freezed == courseTopic
+          ? _value.courseTopic
+          : courseTopic // ignore: cast_nullable_to_non_nullable
+              as String?,
+      courseTopicId: freezed == courseTopicId
+          ? _value.courseTopicId
+          : courseTopicId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lessonId: freezed == lessonId
+          ? _value.lessonId
+          : lessonId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      details: freezed == details
+          ? _value.details
+          : details // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nextVideoLessonId: freezed == nextVideoLessonId
+          ? _value.nextVideoLessonId
+          : nextVideoLessonId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nextVideoLessonTitle: freezed == nextVideoLessonTitle
+          ? _value.nextVideoLessonTitle
+          : nextVideoLessonTitle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      watchedPercent: freezed == watchedPercent
+          ? _value.watchedPercent
+          : watchedPercent // ignore: cast_nullable_to_non_nullable
+              as double?,
+      canRate: freezed == canRate
+          ? _value.canRate
+          : canRate // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      videoFiles: freezed == videoFiles
+          ? _value._videoFiles
+          : videoFiles // ignore: cast_nullable_to_non_nullable
+              as List<VideoFileEntity>?,
+      materialFiles: freezed == materialFiles
+          ? _value._materialFiles
+          : materialFiles // ignore: cast_nullable_to_non_nullable
+              as List<MaterialFileEntity>?,
     ));
   }
 }
@@ -926,17 +1085,31 @@ class __$$VideoLessonEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$VideoLessonEntityImpl implements _VideoLessonEntity {
   const _$VideoLessonEntityImpl(
-      {required this.id,
-      required this.title,
-      required this.orderNumber,
-      required this.lessonTypeId,
-      required this.lessonType,
-      required this.watchedDuration,
-      required this.videoDuration,
-      required this.locked,
-      required this.completionPercentage,
-      required this.videoThumbnailId,
-      required this.isVideoClip});
+      {this.id,
+      this.title,
+      this.orderNumber,
+      this.lessonTypeId,
+      this.lessonType,
+      this.watchedDuration,
+      this.videoDuration,
+      this.locked,
+      this.completionPercentage,
+      this.videoThumbnailId,
+      this.isVideoClip,
+      this.course,
+      this.courseId,
+      this.courseTopic,
+      this.courseTopicId,
+      this.lessonId,
+      this.details,
+      this.nextVideoLessonId,
+      this.nextVideoLessonTitle,
+      this.watchedPercent,
+      this.canRate,
+      final List<VideoFileEntity>? videoFiles,
+      final List<MaterialFileEntity>? materialFiles})
+      : _videoFiles = videoFiles,
+        _materialFiles = materialFiles;
 
   factory _$VideoLessonEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$VideoLessonEntityImplFromJson(json);
@@ -963,10 +1136,49 @@ class _$VideoLessonEntityImpl implements _VideoLessonEntity {
   final String? videoThumbnailId;
   @override
   final bool? isVideoClip;
+  @override
+  final String? course;
+  @override
+  final String? courseId;
+  @override
+  final String? courseTopic;
+  @override
+  final String? courseTopicId;
+  @override
+  final String? lessonId;
+  @override
+  final String? details;
+  @override
+  final String? nextVideoLessonId;
+  @override
+  final String? nextVideoLessonTitle;
+  @override
+  final double? watchedPercent;
+  @override
+  final bool? canRate;
+  final List<VideoFileEntity>? _videoFiles;
+  @override
+  List<VideoFileEntity>? get videoFiles {
+    final value = _videoFiles;
+    if (value == null) return null;
+    if (_videoFiles is EqualUnmodifiableListView) return _videoFiles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<MaterialFileEntity>? _materialFiles;
+  @override
+  List<MaterialFileEntity>? get materialFiles {
+    final value = _materialFiles;
+    if (value == null) return null;
+    if (_materialFiles is EqualUnmodifiableListView) return _materialFiles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'VideoLessonEntity(id: $id, title: $title, orderNumber: $orderNumber, lessonTypeId: $lessonTypeId, lessonType: $lessonType, watchedDuration: $watchedDuration, videoDuration: $videoDuration, locked: $locked, completionPercentage: $completionPercentage, videoThumbnailId: $videoThumbnailId, isVideoClip: $isVideoClip)';
+    return 'VideoLessonEntity(id: $id, title: $title, orderNumber: $orderNumber, lessonTypeId: $lessonTypeId, lessonType: $lessonType, watchedDuration: $watchedDuration, videoDuration: $videoDuration, locked: $locked, completionPercentage: $completionPercentage, videoThumbnailId: $videoThumbnailId, isVideoClip: $isVideoClip, course: $course, courseId: $courseId, courseTopic: $courseTopic, courseTopicId: $courseTopicId, lessonId: $lessonId, details: $details, nextVideoLessonId: $nextVideoLessonId, nextVideoLessonTitle: $nextVideoLessonTitle, watchedPercent: $watchedPercent, canRate: $canRate, videoFiles: $videoFiles, materialFiles: $materialFiles)';
   }
 
   @override
@@ -992,24 +1204,58 @@ class _$VideoLessonEntityImpl implements _VideoLessonEntity {
             (identical(other.videoThumbnailId, videoThumbnailId) ||
                 other.videoThumbnailId == videoThumbnailId) &&
             (identical(other.isVideoClip, isVideoClip) ||
-                other.isVideoClip == isVideoClip));
+                other.isVideoClip == isVideoClip) &&
+            (identical(other.course, course) || other.course == course) &&
+            (identical(other.courseId, courseId) ||
+                other.courseId == courseId) &&
+            (identical(other.courseTopic, courseTopic) ||
+                other.courseTopic == courseTopic) &&
+            (identical(other.courseTopicId, courseTopicId) ||
+                other.courseTopicId == courseTopicId) &&
+            (identical(other.lessonId, lessonId) ||
+                other.lessonId == lessonId) &&
+            (identical(other.details, details) || other.details == details) &&
+            (identical(other.nextVideoLessonId, nextVideoLessonId) ||
+                other.nextVideoLessonId == nextVideoLessonId) &&
+            (identical(other.nextVideoLessonTitle, nextVideoLessonTitle) ||
+                other.nextVideoLessonTitle == nextVideoLessonTitle) &&
+            (identical(other.watchedPercent, watchedPercent) ||
+                other.watchedPercent == watchedPercent) &&
+            (identical(other.canRate, canRate) || other.canRate == canRate) &&
+            const DeepCollectionEquality()
+                .equals(other._videoFiles, _videoFiles) &&
+            const DeepCollectionEquality()
+                .equals(other._materialFiles, _materialFiles));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      title,
-      orderNumber,
-      lessonTypeId,
-      lessonType,
-      watchedDuration,
-      videoDuration,
-      locked,
-      completionPercentage,
-      videoThumbnailId,
-      isVideoClip);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        title,
+        orderNumber,
+        lessonTypeId,
+        lessonType,
+        watchedDuration,
+        videoDuration,
+        locked,
+        completionPercentage,
+        videoThumbnailId,
+        isVideoClip,
+        course,
+        courseId,
+        courseTopic,
+        courseTopicId,
+        lessonId,
+        details,
+        nextVideoLessonId,
+        nextVideoLessonTitle,
+        watchedPercent,
+        canRate,
+        const DeepCollectionEquality().hash(_videoFiles),
+        const DeepCollectionEquality().hash(_materialFiles)
+      ]);
 
   /// Create a copy of VideoLessonEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -1030,17 +1276,29 @@ class _$VideoLessonEntityImpl implements _VideoLessonEntity {
 
 abstract class _VideoLessonEntity implements VideoLessonEntity {
   const factory _VideoLessonEntity(
-      {required final String? id,
-      required final String? title,
-      required final int? orderNumber,
-      required final int? lessonTypeId,
-      required final String? lessonType,
-      required final double? watchedDuration,
-      required final double? videoDuration,
-      required final bool? locked,
-      required final double? completionPercentage,
-      required final String? videoThumbnailId,
-      required final bool? isVideoClip}) = _$VideoLessonEntityImpl;
+      {final String? id,
+      final String? title,
+      final int? orderNumber,
+      final int? lessonTypeId,
+      final String? lessonType,
+      final double? watchedDuration,
+      final double? videoDuration,
+      final bool? locked,
+      final double? completionPercentage,
+      final String? videoThumbnailId,
+      final bool? isVideoClip,
+      final String? course,
+      final String? courseId,
+      final String? courseTopic,
+      final String? courseTopicId,
+      final String? lessonId,
+      final String? details,
+      final String? nextVideoLessonId,
+      final String? nextVideoLessonTitle,
+      final double? watchedPercent,
+      final bool? canRate,
+      final List<VideoFileEntity>? videoFiles,
+      final List<MaterialFileEntity>? materialFiles}) = _$VideoLessonEntityImpl;
 
   factory _VideoLessonEntity.fromJson(Map<String, dynamic> json) =
       _$VideoLessonEntityImpl.fromJson;
@@ -1067,6 +1325,30 @@ abstract class _VideoLessonEntity implements VideoLessonEntity {
   String? get videoThumbnailId;
   @override
   bool? get isVideoClip;
+  @override
+  String? get course;
+  @override
+  String? get courseId;
+  @override
+  String? get courseTopic;
+  @override
+  String? get courseTopicId;
+  @override
+  String? get lessonId;
+  @override
+  String? get details;
+  @override
+  String? get nextVideoLessonId;
+  @override
+  String? get nextVideoLessonTitle;
+  @override
+  double? get watchedPercent;
+  @override
+  bool? get canRate;
+  @override
+  List<VideoFileEntity>? get videoFiles;
+  @override
+  List<MaterialFileEntity>? get materialFiles;
 
   /// Create a copy of VideoLessonEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -1339,20 +1621,20 @@ class __$$LessonTestEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$LessonTestEntityImpl implements _LessonTestEntity {
   const _$LessonTestEntityImpl(
-      {required this.id,
-      required this.title,
-      required this.orderNumber,
-      required this.locked,
-      required this.questionCount,
-      required this.completedQuestionCount,
-      required this.completedPercent,
-      required this.lessonTypeId,
-      required this.lessonType,
-      required this.lessonTestThumbnailId,
-      required this.correctAnswersCount,
-      required this.testResult,
-      required this.isCompleted,
-      required this.submissionLimit});
+      {this.id,
+      this.title,
+      this.orderNumber,
+      this.locked,
+      this.questionCount,
+      this.completedQuestionCount,
+      this.completedPercent,
+      this.lessonTypeId,
+      this.lessonType,
+      this.lessonTestThumbnailId,
+      this.correctAnswersCount,
+      this.testResult,
+      this.isCompleted,
+      this.submissionLimit});
 
   factory _$LessonTestEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$LessonTestEntityImplFromJson(json);
@@ -1461,20 +1743,20 @@ class _$LessonTestEntityImpl implements _LessonTestEntity {
 
 abstract class _LessonTestEntity implements LessonTestEntity {
   const factory _LessonTestEntity(
-      {required final String? id,
-      required final String? title,
-      required final int? orderNumber,
-      required final bool? locked,
-      required final int? questionCount,
-      required final int? completedQuestionCount,
-      required final double? completedPercent,
-      required final int? lessonTypeId,
-      required final String? lessonType,
-      required final String? lessonTestThumbnailId,
-      required final int? correctAnswersCount,
-      required final double? testResult,
-      required final bool? isCompleted,
-      required final double? submissionLimit}) = _$LessonTestEntityImpl;
+      {final String? id,
+      final String? title,
+      final int? orderNumber,
+      final bool? locked,
+      final int? questionCount,
+      final int? completedQuestionCount,
+      final double? completedPercent,
+      final int? lessonTypeId,
+      final String? lessonType,
+      final String? lessonTestThumbnailId,
+      final int? correctAnswersCount,
+      final double? testResult,
+      final bool? isCompleted,
+      final double? submissionLimit}) = _$LessonTestEntityImpl;
 
   factory _LessonTestEntity.fromJson(Map<String, dynamic> json) =
       _$LessonTestEntityImpl.fromJson;
@@ -1513,5 +1795,412 @@ abstract class _LessonTestEntity implements LessonTestEntity {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LessonTestEntityImplCopyWith<_$LessonTestEntityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+VideoFileEntity _$VideoFileEntityFromJson(Map<String, dynamic> json) {
+  return _VideoFileEntity.fromJson(json);
+}
+
+/// @nodoc
+mixin _$VideoFileEntity {
+  String? get id => throw _privateConstructorUsedError;
+  String? get fileName => throw _privateConstructorUsedError;
+
+  /// Serializes this VideoFileEntity to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of VideoFileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $VideoFileEntityCopyWith<VideoFileEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VideoFileEntityCopyWith<$Res> {
+  factory $VideoFileEntityCopyWith(
+          VideoFileEntity value, $Res Function(VideoFileEntity) then) =
+      _$VideoFileEntityCopyWithImpl<$Res, VideoFileEntity>;
+  @useResult
+  $Res call({String? id, String? fileName});
+}
+
+/// @nodoc
+class _$VideoFileEntityCopyWithImpl<$Res, $Val extends VideoFileEntity>
+    implements $VideoFileEntityCopyWith<$Res> {
+  _$VideoFileEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of VideoFileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? fileName = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fileName: freezed == fileName
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$VideoFileEntityImplCopyWith<$Res>
+    implements $VideoFileEntityCopyWith<$Res> {
+  factory _$$VideoFileEntityImplCopyWith(_$VideoFileEntityImpl value,
+          $Res Function(_$VideoFileEntityImpl) then) =
+      __$$VideoFileEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? id, String? fileName});
+}
+
+/// @nodoc
+class __$$VideoFileEntityImplCopyWithImpl<$Res>
+    extends _$VideoFileEntityCopyWithImpl<$Res, _$VideoFileEntityImpl>
+    implements _$$VideoFileEntityImplCopyWith<$Res> {
+  __$$VideoFileEntityImplCopyWithImpl(
+      _$VideoFileEntityImpl _value, $Res Function(_$VideoFileEntityImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of VideoFileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? fileName = freezed,
+  }) {
+    return _then(_$VideoFileEntityImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fileName: freezed == fileName
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$VideoFileEntityImpl implements _VideoFileEntity {
+  const _$VideoFileEntityImpl({this.id, this.fileName});
+
+  factory _$VideoFileEntityImpl.fromJson(Map<String, dynamic> json) =>
+      _$$VideoFileEntityImplFromJson(json);
+
+  @override
+  final String? id;
+  @override
+  final String? fileName;
+
+  @override
+  String toString() {
+    return 'VideoFileEntity(id: $id, fileName: $fileName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VideoFileEntityImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.fileName, fileName) ||
+                other.fileName == fileName));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, fileName);
+
+  /// Create a copy of VideoFileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VideoFileEntityImplCopyWith<_$VideoFileEntityImpl> get copyWith =>
+      __$$VideoFileEntityImplCopyWithImpl<_$VideoFileEntityImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$VideoFileEntityImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _VideoFileEntity implements VideoFileEntity {
+  const factory _VideoFileEntity({final String? id, final String? fileName}) =
+      _$VideoFileEntityImpl;
+
+  factory _VideoFileEntity.fromJson(Map<String, dynamic> json) =
+      _$VideoFileEntityImpl.fromJson;
+
+  @override
+  String? get id;
+  @override
+  String? get fileName;
+
+  /// Create a copy of VideoFileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$VideoFileEntityImplCopyWith<_$VideoFileEntityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MaterialFileEntity _$MaterialFileEntityFromJson(Map<String, dynamic> json) {
+  return _MaterialFileEntity.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MaterialFileEntity {
+  String? get id => throw _privateConstructorUsedError;
+  String? get fileName => throw _privateConstructorUsedError;
+  int? get fileSize => throw _privateConstructorUsedError;
+  String? get fileExtension => throw _privateConstructorUsedError;
+  bool? get canDownload => throw _privateConstructorUsedError;
+
+  /// Serializes this MaterialFileEntity to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MaterialFileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MaterialFileEntityCopyWith<MaterialFileEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MaterialFileEntityCopyWith<$Res> {
+  factory $MaterialFileEntityCopyWith(
+          MaterialFileEntity value, $Res Function(MaterialFileEntity) then) =
+      _$MaterialFileEntityCopyWithImpl<$Res, MaterialFileEntity>;
+  @useResult
+  $Res call(
+      {String? id,
+      String? fileName,
+      int? fileSize,
+      String? fileExtension,
+      bool? canDownload});
+}
+
+/// @nodoc
+class _$MaterialFileEntityCopyWithImpl<$Res, $Val extends MaterialFileEntity>
+    implements $MaterialFileEntityCopyWith<$Res> {
+  _$MaterialFileEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MaterialFileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? fileName = freezed,
+    Object? fileSize = freezed,
+    Object? fileExtension = freezed,
+    Object? canDownload = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fileName: freezed == fileName
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fileSize: freezed == fileSize
+          ? _value.fileSize
+          : fileSize // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fileExtension: freezed == fileExtension
+          ? _value.fileExtension
+          : fileExtension // ignore: cast_nullable_to_non_nullable
+              as String?,
+      canDownload: freezed == canDownload
+          ? _value.canDownload
+          : canDownload // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MaterialFileEntityImplCopyWith<$Res>
+    implements $MaterialFileEntityCopyWith<$Res> {
+  factory _$$MaterialFileEntityImplCopyWith(_$MaterialFileEntityImpl value,
+          $Res Function(_$MaterialFileEntityImpl) then) =
+      __$$MaterialFileEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? id,
+      String? fileName,
+      int? fileSize,
+      String? fileExtension,
+      bool? canDownload});
+}
+
+/// @nodoc
+class __$$MaterialFileEntityImplCopyWithImpl<$Res>
+    extends _$MaterialFileEntityCopyWithImpl<$Res, _$MaterialFileEntityImpl>
+    implements _$$MaterialFileEntityImplCopyWith<$Res> {
+  __$$MaterialFileEntityImplCopyWithImpl(_$MaterialFileEntityImpl _value,
+      $Res Function(_$MaterialFileEntityImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MaterialFileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? fileName = freezed,
+    Object? fileSize = freezed,
+    Object? fileExtension = freezed,
+    Object? canDownload = freezed,
+  }) {
+    return _then(_$MaterialFileEntityImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fileName: freezed == fileName
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fileSize: freezed == fileSize
+          ? _value.fileSize
+          : fileSize // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fileExtension: freezed == fileExtension
+          ? _value.fileExtension
+          : fileExtension // ignore: cast_nullable_to_non_nullable
+              as String?,
+      canDownload: freezed == canDownload
+          ? _value.canDownload
+          : canDownload // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MaterialFileEntityImpl implements _MaterialFileEntity {
+  const _$MaterialFileEntityImpl(
+      {this.id,
+      this.fileName,
+      this.fileSize,
+      this.fileExtension,
+      this.canDownload});
+
+  factory _$MaterialFileEntityImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MaterialFileEntityImplFromJson(json);
+
+  @override
+  final String? id;
+  @override
+  final String? fileName;
+  @override
+  final int? fileSize;
+  @override
+  final String? fileExtension;
+  @override
+  final bool? canDownload;
+
+  @override
+  String toString() {
+    return 'MaterialFileEntity(id: $id, fileName: $fileName, fileSize: $fileSize, fileExtension: $fileExtension, canDownload: $canDownload)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MaterialFileEntityImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.fileName, fileName) ||
+                other.fileName == fileName) &&
+            (identical(other.fileSize, fileSize) ||
+                other.fileSize == fileSize) &&
+            (identical(other.fileExtension, fileExtension) ||
+                other.fileExtension == fileExtension) &&
+            (identical(other.canDownload, canDownload) ||
+                other.canDownload == canDownload));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, id, fileName, fileSize, fileExtension, canDownload);
+
+  /// Create a copy of MaterialFileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MaterialFileEntityImplCopyWith<_$MaterialFileEntityImpl> get copyWith =>
+      __$$MaterialFileEntityImplCopyWithImpl<_$MaterialFileEntityImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MaterialFileEntityImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MaterialFileEntity implements MaterialFileEntity {
+  const factory _MaterialFileEntity(
+      {final String? id,
+      final String? fileName,
+      final int? fileSize,
+      final String? fileExtension,
+      final bool? canDownload}) = _$MaterialFileEntityImpl;
+
+  factory _MaterialFileEntity.fromJson(Map<String, dynamic> json) =
+      _$MaterialFileEntityImpl.fromJson;
+
+  @override
+  String? get id;
+  @override
+  String? get fileName;
+  @override
+  int? get fileSize;
+  @override
+  String? get fileExtension;
+  @override
+  bool? get canDownload;
+
+  /// Create a copy of MaterialFileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MaterialFileEntityImplCopyWith<_$MaterialFileEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -9,6 +9,7 @@ final lightTheme = ThemeData(
   fontFamily: "Montserrat",
   primaryColorDark: AppColors.blueColor,
   primaryColorLight: AppColors.blueColor,
+  primaryIconTheme: const IconThemeData(color: AppColors.blueColor),
   // AppBar Theme
   appBarTheme: const AppBarTheme(
     backgroundColor: AppColors.blueColor,

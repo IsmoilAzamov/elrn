@@ -10,8 +10,8 @@ _$MyLessonEntityImpl _$$MyLessonEntityImplFromJson(Map<String, dynamic> json) =>
     _$MyLessonEntityImpl(
       courseTitle: json['courseTitle'] as String?,
       iconFileId: json['iconFileId'] as String?,
-      topics: (json['topics'] as List<dynamic>)
-          .map((e) => MyLessonTopicEntity.fromJson(e as Map<String, dynamic>))
+      topics: (json['topics'] as List<dynamic>?)
+          ?.map((e) => MyLessonTopicEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -82,6 +82,22 @@ _$VideoLessonEntityImpl _$$VideoLessonEntityImplFromJson(
       completionPercentage: (json['completionPercentage'] as num?)?.toDouble(),
       videoThumbnailId: json['videoThumbnailId'] as String?,
       isVideoClip: json['isVideoClip'] as bool?,
+      course: json['course'] as String?,
+      courseId: json['courseId'] as String?,
+      courseTopic: json['courseTopic'] as String?,
+      courseTopicId: json['courseTopicId'] as String?,
+      lessonId: json['lessonId'] as String?,
+      details: json['details'] as String?,
+      nextVideoLessonId: json['nextVideoLessonId'] as String?,
+      nextVideoLessonTitle: json['nextVideoLessonTitle'] as String?,
+      watchedPercent: (json['watchedPercent'] as num?)?.toDouble(),
+      canRate: json['canRate'] as bool?,
+      videoFiles: (json['videoFiles'] as List<dynamic>?)
+          ?.map((e) => VideoFileEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      materialFiles: (json['materialFiles'] as List<dynamic>?)
+          ?.map((e) => MaterialFileEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$VideoLessonEntityImplToJson(
@@ -98,6 +114,18 @@ Map<String, dynamic> _$$VideoLessonEntityImplToJson(
       'completionPercentage': instance.completionPercentage,
       'videoThumbnailId': instance.videoThumbnailId,
       'isVideoClip': instance.isVideoClip,
+      'course': instance.course,
+      'courseId': instance.courseId,
+      'courseTopic': instance.courseTopic,
+      'courseTopicId': instance.courseTopicId,
+      'lessonId': instance.lessonId,
+      'details': instance.details,
+      'nextVideoLessonId': instance.nextVideoLessonId,
+      'nextVideoLessonTitle': instance.nextVideoLessonTitle,
+      'watchedPercent': instance.watchedPercent,
+      'canRate': instance.canRate,
+      'videoFiles': instance.videoFiles,
+      'materialFiles': instance.materialFiles,
     };
 
 _$LessonTestEntityImpl _$$LessonTestEntityImplFromJson(
@@ -136,4 +164,38 @@ Map<String, dynamic> _$$LessonTestEntityImplToJson(
       'testResult': instance.testResult,
       'isCompleted': instance.isCompleted,
       'submissionLimit': instance.submissionLimit,
+    };
+
+_$VideoFileEntityImpl _$$VideoFileEntityImplFromJson(
+        Map<String, dynamic> json) =>
+    _$VideoFileEntityImpl(
+      id: json['id'] as String?,
+      fileName: json['fileName'] as String?,
+    );
+
+Map<String, dynamic> _$$VideoFileEntityImplToJson(
+        _$VideoFileEntityImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'fileName': instance.fileName,
+    };
+
+_$MaterialFileEntityImpl _$$MaterialFileEntityImplFromJson(
+        Map<String, dynamic> json) =>
+    _$MaterialFileEntityImpl(
+      id: json['id'] as String?,
+      fileName: json['fileName'] as String?,
+      fileSize: (json['fileSize'] as num?)?.toInt(),
+      fileExtension: json['fileExtension'] as String?,
+      canDownload: json['canDownload'] as bool?,
+    );
+
+Map<String, dynamic> _$$MaterialFileEntityImplToJson(
+        _$MaterialFileEntityImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'fileName': instance.fileName,
+      'fileSize': instance.fileSize,
+      'fileExtension': instance.fileExtension,
+      'canDownload': instance.canDownload,
     };

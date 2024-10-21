@@ -1,8 +1,6 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:elrn/features/elrn/data/datasources/local/token_db_service.dart';
 import 'package:elrn/features/elrn/data/models/token_model.dart';
 import 'package:elrn/features/elrn/presentation/pages/start/start_page.dart';
 import 'package:flutter/material.dart';
@@ -74,8 +72,8 @@ Future<void> main() async {
   // }
   var myTheme= box.get('theme')=="dark" ? ToggleDark : ToggleLight;
   await initializeDependencies();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+ SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: myTheme is ToggleLight ? const Color(0xffFFFFFF) : AppColors.bgDark,
     statusBarIconBrightness: myTheme is ToggleLight ? Brightness.dark : Brightness.light,
     statusBarBrightness:  myTheme is ToggleLight ? Brightness.light : Brightness.dark,
@@ -111,7 +109,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, WidgetBuilder> _routes = {
+    Map<String, WidgetBuilder> routes = {
       // '/': (context) => getStartPage(),
       '/home': (context) => const HomePage(pageIndex: 0),
       '/onboarding': (context) => OnboardingPage(),
@@ -127,9 +125,6 @@ class _MyAppState extends State<MyApp> {
             isDark = box.get('theme') == "dark";
           },
           builder: (context, state) {
-            print("=================");
-            print(state);
-            print("=================");
             return MaterialApp(
               locale: context.locale,
               localizationsDelegates: context.localizationDelegates,
@@ -138,7 +133,7 @@ class _MyAppState extends State<MyApp> {
               theme: isDark ? darkTheme : lightTheme,
               debugShowCheckedModeBanner: false,
               navigatorKey: navigatorKey,
-              routes: _routes,
+              routes: routes,
               home: getStartPage(),
             );
           }),

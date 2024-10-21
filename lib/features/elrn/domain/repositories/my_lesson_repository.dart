@@ -11,4 +11,6 @@ abstract class MyLessonRepository {
 Future<DataState<MyLessonTopicEntity>>  getByCourseTopicParent({required String parentId});
 
 Future<DataState<MyLessonTopicChildEntity>>  getContentByCourseTopic({required String topicId});
+
+  Future<DataState<VideoLessonEntity>> getMyVideoLessons({required String lessonId});
 }

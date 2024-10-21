@@ -1,274 +1,238 @@
-import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
-import 'package:elrn/core/constants/app_colors.dart';
+import 'package:elrn/core/constants/urls.dart';
+import 'package:elrn/core/widgets/loading_indicator.dart';
+import 'package:elrn/features/elrn/domain/entities/my_lesson/my_lesson_entity.dart';
+import 'package:elrn/features/elrn/presentation/bloc/video_lesson/video_lesson_bloc.dart';
 import 'package:elrn/features/elrn/presentation/widgets/app_bar.dart';
 import 'package:elrn/features/elrn/presentation/widgets/my_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chewie/chewie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class VideoPlayerWidget extends StatefulWidget {
-  const VideoPlayerWidget({super.key});
+import '../../../../../../core/constants/app_colors.dart';
+import '../../../../../../di.dart';
+import '../../../bloc/video_lesson/video_lesson_event.dart';
+import '../../../bloc/video_lesson/video_lesson_state.dart';
+import '../../../widgets/error_widget.dart';
+import '../../../widgets/rating_widget.dart';
+
+class VideoLessonPage extends StatefulWidget {
+  final String lessonId;
+  final String title;
+  final int lessonTypeId;
+
+  const VideoLessonPage({super.key, required this.lessonId, required this.title, required this.lessonTypeId});
 
   @override
-  State<VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
+  State<VideoLessonPage> createState() => _VideoLessonPageState();
 }
 
-class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
-  late VideoPlayerController _videoPlayerController;
-  ChewieController? _chewieController;
+class _VideoLessonPageState extends State<VideoLessonPage> {
+  final _bloc = sl<VideoLessonBloc>();
 
   @override
   void initState() {
     super.initState();
-    _videoPlayerController = VideoPlayerController.networkUrl(
-      Uri.parse("https://video-stream.istc.uz/api/Stream/GetVideo/3e750985-8529-4c29-a568-614d57d65d04/master.m3u8"),
-    );
-
-    _videoPlayerController.initialize().then((_) {
-      _chewieController = ChewieController(
-          videoPlayerController: _videoPlayerController,
-          autoPlay: false,
-          looping: false,
-          fullScreenByDefault: false,
-          allowFullScreen: true,
-          aspectRatio: _videoPlayerController.value.aspectRatio,
-          materialProgressColors: ChewieProgressColors(
-            playedColor: Colors.white,
-            handleColor: Colors.white,
-            backgroundColor: AppColors.gray,
-            bufferedColor: Colors.black,
-          ),
-          cupertinoProgressColors: ChewieProgressColors(
-            playedColor: Colors.white,
-            handleColor: Colors.white,
-            backgroundColor: AppColors.gray,
-            bufferedColor: Colors.black,
-          ),
-          customControls: CustomChewieControls());
-
-      setState(() {});
-    });
+    _bloc.add(VideoLessonLoadEvent(lessonId: widget.lessonId));
   }
 
   @override
   void dispose() {
-    _videoPlayerController.dispose();
-    _chewieController?.dispose();
+    // _videoPlayerController.dispose();
+    // _chewieController?.dispose();
+    _bloc.close();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return MyScaffold(
-      body: _chewieController != null && _chewieController!.videoPlayerController.value.isInitialized
-          ? Column(
-            children: [
-              CurvedAppBar(title: "video_lesson".tr()),
-              const SizedBox(height: 20),
-              Container(
-                height: 200,
+        body: BlocProvider(
+      create: (context) => _bloc,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CurvedAppBar(title: "video".tr()),
+          BlocBuilder<VideoLessonBloc, VideoLessonState>(builder: (context, state) {
+            if (state is VideoLessonLoadingState) {
+              return Expanded(child: Center(child: loadingIndicator()));
+            }
+            if (state is VideoLessonErrorState) {
+              return errorWidget(
+                onPressed: () {
+                  _bloc.add(VideoLessonLoadEvent(lessonId: widget.lessonId));
+                },
+                text: state.message,
+              );
+            }
+            if (state is VideoLessonLoadedState) {
+              return loadedUI(state);
+            }
+            return errorWidget(onPressed: () {}, text: 'something_went_wrong'.tr());
+          }),
+        ],
+      ),
+    ));
+  }
 
-                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-                width: double.infinity,
-
-                child: Card(
-                  margin: EdgeInsets.zero,
-                  elevation: 4,
-                  shadowColor: Colors.black.withOpacity(0.5),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Chewie(
-                      controller: _chewieController!,
-                    ),
+  Widget loadedUI(VideoLessonLoadedState state) {
+    return Expanded(
+      child: SingleChildScrollView(
+        
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Container(
+              height: 200,
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              width: double.infinity,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.lightBlue, width: 1), boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: const Offset(2, 5),
+                ),
+              ]),
+              child: Card(
+                margin: EdgeInsets.zero,
+                elevation: 4,
+                shadowColor: Colors.black.withOpacity(0.5),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Chewie(
+                    controller: state.chewieController,
                   ),
                 ),
               ),
-              // You can add additional controls here, such as the skip forward/backward buttons
-            ],
-          )
-          : Center(
-              child: CircularProgressIndicator(),
             ),
-    );
-  }
-}
-
-class CustomChewieControls extends StatefulWidget {
-  const CustomChewieControls({super.key});
-
-  @override
-  State<CustomChewieControls> createState() => _CustomChewieControlsState();
-}
-
-class _CustomChewieControlsState extends State<CustomChewieControls> {
-  late Timer _hideControlsTimer;
-  bool _controlsVisible = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _startHideControlsTimer();
-  }
-
-  @override
-  void dispose() {
-    _hideControlsTimer.cancel();
-    super.dispose();
-  }
-
-  void _startHideControlsTimer() {
-    _hideControlsTimer = Timer(const Duration(seconds: 3), () {
-      setState(() {
-        _controlsVisible = false;
-      });
-    });
-  }
-
-  void _resetHideControlsTimer() {
-    if (_hideControlsTimer.isActive) {
-      _hideControlsTimer.cancel();
-    }
-    setState(() {
-      _controlsVisible = true;
-    });
-    _startHideControlsTimer();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final chewieController = ChewieController.of(context);
-    final videoPlayerController = chewieController.videoPlayerController;
-
-    return GestureDetector(
-      onTap: _resetHideControlsTimer,
-      child: AnimatedOpacity(
-        opacity: _controlsVisible ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 300),
-        child: Container(
-          color: Colors.black54,
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(height: 20),
-              // Center Play/Pause and Skip buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.replay_10, color: Colors.white),
-                    onPressed: () {
-                      final currentPosition = videoPlayerController.value.position;
-                      videoPlayerController.seekTo(currentPosition - const Duration(seconds: 10));
-                    },
-                  ),
-                  const SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () {
-                      if (!_hideControlsTimer.isActive) {
-                        return;
-                      }
-                      if (videoPlayerController.value.isPlaying) {
-                        videoPlayerController.pause();
-                      } else {
-                        videoPlayerController.play();
-                      }
-                      setState(() {});
-                    },
-                    child: Center(
-                      child: Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.bgDark.withOpacity(0.5),
-                          border: Border.all(color: Colors.green),
-                        ),
-                        child: Icon(
-                          videoPlayerController.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  IconButton(
-                    icon: const Icon(Icons.forward_10, color: Colors.white),
-                    onPressed: () {
-                      if (!_hideControlsTimer.isActive) {
-                        return;
-                      }
-                      final currentPosition = videoPlayerController.value.position;
-                      videoPlayerController.seekTo(currentPosition + const Duration(seconds: 10));
-                    },
-                  ),
-                ],
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              width: double.infinity,
+              child: LinearProgressIndicator(
+                value: (state.videoLessonEntity.watchedPercent ?? 0) / 100,
+                backgroundColor: AppColors.middleBlue,
+                borderRadius: BorderRadius.circular(10),
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.greenColor),
+                minHeight: 5,
               ),
-              // Time indicators and progress bar
-              Row(
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+              child: Text(
+                "${"lesson_progress".tr()}: ${state.videoLessonEntity.watchedPercent?.toStringAsFixed(0)}%",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            const SizedBox(height: 12),
+            for (MaterialFileEntity material in state.videoLessonEntity.materialFiles ?? []) materialWidget(material),
+
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: customDivider(),
+            ),
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Current time
-                  Text(
-                    _formatDuration(videoPlayerController.value.position),
-                    style: const TextStyle(color: Colors.white, fontSize: 12.0),
-                  ),
-                  const SizedBox(width: 4),
-                  // Progress bar
                   Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50.0),
-                      child: VideoProgressIndicator(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                        videoPlayerController,
-                        allowScrubbing: true,
-                        colors: VideoProgressColors(
-                          playedColor: Colors.white,
-                          backgroundColor: AppColors.gray,
-                          bufferedColor: Colors.white38,
-                        ),
+                    child: Text(
+                      "rating_lessonrating_lesson".tr(),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
                       ),
+                      textAlign: TextAlign.left,
                     ),
                   ),
-                  const SizedBox(width: 4),
-                  // Total duration
-                  Text(
-                    _formatDuration(videoPlayerController.value.duration),
-                    style: const TextStyle(color: Colors.white, fontSize: 12.0),
-                  ),
-                  // Fullscreen button
-                  IconButton(
-                    padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4.0),
-                    icon: Icon(
-                      chewieController.isFullScreen ? Icons.fullscreen_exit : Icons.fullscreen,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      if (!_hideControlsTimer.isActive) {
-                        return;
-                      }
-                      chewieController.isFullScreen ? chewieController.exitFullScreen() : chewieController.enterFullScreen();
-                    },
-                  ),
+                  const SizedBox(width: 12),
+                  RatingWidget( lessonId: widget.lessonId, canRate:state.videoLessonEntity.canRate ?? true, lessonTypeId: widget.lessonTypeId),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
+}
 
-  // Helper method to format duration into hh:mm:ss
-  String _formatDuration(Duration duration) {
-    final hours = duration.inHours;
-    final minutes = duration.inMinutes.remainder(60);
-    final seconds = duration.inSeconds.remainder(60);
-    return hours > 0
-        ? '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}'
-        : '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-  }
+Widget materialWidget(MaterialFileEntity material) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+    child: Column(
+      children: [
+        customDivider(),
+        const SizedBox(height: 12),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                material.fileName ?? "",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            const SizedBox(width: 12),
+            // if(material.canDownload == true)
+            ElevatedButton(
+              onPressed: () async {
+                Uri uri = Uri.parse("$LMS_DOMAIN/api/MaterialFile/DownloadFile/${material.id}");
+                if (await canLaunchUrl(uri)) {
+                  launchUrl(uri);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.blueColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: Text(
+                "download".tr(),
+                style: const TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 12),
+      ],
+    ),
+  );
+}
+
+Widget customDivider() {
+  return Container(
+    width: double.infinity,
+    height: 2,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(12),
+      color: AppColors.lightBlue,
+    ),
+  );
 }

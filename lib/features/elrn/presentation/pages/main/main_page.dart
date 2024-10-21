@@ -9,7 +9,6 @@ import 'package:elrn/features/elrn/presentation/pages/courses/modules/modules_pa
 import 'package:elrn/features/elrn/presentation/widgets/error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/widgets/loading_indicator.dart';
@@ -158,7 +157,6 @@ class _MainPageState extends State<MainPage> {
                   child: Text(
                     "all_courses".tr(),
                     textAlign: TextAlign.end,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, fontFamily: GoogleFonts.poppins().fontFamily),
 
                   ),
                 ),

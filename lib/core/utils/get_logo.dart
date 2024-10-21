@@ -5,10 +5,10 @@ String  getLogo(){
   try{
     bool isDark = box.get('theme') == "dark";
     if(isDark){
-      print('dark');
+      // print('dark');
       return 'assets/images/elrn_logo.png';
     } else{
-      print('light');
+      // print('light');
       return 'assets/images/elrn_logo_blue.png';
     }
   }  catch (e){

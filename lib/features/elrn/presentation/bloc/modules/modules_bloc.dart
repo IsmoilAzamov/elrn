@@ -1,9 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:elrn/features/elrn/domain/repositories/account_repository.dart';
 import 'package:elrn/features/elrn/domain/repositories/my_program_repository.dart';
-import 'package:elrn/features/elrn/presentation/bloc/main/main_event.dart';
-import 'package:elrn/features/elrn/presentation/bloc/main/main_state.dart';
-import 'package:elrn/features/elrn/presentation/widgets/toasts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/resources/datastate.dart';
 import 'modules_event.dart';

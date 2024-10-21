@@ -1,6 +1,5 @@
 import 'package:elrn/features/elrn/domain/entities/program/program_entity.dart';
 
-import '../../../domain/entities/auth_info/auth_info_entity.dart';
 
 sealed class ModulesState{}
 

@@ -94,7 +94,6 @@ class _ModulesPageState extends State<ModulesPage> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
                 ),
                 textAlign: TextAlign.left,
               ),
