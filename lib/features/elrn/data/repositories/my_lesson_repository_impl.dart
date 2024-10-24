@@ -80,4 +80,22 @@ class MyLessonRepositoryImpl extends MyLessonRepository {
       return DataError(error);
     }
   }
+
+  @override
+  Future<DataState<LessonTestEntity>> getMyLessonsTest({required String testId}) async{
+
+    try {
+      var response = await _myProgramApiService.getMyLessonsTest( testId);
+      print(response.data);
+      if (response.response.statusCode == 200) {
+        return DataSuccess(response.data);
+      } else {
+        DioException error = errorHandler(DioException(response: response.response, requestOptions: response.response.requestOptions, message: response.response.statusMessage));
+        return DataError(error);
+      }
+    } on DioException catch (e) {
+      DioException error = errorHandler(e);
+      return DataError(error);
+    }
+  }
 }

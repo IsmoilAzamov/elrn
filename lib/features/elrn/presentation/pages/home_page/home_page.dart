@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                color: selected ? (isDark ? Colors.green : AppColors.blueColor) : Colors.transparent,
+                color: selected ? (state is DarkTheme  ? Colors.green : AppColors.blueColor) : Colors.transparent,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

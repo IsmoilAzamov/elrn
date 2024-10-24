@@ -23,4 +23,7 @@ abstract class MyLessonApiService {
 
   @GET('/api/MyLesson/GetMyVideoLessons/{lessonId}')
   Future<HttpResponse<VideoLessonEntity>> getMyVideoLessons(@Path('lessonId') String lessonId);
+
+  @GET('/api/MyLesson/GetMyLessonsTest/{testId}')
+  Future<HttpResponse<LessonTestEntity>> getMyLessonsTest(@Path('testId') String testId);
 }

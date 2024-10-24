@@ -20,6 +20,7 @@ class CurvedAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(62.0);
 }
 
+
 class _CurvedAppBarState extends State<CurvedAppBar> {
   Size get preferredSize => Size.fromHeight(62.0);
 

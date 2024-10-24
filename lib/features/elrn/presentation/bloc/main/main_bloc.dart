@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:elrn/features/elrn/domain/entities/auth_info/auth_info_entity.dart';
 import 'package:elrn/features/elrn/domain/repositories/account_repository.dart';
 import 'package:elrn/features/elrn/domain/repositories/my_program_repository.dart';
 import 'package:elrn/features/elrn/presentation/bloc/main/main_event.dart';
@@ -19,8 +20,9 @@ class MainBloc extends Bloc<MainEvent, MainState> {
 
   _load(MainLoadEvent event, Emitter<MainState> emit) async {
     emit(MainLoadingState());
-    final result = await _accountRepository.getAuthInfo();
+    var result = await _accountRepository.getAuthInfo();
     final result2 = await _myProgramRepository.getPrograms();
+    result=DataSuccess(AuthInfoEntity());
     if (result is DataSuccess && result.data != null) {
       if(result2 is DataError && result2.data == null) {
         showErrorToast(result2.error?.error.toString() ?? "something_went_wrong".tr());

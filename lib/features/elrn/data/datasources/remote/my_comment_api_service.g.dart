@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'rating_api_service.dart';
+part of 'my_comment_api_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'rating_api_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _RatingApiService implements RatingApiService {
-  _RatingApiService(
+class _MyCommentApiService implements MyCommentApiService {
+  _MyCommentApiService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,19 +24,21 @@ class _RatingApiService implements RatingApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<RatingEntity>> getMyLessonRating(String lessonId) async {
+  Future<HttpResponse<List<CommentEntity>>> get(
+      {required Map<String, dynamic> dto}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<RatingEntity>>(Options(
-      method: 'GET',
+    final _data = <String, dynamic>{};
+    _data.addAll(dto);
+    final _options = _setStreamType<HttpResponse<List<CommentEntity>>>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/api/MyLessonRating/GetMyLessonRating/${lessonId}',
+          '/api/MyComment/GetComments',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -45,10 +47,12 @@ class _RatingApiService implements RatingApiService {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late RatingEntity _value;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<CommentEntity> _value;
     try {
-      _value = RatingEntity.fromJson(_result.data!);
+      _value = _result.data!
+          .map((dynamic i) => CommentEntity.fromJson(i as Map<String, dynamic>))
+          .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -58,7 +62,7 @@ class _RatingApiService implements RatingApiService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> createLessonRating(
+  Future<HttpResponse<dynamic>> create(
       {required Map<String, dynamic> dto}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -72,7 +76,7 @@ class _RatingApiService implements RatingApiService {
     )
         .compose(
           _dio.options,
-          '/api/MyLessonRating/CreateLessonRating',
+          '/api/MyComment/CreateMyComment',
           queryParameters: queryParameters,
           data: _data,
         )

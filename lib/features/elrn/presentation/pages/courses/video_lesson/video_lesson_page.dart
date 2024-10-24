@@ -14,6 +14,7 @@ import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../di.dart';
 import '../../../bloc/video_lesson/video_lesson_event.dart';
 import '../../../bloc/video_lesson/video_lesson_state.dart';
+import '../../../widgets/comments_widget.dart';
 import '../../../widgets/error_widget.dart';
 import '../../../widgets/rating_widget.dart';
 
@@ -146,19 +147,19 @@ class _VideoLessonPageState extends State<VideoLessonPage> {
             for (MaterialFileEntity material in state.videoLessonEntity.materialFiles ?? []) materialWidget(material),
 
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: customDivider(),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
 
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: Text(
-                      "rating_lessonrating_lesson".tr(),
+                      "rating_lesson".tr(),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -166,11 +167,14 @@ class _VideoLessonPageState extends State<VideoLessonPage> {
                       textAlign: TextAlign.left,
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 8),
                   RatingWidget( lessonId: widget.lessonId, canRate:state.videoLessonEntity.canRate ?? true, lessonTypeId: widget.lessonTypeId),
+
+
                 ],
               ),
             ),
+            CommentsWidget(documentId: state.videoLessonEntity.id??"", lessonTypeId: widget.lessonTypeId),
           ],
         ),
       ),
@@ -212,10 +216,12 @@ Widget materialWidget(MaterialFileEntity material) {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
+                //reduce height
+                minimumSize: const Size(100, 32),
               ),
               child: Text(
                 "download".tr(),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
               ),
             )
           ],
@@ -226,10 +232,10 @@ Widget materialWidget(MaterialFileEntity material) {
   );
 }
 
-Widget customDivider() {
+Widget customDivider({double? height}) {
   return Container(
     width: double.infinity,
-    height: 2,
+    height: height??2,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(12),
       color: AppColors.lightBlue,

@@ -13,4 +13,6 @@ Future<DataState<MyLessonTopicEntity>>  getByCourseTopicParent({required String 
 Future<DataState<MyLessonTopicChildEntity>>  getContentByCourseTopic({required String topicId});
 
   Future<DataState<VideoLessonEntity>> getMyVideoLessons({required String lessonId});
+
+Future<DataState<LessonTestEntity>>  getMyLessonsTest({required String testId});
 }

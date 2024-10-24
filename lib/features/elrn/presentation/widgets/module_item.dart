@@ -13,6 +13,7 @@ class ModuleItem extends StatelessWidget {
   final CourseEntity item;
   final int index;
 
+
   @override
   Widget build(BuildContext context) {
     bool isDark = box.get('theme') == "dark";
@@ -22,7 +23,7 @@ class ModuleItem extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 0),
         child: Card(
           elevation: 6,
-          shadowColor: AppColors.bgDark,
+          shadowColor: isDark ? AppColors.bgDark : AppColors.blueColor,
           child: Stack(
             children: [
               Container(
@@ -31,9 +32,10 @@ class ModuleItem extends StatelessWidget {
                 // margin: const EdgeInsets.symmetric(horizontal: 12),
 
                 decoration: BoxDecoration(
-                    color: isDark ? AppColors.bgDark : AppColors.blueColor,
+                    color: isDark ? AppColors.darkBlue : AppColors.blueColor,
                     border: Border.all(
-                      color: isDark ? AppColors.lightBlue : AppColors.blueColor,
+                      color: Theme.of(context).primaryColorLight,
+                      width: 0.5,
                     ),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(12),
@@ -114,7 +116,7 @@ class ModuleItem extends StatelessWidget {
                   ],
                 ),
               ),
-              if (item.canStart == true)
+              if (item.canStart == true && !((item.courseTopicCount ?? 0) > 0))
                 Container(
                   padding: const EdgeInsets.all(12),
                   constraints: const BoxConstraints.expand(),
@@ -131,10 +133,41 @@ class ModuleItem extends StatelessWidget {
                         width: 4,
                       ),
                       Container(
-                          padding: const EdgeInsets.only(left: 12, right: 12),
-                          child: Image.asset(
-                            'assets/icons/lock.png',
-                            width: 32,
+                        padding: const EdgeInsets.only(left: 12, right: 12),
+                        child: Image.asset(
+                          'assets/icons/lock.png',
+                          width: 32,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              if (item.canStart == true && ((item.courseTopicCount ?? 0) > 0))
+                Container(
+                  constraints: const BoxConstraints.expand(),
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                    Radius.circular(12),
+                  )),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(12),
+                              topRight: Radius.circular(12),
+                            ),
+                            color: isDark ? AppColors.blueColor : AppColors.lightBgBlue,
+                          ),
+                          child: Text(
+                            "start".tr(),
+                            style:  TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: isDark ? Colors.white : AppColors.blueColor),
                           )),
                     ],
                   ),

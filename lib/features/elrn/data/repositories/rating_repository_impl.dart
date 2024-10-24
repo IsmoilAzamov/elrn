@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:elrn/features/elrn/data/datasources/remote/rating_api_service.dart';
 import 'package:elrn/features/elrn/data/index.dart';
 
@@ -51,4 +53,4 @@ class RatingRepositoryImpl implements RatingRepository {
       return DataError(error);
     }
   }
-=  `}
+}

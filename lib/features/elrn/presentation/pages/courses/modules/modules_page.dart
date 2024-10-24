@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:elrn/core/constants/app_colors.dart';
 import 'package:elrn/features/elrn/domain/entities/program/program_entity.dart';
 import 'package:elrn/features/elrn/presentation/bloc/modules/modules_bloc.dart';
 import 'package:elrn/features/elrn/presentation/pages/courses/modules/topics/topics_page.dart';
@@ -11,7 +12,9 @@ import '../../../../../../di.dart';
 import '../../../bloc/modules/modules_event.dart';
 import '../../../bloc/modules/modules_state.dart';
 import '../../../widgets/app_bar.dart';
+import '../../../widgets/continue_button.dart';
 import '../../../widgets/error_widget.dart';
+import '../../../widgets/image_widget.dart';
 import '../../../widgets/module_item.dart';
 import '../../../widgets/my_scaffold.dart';
 
@@ -102,6 +105,10 @@ class _ModulesPageState extends State<ModulesPage> {
                   courses.length,
                   (index) => GestureDetector(
                     onTap: () {
+                      if (courses[index].canStart == true && (courses[index].courseTopicCount ?? 0) > 0) {
+                        //show startCourseDialog(context, courses[index]);
+                        showStartCourseDialog(courses[index]);
+                      }
                       if (courses[index].canStart == false) {
                         Navigator.push(
                             context,
@@ -123,6 +130,78 @@ class _ModulesPageState extends State<ModulesPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void showStartCourseDialog(CourseEntity course) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.middleBlue : AppColors.bgDark,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24.0),
+          ),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 12),
+                Text(
+                  "do_you_want_to_start_the_module".tr(),
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                ImageWidget(
+                  url: "https://lms.ihma.uz/api/Course/DownloadFile/${course.iconFileId}",
+                  isCircular: false,
+                  width: 120,
+                  height: 120,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  course.title ?? "",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 24),
+               continueButton(
+                      elevation: 0,
+                      color: AppColors.lightBgBlue,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      title: "cancel".tr(),
+                      textColor: AppColors.redColor,
+                 bottomColor: AppColors.redColor,
+               ),
+
+                const SizedBox(height: 12),
+                continueButton(
+                    onPressed: () {
+                      _bloc.add(ModulesStartCourseEvent(courseId: course.id ?? "", programId: widget.programId));
+                      Navigator.pop(context);
+                    },
+                    title: "start".tr(),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

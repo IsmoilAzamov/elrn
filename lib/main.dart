@@ -70,8 +70,9 @@ Future<void> main() async {
   // } catch (e) {
   //   writeLogsToStorage("initilaization error ====================================================================$e");
   // }
-  var myTheme= box.get('theme')=="dark" ? ToggleDark : ToggleLight;
+
   await initializeDependencies();
+  var myTheme= box.get('theme')=="dark" ? ToggleDark() : ToggleLight();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: myTheme is ToggleLight ? const Color(0xffFFFFFF) : AppColors.bgDark,

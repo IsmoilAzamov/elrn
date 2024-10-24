@@ -131,8 +131,13 @@ Map<String, dynamic> _$$VideoLessonEntityImplToJson(
 _$LessonTestEntityImpl _$$LessonTestEntityImplFromJson(
         Map<String, dynamic> json) =>
     _$LessonTestEntityImpl(
+      courseId: json['courseId'] as String?,
+      courseTopicId: json['courseTopicId'] as String?,
+      details: json['details'] as String?,
       id: json['id'] as String?,
       title: json['title'] as String?,
+      totalDuration: (json['totalDuration'] as num?)?.toDouble(),
+      attemptId: json['attemptId'] as String?,
       orderNumber: (json['orderNumber'] as num?)?.toInt(),
       locked: json['locked'] as bool?,
       questionCount: (json['questionCount'] as num?)?.toInt(),
@@ -150,8 +155,13 @@ _$LessonTestEntityImpl _$$LessonTestEntityImplFromJson(
 Map<String, dynamic> _$$LessonTestEntityImplToJson(
         _$LessonTestEntityImpl instance) =>
     <String, dynamic>{
+      'courseId': instance.courseId,
+      'courseTopicId': instance.courseTopicId,
+      'details': instance.details,
       'id': instance.id,
       'title': instance.title,
+      'totalDuration': instance.totalDuration,
+      'attemptId': instance.attemptId,
       'orderNumber': instance.orderNumber,
       'locked': instance.locked,
       'questionCount': instance.questionCount,

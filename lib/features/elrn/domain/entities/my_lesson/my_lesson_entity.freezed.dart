@@ -1364,8 +1364,13 @@ LessonTestEntity _$LessonTestEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LessonTestEntity {
+  String? get courseId => throw _privateConstructorUsedError;
+  String? get courseTopicId => throw _privateConstructorUsedError;
+  String? get details => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
+  double? get totalDuration => throw _privateConstructorUsedError;
+  String? get attemptId => throw _privateConstructorUsedError;
   int? get orderNumber => throw _privateConstructorUsedError;
   bool? get locked => throw _privateConstructorUsedError;
   int? get questionCount => throw _privateConstructorUsedError;
@@ -1396,8 +1401,13 @@ abstract class $LessonTestEntityCopyWith<$Res> {
       _$LessonTestEntityCopyWithImpl<$Res, LessonTestEntity>;
   @useResult
   $Res call(
-      {String? id,
+      {String? courseId,
+      String? courseTopicId,
+      String? details,
+      String? id,
       String? title,
+      double? totalDuration,
+      String? attemptId,
       int? orderNumber,
       bool? locked,
       int? questionCount,
@@ -1427,8 +1437,13 @@ class _$LessonTestEntityCopyWithImpl<$Res, $Val extends LessonTestEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? courseId = freezed,
+    Object? courseTopicId = freezed,
+    Object? details = freezed,
     Object? id = freezed,
     Object? title = freezed,
+    Object? totalDuration = freezed,
+    Object? attemptId = freezed,
     Object? orderNumber = freezed,
     Object? locked = freezed,
     Object? questionCount = freezed,
@@ -1443,6 +1458,18 @@ class _$LessonTestEntityCopyWithImpl<$Res, $Val extends LessonTestEntity>
     Object? submissionLimit = freezed,
   }) {
     return _then(_value.copyWith(
+      courseId: freezed == courseId
+          ? _value.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      courseTopicId: freezed == courseTopicId
+          ? _value.courseTopicId
+          : courseTopicId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      details: freezed == details
+          ? _value.details
+          : details // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -1450,6 +1477,14 @@ class _$LessonTestEntityCopyWithImpl<$Res, $Val extends LessonTestEntity>
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalDuration: freezed == totalDuration
+          ? _value.totalDuration
+          : totalDuration // ignore: cast_nullable_to_non_nullable
+              as double?,
+      attemptId: freezed == attemptId
+          ? _value.attemptId
+          : attemptId // ignore: cast_nullable_to_non_nullable
               as String?,
       orderNumber: freezed == orderNumber
           ? _value.orderNumber
@@ -1512,8 +1547,13 @@ abstract class _$$LessonTestEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
+      {String? courseId,
+      String? courseTopicId,
+      String? details,
+      String? id,
       String? title,
+      double? totalDuration,
+      String? attemptId,
       int? orderNumber,
       bool? locked,
       int? questionCount,
@@ -1541,8 +1581,13 @@ class __$$LessonTestEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? courseId = freezed,
+    Object? courseTopicId = freezed,
+    Object? details = freezed,
     Object? id = freezed,
     Object? title = freezed,
+    Object? totalDuration = freezed,
+    Object? attemptId = freezed,
     Object? orderNumber = freezed,
     Object? locked = freezed,
     Object? questionCount = freezed,
@@ -1557,6 +1602,18 @@ class __$$LessonTestEntityImplCopyWithImpl<$Res>
     Object? submissionLimit = freezed,
   }) {
     return _then(_$LessonTestEntityImpl(
+      courseId: freezed == courseId
+          ? _value.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      courseTopicId: freezed == courseTopicId
+          ? _value.courseTopicId
+          : courseTopicId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      details: freezed == details
+          ? _value.details
+          : details // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -1564,6 +1621,14 @@ class __$$LessonTestEntityImplCopyWithImpl<$Res>
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalDuration: freezed == totalDuration
+          ? _value.totalDuration
+          : totalDuration // ignore: cast_nullable_to_non_nullable
+              as double?,
+      attemptId: freezed == attemptId
+          ? _value.attemptId
+          : attemptId // ignore: cast_nullable_to_non_nullable
               as String?,
       orderNumber: freezed == orderNumber
           ? _value.orderNumber
@@ -1621,8 +1686,13 @@ class __$$LessonTestEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$LessonTestEntityImpl implements _LessonTestEntity {
   const _$LessonTestEntityImpl(
-      {this.id,
+      {this.courseId,
+      this.courseTopicId,
+      this.details,
+      this.id,
       this.title,
+      this.totalDuration,
+      this.attemptId,
       this.orderNumber,
       this.locked,
       this.questionCount,
@@ -1640,9 +1710,19 @@ class _$LessonTestEntityImpl implements _LessonTestEntity {
       _$$LessonTestEntityImplFromJson(json);
 
   @override
+  final String? courseId;
+  @override
+  final String? courseTopicId;
+  @override
+  final String? details;
+  @override
   final String? id;
   @override
   final String? title;
+  @override
+  final double? totalDuration;
+  @override
+  final String? attemptId;
   @override
   final int? orderNumber;
   @override
@@ -1670,7 +1750,7 @@ class _$LessonTestEntityImpl implements _LessonTestEntity {
 
   @override
   String toString() {
-    return 'LessonTestEntity(id: $id, title: $title, orderNumber: $orderNumber, locked: $locked, questionCount: $questionCount, completedQuestionCount: $completedQuestionCount, completedPercent: $completedPercent, lessonTypeId: $lessonTypeId, lessonType: $lessonType, lessonTestThumbnailId: $lessonTestThumbnailId, correctAnswersCount: $correctAnswersCount, testResult: $testResult, isCompleted: $isCompleted, submissionLimit: $submissionLimit)';
+    return 'LessonTestEntity(courseId: $courseId, courseTopicId: $courseTopicId, details: $details, id: $id, title: $title, totalDuration: $totalDuration, attemptId: $attemptId, orderNumber: $orderNumber, locked: $locked, questionCount: $questionCount, completedQuestionCount: $completedQuestionCount, completedPercent: $completedPercent, lessonTypeId: $lessonTypeId, lessonType: $lessonType, lessonTestThumbnailId: $lessonTestThumbnailId, correctAnswersCount: $correctAnswersCount, testResult: $testResult, isCompleted: $isCompleted, submissionLimit: $submissionLimit)';
   }
 
   @override
@@ -1678,8 +1758,17 @@ class _$LessonTestEntityImpl implements _LessonTestEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LessonTestEntityImpl &&
+            (identical(other.courseId, courseId) ||
+                other.courseId == courseId) &&
+            (identical(other.courseTopicId, courseTopicId) ||
+                other.courseTopicId == courseTopicId) &&
+            (identical(other.details, details) || other.details == details) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.totalDuration, totalDuration) ||
+                other.totalDuration == totalDuration) &&
+            (identical(other.attemptId, attemptId) ||
+                other.attemptId == attemptId) &&
             (identical(other.orderNumber, orderNumber) ||
                 other.orderNumber == orderNumber) &&
             (identical(other.locked, locked) || other.locked == locked) &&
@@ -1707,22 +1796,28 @@ class _$LessonTestEntityImpl implements _LessonTestEntity {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      title,
-      orderNumber,
-      locked,
-      questionCount,
-      completedQuestionCount,
-      completedPercent,
-      lessonTypeId,
-      lessonType,
-      lessonTestThumbnailId,
-      correctAnswersCount,
-      testResult,
-      isCompleted,
-      submissionLimit);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        courseId,
+        courseTopicId,
+        details,
+        id,
+        title,
+        totalDuration,
+        attemptId,
+        orderNumber,
+        locked,
+        questionCount,
+        completedQuestionCount,
+        completedPercent,
+        lessonTypeId,
+        lessonType,
+        lessonTestThumbnailId,
+        correctAnswersCount,
+        testResult,
+        isCompleted,
+        submissionLimit
+      ]);
 
   /// Create a copy of LessonTestEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -1743,8 +1838,13 @@ class _$LessonTestEntityImpl implements _LessonTestEntity {
 
 abstract class _LessonTestEntity implements LessonTestEntity {
   const factory _LessonTestEntity(
-      {final String? id,
+      {final String? courseId,
+      final String? courseTopicId,
+      final String? details,
+      final String? id,
       final String? title,
+      final double? totalDuration,
+      final String? attemptId,
       final int? orderNumber,
       final bool? locked,
       final int? questionCount,
@@ -1762,9 +1862,19 @@ abstract class _LessonTestEntity implements LessonTestEntity {
       _$LessonTestEntityImpl.fromJson;
 
   @override
+  String? get courseId;
+  @override
+  String? get courseTopicId;
+  @override
+  String? get details;
+  @override
   String? get id;
   @override
   String? get title;
+  @override
+  double? get totalDuration;
+  @override
+  String? get attemptId;
   @override
   int? get orderNumber;
   @override

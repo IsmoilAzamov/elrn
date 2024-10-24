@@ -10,7 +10,7 @@ abstract class AppColors {
   static const Color darkBlue = Color(0xff001029);
 
   static const Color secondaryColor = Color(0xff8E8E93);
-  static const Color redColor = Color(0xffF86D59);
+  static const Color redColor = Color(0xffEB4242);
   static const Color greenColor = Color(0xff00FF58);
   static const Color yellowColor = Color(0xffFFCC00);
 
@@ -26,3 +26,4 @@ abstract class AppColors {
   // static  Color scaffoldBackgroundColor =  box.get('theme', defaultValue: 'light')=='light' ? const Color(0xffF6F7FB) : Colors.black;
 
 }
+

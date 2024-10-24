@@ -11,6 +11,7 @@ class RatingWidget extends StatefulWidget {
   final String lessonId;
   final bool canRate;
   final int lessonTypeId;
+
   const RatingWidget({super.key, required this.lessonId, required this.canRate, required this.lessonTypeId});
 
   @override
@@ -19,6 +20,7 @@ class RatingWidget extends StatefulWidget {
 
 class _RatingWidgetState extends State<RatingWidget> {
   final _bloc = sl<RatingBloc>();
+  bool isRated = false;
 
   @override
   void initState() {
@@ -30,19 +32,18 @@ class _RatingWidgetState extends State<RatingWidget> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => _bloc,
-
-      child: BlocConsumer<RatingBloc, RatingState>(
-          listener: (context, state) {
-            if (state is RatingLoadedState) {
-              stars = state.rating.ratingId ?? 0;
-            }
-            print(state);
-          },
-          builder: (context, state) {
+      child: BlocConsumer<RatingBloc, RatingState>(listener: (context, state) {
+        if (state is RatingLoadedState) {
+          stars = state.rating.ratingId ?? 0;
+        }
+        print(state);
+        if(state is RatedState){
+          isRated = true;
+          _bloc.add(RatingLoadEvent(lessonId: widget.lessonId));
+        }
+      }, builder: (context, state) {
         if (state is RatingLoadingState) {
-          return Center(child: SizedBox(
-
-              child: loadingIndicator(width: 50, height: 50)));
+          return Center(child: SizedBox(child: loadingIndicator(width: 50, height: 50)));
         }
         if (state is RatingErrorState) {
           return Icon(
@@ -57,6 +58,7 @@ class _RatingWidgetState extends State<RatingWidget> {
       }),
     );
   }
+
   int stars = 0;
 
   Widget _ratingWidget() {
@@ -69,9 +71,9 @@ class _RatingWidgetState extends State<RatingWidget> {
               if (!widget.canRate) {
                 return;
               }
-              setState(() {
-                stars = i + 1;
-              });
+            if(isRated){
+              return;
+            }
               _bloc.add(RateLessonEvent(documentId: widget.lessonId, lessonTypeId: (widget.lessonTypeId).toString(), ratingId: i + 1));
             },
             child: MouseRegion(
@@ -86,11 +88,13 @@ class _RatingWidgetState extends State<RatingWidget> {
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     padding: const EdgeInsets.symmetric(horizontal: 6.0), // Add more space between stars
-                    child: Icon(
-                      Icons.star,
-                      size: 24, // Set star size
-                      color: i < stars ? Colors.amber : Colors.grey.shade400, // Color animation
-                    ),
+                    child: i < stars
+                        ? Image.asset("assets/icons/star.png", width: 18, height: 18)
+                        : Icon(
+                            Icons.star,
+                            size: 24, // Set star size
+                            color: Colors.grey.shade400, // Color animation
+                          ),
                   ),
                 ),
               ),
@@ -100,5 +104,4 @@ class _RatingWidgetState extends State<RatingWidget> {
       ],
     );
   }
-
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'rating_api_service.dart';
+part of 'my_course_api_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'rating_api_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _RatingApiService implements RatingApiService {
-  _RatingApiService(
+class _MyCourseApiService implements MyCourseApiService {
+  _MyCourseApiService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,47 +24,11 @@ class _RatingApiService implements RatingApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<RatingEntity>> getMyLessonRating(String lessonId) async {
+  Future<HttpResponse<dynamic>> start({required String courseId}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<RatingEntity>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/MyLessonRating/GetMyLessonRating/${lessonId}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late RatingEntity _value;
-    try {
-      _value = RatingEntity.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<dynamic>> createLessonRating(
-      {required Map<String, dynamic> dto}) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(dto);
     final _options = _setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
       headers: _headers,
@@ -72,7 +36,7 @@ class _RatingApiService implements RatingApiService {
     )
         .compose(
           _dio.options,
-          '/api/MyLessonRating/CreateLessonRating',
+          '/api/MyCourse/start/${courseId}',
           queryParameters: queryParameters,
           data: _data,
         )

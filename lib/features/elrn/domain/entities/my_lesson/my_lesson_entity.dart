@@ -70,11 +70,18 @@ class VideoLessonEntity with _$VideoLessonEntity {
   factory VideoLessonEntity.fromJson(Map<String, dynamic> json) => _$VideoLessonEntityFromJson(json);
 }
 
+
+
 @freezed
 class LessonTestEntity with _$LessonTestEntity {
   const factory LessonTestEntity({
+    String? courseId,
+    String? courseTopicId,
+    String? details,
     String? id,
     String? title,
+    double? totalDuration,
+    String? attemptId,
     int? orderNumber,
     bool? locked,
     int? questionCount,

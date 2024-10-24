@@ -14,6 +14,8 @@ import '../../../../../bloc/modules/topics/topic_children/topic_contents/topic_c
 import '../../../../../widgets/app_bar.dart';
 import '../../../../../widgets/error_widget.dart';
 import '../../../../../widgets/my_scaffold.dart';
+import '../../../test/lesson_test_result_page.dart';
+import '../../../test/start_lesson_test_page.dart';
 import '../../../video_lesson/video_lesson_page.dart';
 
 class CourseTopicContentsPage extends StatefulWidget {
@@ -340,117 +342,138 @@ class TestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
-            border: Border.all(color: AppColors.lightBlue,width: 1),
-            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.4), spreadRadius: 1.2, blurRadius: 5, offset: Offset(0, 4))],
+    return GestureDetector(
+      onTap: (){
+        if(!(lessonTest.locked ?? false) && lessonTest.isCompleted == true){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LessonTestResultPage(testResult: lessonTest),
+            ),
+          );
+      }
+        if(!(lessonTest.locked ?? false) && lessonTest.isCompleted == false){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => StartLessonTestPage(testId: lessonTest.id??""),
+            ),
+          );
+        }
 
-          ),
-          child: Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(14.0),
-                child: Image.network(
-                  "$LMS_DOMAIN/api/LessonTest/DownloadFile/${lessonTest.lessonTestThumbnailId}",
-                  width: double.infinity,
-                    fit: BoxFit.fitWidth,
-                ),
+        },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              border: Border.all(color: AppColors.lightBlue,width: 1),
+              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.4), spreadRadius: 1.2, blurRadius: 5, offset: Offset(0, 4))],
 
-              ),
-              if (!(lessonTest.locked ?? false))
-                Positioned(
-                  top: 0,
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.bgDark.withOpacity(0.5), border: Border.all(color: AppColors.greenColor)),
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: Colors.white,
-                      ),
-                    ),
+            ),
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(14.0),
+                  child: Image.network(
+                    "$LMS_DOMAIN/api/LessonTest/DownloadFile/${lessonTest.lessonTestThumbnailId}",
+                    width: double.infinity,
+                      fit: BoxFit.fitWidth,
                   ),
+
                 ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Progress Bar
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "${lessonTest.title}",
-                        style: TextStyle(
+                if (!(lessonTest.locked ?? false))
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.bgDark.withOpacity(0.5), border: Border.all(color: AppColors.greenColor)),
+                        child: Icon(
+                          Icons.play_arrow,
                           color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 10.0,
-                              color: Colors.black.withOpacity(0.5),
-                              offset: Offset(1.5, 1.5),
-                            ),
-                          ],
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              if (lessonTest.locked ?? false)
+                  ),
                 Positioned(
-                  top: 0,
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Image.asset(
-                            "assets/icons/lock.png",
-                            width: 32,
-                            height: 32,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Progress Bar
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "${lessonTest.title}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 10.0,
+                                color: Colors.black.withOpacity(0.5),
+                                offset: Offset(1.5, 1.5),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-            ],
+                if (lessonTest.locked ?? false)
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        color: Colors.black.withOpacity(0.5),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Image.asset(
+                              "assets/icons/lock.png",
+                              width: 32,
+                              height: 32,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
-        ),
-        Text(
-          "${lessonTest.isCompleted == true ? "${lessonTest.correctAnswersCount}/${lessonTest.questionCount} " : ""}${lessonTest.title}",
-          textAlign: TextAlign.start,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+          Text(
+            "${lessonTest.isCompleted == true ? "${lessonTest.correctAnswersCount} / ${lessonTest.questionCount} " : ""} ${lessonTest.title}",
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-      ],
+          const SizedBox(
+            height: 12,
+          ),
+        ],
+      ),
     );
   }
 }
