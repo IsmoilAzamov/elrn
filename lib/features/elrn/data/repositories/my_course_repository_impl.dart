@@ -1,4 +1,5 @@
 import 'package:elrn/features/elrn/data/index.dart';
+import 'package:elrn/features/elrn/domain/entities/reference/reference_entity.dart';
 
 import '../../domain/repositories/my_course_repository.dart';
 import '../datasources/remote/my_course_api_service.dart';
@@ -24,4 +25,8 @@ class MyCourseRepositoryImpl implements MyCourseRepository {
       return DataError(error);
     }
   }
+
+  @override
+  Future<DataState<List<ReferenceEntity>>> getMyReferences({required String programId}) => getCheckedResponse(() => _myCourseApiService.getMyReferences(dto: {"programId": "aca1286c-c3de-4484-be77-aa2c54144e46"}));
 }
+

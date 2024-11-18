@@ -4,7 +4,6 @@ import 'package:elrn/features/elrn/domain/entities/my_lesson/my_lesson_entity.da
 import 'package:elrn/features/elrn/presentation/bloc/modules/topics/topic_children/topic_contents/topic_contents_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../../core/constants/app_colors.dart';
 import '../../../../../../../../core/widgets/loading_indicator.dart';
@@ -49,14 +48,7 @@ class _CourseTopicContentsPageState extends State<CourseTopicContentsPage> {
             onBackPressed: () {
               Navigator.pop(context);
             },
-            actions: [
-              IconButton(
-                onPressed: () {
-                  // _bloc.add(TopicsLoadEvent(programId: widget.programId));
-                },
-                icon: const Icon(Icons.more_vert_outlined),
-              ),
-            ],
+
           ),
           Expanded(
             child: BlocProvider(
@@ -193,7 +185,7 @@ class VideoCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
               border: Border.all(color: AppColors.lightBlue),
-              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.4), spreadRadius: 1.2, blurRadius: 5, offset: Offset(0, 4))],
+              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.3), spreadRadius: 1.2, blurRadius: 3, offset: Offset(0, 4))],
             ),
             child: Stack(
               children: [
@@ -202,8 +194,23 @@ class VideoCard extends StatelessWidget {
 
                   child: Image.network(
                     "$LMS_DOMAIN/api/VideoLesson/DownloadFile/${videoLesson.videoThumbnailId}",
-                    width: double.infinity,
-                    fit: BoxFit.fitWidth,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width*9/16,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: double.infinity,
+                        height: 200,
+                        color: AppColors.lightBlue,
+                        child: Center(
+                          child: Icon(
+                            Icons.image_outlined,
+                            color: Colors.red,
+                            size: 40,
+                          ),
+                        )
+                      );
+                    }
                   ),
                 ),
                 if (!(videoLesson.locked ?? false))
@@ -370,17 +377,28 @@ class TestCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
               border: Border.all(color: AppColors.lightBlue,width: 1),
-              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.4), spreadRadius: 1.2, blurRadius: 5, offset: Offset(0, 4))],
+              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.3), spreadRadius: 1.2, blurRadius: 3, offset: Offset(0, 4))],
 
             ),
             child: Stack(
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(14.0),
-                  child: Image.network(
-                    "$LMS_DOMAIN/api/LessonTest/DownloadFile/${lessonTest.lessonTestThumbnailId}",
-                    width: double.infinity,
-                      fit: BoxFit.fitWidth,
+                  child: Image.network( "$LMS_DOMAIN/api/LessonTest/DownloadFile/${lessonTest.lessonTestThumbnailId}",
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: AppColors.lightBlue,
+                        height:  200,
+                        width: double.infinity,
+                        child: const Icon(
+                          Icons.image_outlined,
+                          color: Colors.white,
+                          size: 40,
+                        ),
+                      );
+                    }
                   ),
 
                 ),

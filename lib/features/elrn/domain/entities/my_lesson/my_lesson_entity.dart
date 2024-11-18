@@ -94,6 +94,10 @@ class LessonTestEntity with _$LessonTestEntity {
     double? testResult,
     bool? isCompleted,
     double? submissionLimit,
+    double? testDuration,
+    double? totalSpentDuration,
+    int? totalQuestionCount,
+    int? incorrectAnswersCount,
   }) = _LessonTestEntity;
 
   factory LessonTestEntity.fromJson(Map<String, dynamic> json) => _$LessonTestEntityFromJson(json);

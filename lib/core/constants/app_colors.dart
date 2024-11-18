@@ -19,8 +19,6 @@ abstract class AppColors {
   static const Color borderGray = Color(0xffD1D1D6);
   static const Color titleColor = Color(0xff102072);
   static const Color bgDark = Color(0xff001E4E);
-
-
   static  const Color lightBgBlue=Color(0xffE7F1FF);
 
   // static  Color scaffoldBackgroundColor =  box.get('theme', defaultValue: 'light')=='light' ? const Color(0xffF6F7FB) : Colors.black;

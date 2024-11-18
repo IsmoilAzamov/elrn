@@ -15,7 +15,9 @@ class LessonTestResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool passed = (testResult.submissionLimit ?? 0) <= (testResult.completedPercent ?? 0) ? true : false;
+    bool passed =
+        (testResult.submissionLimit ?? 0) <= (testResult.completedPercent ?? ((testResult.correctAnswersCount ?? 0) / (testResult.totalQuestionCount ?? 1) * 100)) ? true : false;
+    print(passed);
     return MyScaffold(
       body: Container(
         padding: const EdgeInsets.all(16),
@@ -57,15 +59,18 @@ class LessonTestResultPage extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   children: [
-                    testInfoRow(title: "${"tests_count".tr()}: ${testResult.questionCount}", iconName: "check.png"),
+                    testInfoRow(title: "${"tests_count".tr()}: ${testResult.totalQuestionCount ?? testResult.questionCount}", iconName: "check.png"),
                     const SizedBox(height: 12),
                     customDivider(height: 1),
                     const SizedBox(height: 12),
-                   testInfoRow(title: "${"correct_answers_count".tr()}: ${testResult.correctAnswersCount}", iconName: "correct.png"),
+                    testInfoRow(title: "${"correct_answers_count".tr()}: ${testResult.correctAnswersCount}", iconName: "correct.png"),
                     const SizedBox(height: 12),
                     customDivider(height: 1),
                     const SizedBox(height: 12),
-                    testInfoRow(title:  "${"result".tr()}: ${testResult.testResult}%", iconName: "bar_chart.png")
+                    testInfoRow(
+                        title: "${"result".tr()}: ${testResult.completedPercent ?? ((testResult.correctAnswersCount ?? 0) / (testResult.totalQuestionCount ?? 1) * 100)}%",
+                        iconName: "bar_chart.png",
+                        circleColor: passed ? AppColors.middleBlue : AppColors.redColor)
                   ],
                 )),
             continueButton(

@@ -8,15 +8,16 @@ import '../../domain/entities/program/program_entity.dart';
 import '../pages/main/main_page.dart';
 
 class ProgramItem extends StatelessWidget {
-  const ProgramItem({super.key, required this.item});
+  const ProgramItem({super.key, required this.item,   this.showProgress});
 
   final ProgramEntity item;
+  final bool? showProgress;
 
   @override
   Widget build(BuildContext context) {
     bool isDark = box.get('theme') == "dark";
     return Container(
-      height: 185,
+      height: showProgress == false ? 120 : 185,
       padding: const EdgeInsets.symmetric(vertical: 8),
       margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 0),
       child: Card(
@@ -69,7 +70,9 @@ class ProgramItem extends StatelessWidget {
                   ),
                 ],
               ),
+              if(showProgress != false)
               const SizedBox( height: 4),
+              if(showProgress != false)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -115,6 +118,7 @@ class ProgramItem extends StatelessWidget {
                   ),
                 ],
               ),
+              if(showProgress != false)
               Row(
                 children: [
                   Image.asset(
@@ -136,10 +140,11 @@ class ProgramItem extends StatelessWidget {
                   ),
                 ],
               ),
+              if(showProgress != false)
               const SizedBox(
                 height: 6,
               ),
-
+              if(showProgress != false)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

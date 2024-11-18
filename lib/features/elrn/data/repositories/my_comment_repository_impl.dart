@@ -30,22 +30,6 @@ class MyCommentRepositoryImpl implements MyCommentRepository {
   }
 
   @override
-  Future<DataState<List<CommentEntity>>> get({required Map<String, dynamic> dto}) async {
-
-    try {
-      var response = await _myCommentApiService.get(dto: dto );
-      // print(response.data);
-      if (response.response.statusCode == 200) {
-        return DataSuccess(response.data);
-      } else {
-        DioException error = errorHandler(DioException(response: response.response, requestOptions: response.response.requestOptions, message: response.response.statusMessage));
-        return DataError(error);
-      }
-    } on DioException catch (e) {
-      print("---->$e");
-      DioException error = errorHandler(e);
-      return DataError(error);
-    }
-  }
+  Future<DataState<List<CommentEntity>>> get({required Map<String, dynamic> dto})=>getCheckedResponse(() => _myCommentApiService.get(dto: dto));
 
 }

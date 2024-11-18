@@ -13,26 +13,7 @@ class RatingRepositoryImpl implements RatingRepository {
   RatingRepositoryImpl(this._ratingApiService);
 
   @override
-  Future<DataState<RatingEntity>> getMyLessonRating({required String lessonId}) async {
-    try {
-      print("4444444444444444444444444444444444444444444");
-
-      var response = await _ratingApiService.getMyLessonRating(lessonId);
-      print("555555555555555555555555555555555555555555");
-      // print(response.data);
-      if (response.response.statusCode == 200) {
-        return DataSuccess(response.data);
-      } else {
-        DioException error = errorHandler(DioException(response: response.response, requestOptions: response.response.requestOptions, message: response.response.statusMessage));
-        return DataError(error);
-      }
-    } on DioException catch (e) {
-      print("6666666666666666666666666666666666666666666");
-      print("---->$e");
-      DioException error = errorHandler(e);
-      return DataError(error);
-    }
-  }
+  Future<DataState<RatingEntity>> getMyLessonRating({required String lessonId}) => getCheckedResponse(() => _ratingApiService.getMyLessonRating(lessonId));
 
   @override
   Future<DataState<int>> createLessonRating({required String documentId, required String lessonTypeId, required int ratingId}) async {

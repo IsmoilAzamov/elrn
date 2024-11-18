@@ -2,6 +2,8 @@
 
 
 import 'package:elrn/core/resources/datastate.dart';
+import 'package:elrn/features/elrn/domain/entities/certificate/certificate_entity.dart';
+import 'package:elrn/features/elrn/domain/entities/test/test_entity.dart';
 
 import '../entities/my_lesson/my_lesson_entity.dart';
 
@@ -15,4 +17,11 @@ Future<DataState<MyLessonTopicChildEntity>>  getContentByCourseTopic({required S
   Future<DataState<VideoLessonEntity>> getMyVideoLessons({required String lessonId});
 
 Future<DataState<LessonTestEntity>>  getMyLessonsTest({required String testId});
+
+ Future<DataState<TestEntity>> startMyLessonTest({required String testId});
+
+  Future<DataState<LessonTestEntity>> finishMyLessonTest({required List<AnswerResultEntity> answerResults});
+
+ Future<DataState<List<CertificateEntity>>> getMyCertificates({required String programId});
+
 }

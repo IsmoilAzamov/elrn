@@ -2,16 +2,19 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elrn/features/elrn/data/models/token_model.dart';
+import 'package:elrn/features/elrn/presentation/pages/courses/modules/topics/course_topic_contents/course_topic_contents_page.dart';
 import 'package:elrn/features/elrn/presentation/pages/start/start_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toastification/toastification.dart';
 
 import 'core/constants/app_colors.dart';
 import 'core/theme/theme_data.dart';
 import 'di.dart';
+import 'features/elrn/domain/entities/program/program_entity.dart';
 import 'features/elrn/presentation/bloc/theme/theme_bloc.dart';
 import 'features/elrn/presentation/pages/home_page/home_page.dart';
 import 'features/elrn/presentation/pages/start/login_oauth2_page.dart';
@@ -26,6 +29,9 @@ final GlobalKey<ScaffoldState> myScaffoldKey = GlobalKey<ScaffoldState>();
 
 late Box box;
 ThemeData themeData = lightTheme;
+
+
+List<ProgramEntity> programsGlobal = [];
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -117,6 +123,7 @@ class _MyAppState extends State<MyApp> {
       '/login': (context) => const LoginPage(),
       '/loginOauth2': (context) => const LoginOauth2Page(),
       '/start': (context) => const StartPage(),
+      '/courseTopicContents': (context) => CourseTopicContentsPage(topicId: '', title: ''),
     };
     return BlocProvider(
       create: (context) => _bloc,
@@ -126,20 +133,23 @@ class _MyAppState extends State<MyApp> {
             isDark = box.get('theme') == "dark";
           },
           builder: (context, state) {
-            return MaterialApp(
-              locale: context.locale,
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              title: 'E-learning',
-              theme: isDark ? darkTheme : lightTheme,
-              debugShowCheckedModeBanner: false,
-              navigatorKey: navigatorKey,
-              routes: routes,
-              home: getStartPage(),
+            return ToastificationWrapper(
+              child: MaterialApp(
+                locale: context.locale,
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                title: 'E-learning',
+                theme: isDark ? darkTheme : lightTheme,
+                debugShowCheckedModeBanner: false,
+                navigatorKey: navigatorKey,
+                routes: routes,
+                home: getStartPage(),
+              ),
             );
           }),
     );
   }
+
 
  Widget getStartPage() {
     try{

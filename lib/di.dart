@@ -12,7 +12,9 @@ import 'package:elrn/features/elrn/domain/repositories/my_course_repository.dart
 import 'package:elrn/features/elrn/domain/repositories/my_lesson_repository.dart';
 import 'package:elrn/features/elrn/domain/repositories/my_program_repository.dart';
 import 'package:elrn/features/elrn/domain/repositories/rating_repository.dart';
+import 'package:elrn/features/elrn/presentation/bloc/certificate/certificates_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/connection/connection_bloc.dart';
+import 'package:elrn/features/elrn/presentation/bloc/documents/documents_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/image_bloc/image_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/main/main_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/modules/modules_bloc.dart';
@@ -20,6 +22,7 @@ import 'package:elrn/features/elrn/presentation/bloc/modules/topics/topic_childr
 import 'package:elrn/features/elrn/presentation/bloc/modules/topics/topics_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/rating/rating_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/start/login_oauth2/login_bloc.dart';
+import 'package:elrn/features/elrn/presentation/bloc/test/lesson_test/lesson_test_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/test/start_lesson_test/start_lesson_test_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/video_lesson/video_lesson_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -90,4 +93,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory(() => RatingBloc(sl()));
   sl.registerFactory(() => CommentsBloc(sl()));
   sl.registerFactory(() => StartLessonTestBloc(sl()));
+  sl.registerFactory(() => LessonTestBloc(sl()));
+  sl.registerFactory(() => CertificatesBloc(sl()));
+  sl.registerFactory(() => DocumentsBloc(sl()));
 }

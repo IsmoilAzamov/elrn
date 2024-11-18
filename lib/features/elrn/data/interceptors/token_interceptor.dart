@@ -24,10 +24,10 @@ class TokenInterceptor extends Interceptor {
     options.headers['Authorization'] = "Bearer $token";
     //contentType: 'application/json;
     options.headers['Content-Type'] = 'application/json-patch+json';
-    // accept: plain/text
-    options.headers['Accept'] = 'text/plain';
+    // accept: plain/text or application/json
+    options.headers['Accept'] = '*/*';
     // accept language: locale
-    options.headers['Accept-Language'] = "uz-latn";
+    options.headers['Accept-Language'] = getLangCode();
     options.headers['Cookie'] = "Authorization=$token";
     options.headers['Lang'] = getLangCode();
     //content language: locale
@@ -46,8 +46,8 @@ class TokenInterceptor extends Interceptor {
      print(err.response?.statusCode);
     print(err.response?.data);
     print(err.requestOptions.uri);
+    print(err.stackTrace);
     if(err.response?.statusCode == 401) {
-
       await TokenService.deleteToken();
       if(navigatorKey.currentContext!.mounted) {
         Navigator.of(navigatorKey.currentContext!).pushNamedAndRemoveUntil('/start', (route) => false);

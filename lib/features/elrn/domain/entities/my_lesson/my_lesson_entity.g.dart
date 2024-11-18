@@ -150,6 +150,10 @@ _$LessonTestEntityImpl _$$LessonTestEntityImplFromJson(
       testResult: (json['testResult'] as num?)?.toDouble(),
       isCompleted: json['isCompleted'] as bool?,
       submissionLimit: (json['submissionLimit'] as num?)?.toDouble(),
+      testDuration: (json['testDuration'] as num?)?.toDouble(),
+      totalSpentDuration: (json['totalSpentDuration'] as num?)?.toDouble(),
+      totalQuestionCount: (json['totalQuestionCount'] as num?)?.toInt(),
+      incorrectAnswersCount: (json['incorrectAnswersCount'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$LessonTestEntityImplToJson(
@@ -174,6 +178,10 @@ Map<String, dynamic> _$$LessonTestEntityImplToJson(
       'testResult': instance.testResult,
       'isCompleted': instance.isCompleted,
       'submissionLimit': instance.submissionLimit,
+      'testDuration': instance.testDuration,
+      'totalSpentDuration': instance.totalSpentDuration,
+      'totalQuestionCount': instance.totalQuestionCount,
+      'incorrectAnswersCount': instance.incorrectAnswersCount,
     };
 
 _$VideoFileEntityImpl _$$VideoFileEntityImplFromJson(

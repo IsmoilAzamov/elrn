@@ -49,14 +49,7 @@ class _TopicsPageState extends State<TopicsPage> {
             onBackPressed: () {
               Navigator.pop(context);
             },
-            actions: [
-              IconButton(
-                onPressed: () {
-                  // _bloc.add(TopicsLoadEvent(programId: widget.programId));
-                },
-                icon: const Icon(Icons.more_vert_outlined),
-              ),
-            ],
+
           ),
           BlocProvider(
               create: (context) => _bloc,
@@ -278,6 +271,7 @@ class _TopicChildrenState extends State<TopicChildren> {
                       trailing: Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.white,
+                        size: 20,
                       ),
                     )),
               ],

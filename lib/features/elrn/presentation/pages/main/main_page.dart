@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:elrn/core/utils/get_logo.dart';
 import 'package:elrn/features/elrn/domain/entities/auth_info/auth_info_entity.dart';
 import 'package:elrn/features/elrn/domain/entities/program/program_entity.dart';
+import 'package:elrn/features/elrn/presentation/bloc/home/home_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/main/main_event.dart';
 import 'package:elrn/features/elrn/presentation/bloc/main/main_state.dart';
 import 'package:elrn/features/elrn/presentation/pages/courses/modules/modules_page.dart';
@@ -17,7 +18,9 @@ import '../../../../../main.dart';
 import '../../bloc/main/main_bloc.dart';
 import '../../bloc/theme/theme_bloc.dart';
 import '../../widgets/toasts.dart';
+import '../certificate/certificate_courses_page.dart';
 import '../courses/courses_page.dart';
+import '../documents/document_courses_page.dart';
 import '../personal_info/personal_info_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -117,14 +120,14 @@ class _MainPageState extends State<MainPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                       onTap: () {
-                        showSimpleToast("no_notification".tr());
-                       showBeautifulToast(context, "no_notification".tr());
+                        showErrorToast("no_notification".tr());
+                        // showErrorToast2( "no_notification".tr());
                         // Navigator.push(context, MaterialPageRoute(builder: (context) => const LogoutPage()));
                       },
                       child: Image.asset(
                         width: 20,
                         'assets/icons/bell.png',
-                        color: isDark? Colors.white: AppColors.blueColor,
+                        color: isDark ? Colors.white : AppColors.blueColor,
                       )),
                 ),
               ],
@@ -143,27 +146,23 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
               ),
-
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  CoursesPage(courses: state.programs)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CoursesPage(courses: state.programs)));
                 },
                 child: Container(
-
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 1.2, color: isDark ?Colors.white : AppColors.blueColor)),
+                    border: Border(bottom: BorderSide(width: 1.2, color: isDark ? Colors.white : AppColors.blueColor)),
                   ),
                   child: Text(
                     "all_courses".tr(),
                     textAlign: TextAlign.end,
-
                   ),
                 ),
               ),
             ],
           ),
-
 
           carouselSlider(programs: state.programs),
 
@@ -177,12 +176,8 @@ class _MainPageState extends State<MainPage> {
 
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text("sections".tr(),
-                textAlign: TextAlign.start,
-
-                style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20)),
+            child: Text("sections".tr(), textAlign: TextAlign.start, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20)),
           ),
-
 
           sectionWidgets(state.authInfo, state.programs),
           // sectionWidgets(),
@@ -205,7 +200,6 @@ class _MainPageState extends State<MainPage> {
             },
             child: Text("change_theme".tr()),
           ),
-
         ],
       ),
     );
@@ -224,7 +218,6 @@ class _MainPageState extends State<MainPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               programs.length,
-
               (index) {
                 bool isSelected = _currentIndex == index;
                 return GestureDetector(
@@ -282,8 +275,13 @@ class _MainPageState extends State<MainPage> {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) =>  ModulesPage(programId: item.id??"", title: item.title??"",)));
-
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ModulesPage(
+                      programId: item.id ?? "",
+                      title: item.title ?? "",
+                    )));
       },
       child: Card(
         elevation: 2,
@@ -354,14 +352,12 @@ class _MainPageState extends State<MainPage> {
                           "${"modules_count".tr()}: ${item.courseTopicCount}",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-
                           style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.white),
                         ),
                       ),
                     ],
                   ),
                   Row(
-
                     children: [
                       Image.asset(
                         'assets/icons/hourglass.png',
@@ -376,7 +372,6 @@ class _MainPageState extends State<MainPage> {
                           "${"duration".tr()}: ${getCourseDuration(item.totalVideosCount ?? 0)}",
                           maxLines: 1,
                           overflow: TextOverflow.visible,
-
                           style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.white),
                         ),
                       ),
@@ -404,9 +399,6 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
-
-
-
             ],
           ),
         ),
@@ -426,41 +418,57 @@ class _MainPageState extends State<MainPage> {
     return Future.value(true);
   }
 
-
-  Widget sectionWidgets(AuthInfoEntity authInfo,List<ProgramEntity> courses) {
+  Widget sectionWidgets(AuthInfoEntity authInfo, List<ProgramEntity> courses) {
     return Container(
       padding: const EdgeInsets.all(12),
       child: Column(
-
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              sectionItem(icon: "personal_info.png", title: "personal_info".tr(),
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  PersonalInfoPage(authInfo:authInfo)));
-              }
+              sectionItem(
+                  icon: "personal_info.png",
+                  title: "personal_info".tr(),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInfoPage(authInfo: authInfo)));
+                  }),
+              sectionItem(
+                icon: "courses.png",
+                title: "my_courses".tr(),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CoursesPage(courses: courses)));
+                },
               ),
-              sectionItem(icon: "courses.png", title: "my_courses".tr(),
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  CoursesPage(courses: courses)));
-              }
-              ),
+              sectionItem(
+                icon: "key.png",
+                title: "key_point".tr(),
+                onPressed: () {
+                  showSimpleToast("coming_soon".tr());
 
-              sectionItem(icon: "key.png", title: "key_point".tr()),
+                },
+              ),
             ],
           ),
-          const SizedBox(height: 12,),
+          const SizedBox(
+            height: 12,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              sectionItem(icon: "certificate.png", title: "certificates".tr()),
-              sectionItem(icon: "document.png", title: "documents".tr()),
+              sectionItem(icon: "certificate.png", title: "certificates".tr(),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateCoursesPage(courses: courses)));
+              }
+              ),
+              sectionItem(icon: "document.png", title: "documents".tr(),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DocumentCoursesPage(courses: courses)));
+              }
+              ),
               sectionItem(icon: "settings.png", title: "settings".tr()),
             ],
           ),
         ],
-
       ),
     );
   }
@@ -472,17 +480,16 @@ class _MainPageState extends State<MainPage> {
       onTap: onPressed,
       child: Container(
         width: MediaQuery.of(context).size.width / 3 - 20,
-        height: MediaQuery.of(context).size.width / 3-20,
+        height: MediaQuery.of(context).size.width / 3 - 20,
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: isDark? AppColors.blueColor: Colors.white,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(12),
-          ),
-          border: Border.all(
-            color: isDark? AppColors.lightBlue: AppColors.blueColor,
-          )
-        ),
+            color: isDark ? AppColors.blueColor : Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12),
+            ),
+            border: Border.all(
+              color: isDark ? AppColors.lightBlue : AppColors.blueColor,
+            )),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -490,11 +497,16 @@ class _MainPageState extends State<MainPage> {
               "assets/icons/$icon",
               width: 40,
               height: 40,
-              color: isDark? Colors.white: AppColors.blueColor,
+              color: isDark ? Colors.white : AppColors.blueColor,
             ),
-            const SizedBox(height: 8,),
-            Text(title,
-              textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            ),
           ],
         ),
       ),

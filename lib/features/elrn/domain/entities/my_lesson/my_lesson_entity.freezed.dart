@@ -1383,6 +1383,10 @@ mixin _$LessonTestEntity {
   double? get testResult => throw _privateConstructorUsedError;
   bool? get isCompleted => throw _privateConstructorUsedError;
   double? get submissionLimit => throw _privateConstructorUsedError;
+  double? get testDuration => throw _privateConstructorUsedError;
+  double? get totalSpentDuration => throw _privateConstructorUsedError;
+  int? get totalQuestionCount => throw _privateConstructorUsedError;
+  int? get incorrectAnswersCount => throw _privateConstructorUsedError;
 
   /// Serializes this LessonTestEntity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1419,7 +1423,11 @@ abstract class $LessonTestEntityCopyWith<$Res> {
       int? correctAnswersCount,
       double? testResult,
       bool? isCompleted,
-      double? submissionLimit});
+      double? submissionLimit,
+      double? testDuration,
+      double? totalSpentDuration,
+      int? totalQuestionCount,
+      int? incorrectAnswersCount});
 }
 
 /// @nodoc
@@ -1456,6 +1464,10 @@ class _$LessonTestEntityCopyWithImpl<$Res, $Val extends LessonTestEntity>
     Object? testResult = freezed,
     Object? isCompleted = freezed,
     Object? submissionLimit = freezed,
+    Object? testDuration = freezed,
+    Object? totalSpentDuration = freezed,
+    Object? totalQuestionCount = freezed,
+    Object? incorrectAnswersCount = freezed,
   }) {
     return _then(_value.copyWith(
       courseId: freezed == courseId
@@ -1534,6 +1546,22 @@ class _$LessonTestEntityCopyWithImpl<$Res, $Val extends LessonTestEntity>
           ? _value.submissionLimit
           : submissionLimit // ignore: cast_nullable_to_non_nullable
               as double?,
+      testDuration: freezed == testDuration
+          ? _value.testDuration
+          : testDuration // ignore: cast_nullable_to_non_nullable
+              as double?,
+      totalSpentDuration: freezed == totalSpentDuration
+          ? _value.totalSpentDuration
+          : totalSpentDuration // ignore: cast_nullable_to_non_nullable
+              as double?,
+      totalQuestionCount: freezed == totalQuestionCount
+          ? _value.totalQuestionCount
+          : totalQuestionCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      incorrectAnswersCount: freezed == incorrectAnswersCount
+          ? _value.incorrectAnswersCount
+          : incorrectAnswersCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -1565,7 +1593,11 @@ abstract class _$$LessonTestEntityImplCopyWith<$Res>
       int? correctAnswersCount,
       double? testResult,
       bool? isCompleted,
-      double? submissionLimit});
+      double? submissionLimit,
+      double? testDuration,
+      double? totalSpentDuration,
+      int? totalQuestionCount,
+      int? incorrectAnswersCount});
 }
 
 /// @nodoc
@@ -1600,6 +1632,10 @@ class __$$LessonTestEntityImplCopyWithImpl<$Res>
     Object? testResult = freezed,
     Object? isCompleted = freezed,
     Object? submissionLimit = freezed,
+    Object? testDuration = freezed,
+    Object? totalSpentDuration = freezed,
+    Object? totalQuestionCount = freezed,
+    Object? incorrectAnswersCount = freezed,
   }) {
     return _then(_$LessonTestEntityImpl(
       courseId: freezed == courseId
@@ -1678,6 +1714,22 @@ class __$$LessonTestEntityImplCopyWithImpl<$Res>
           ? _value.submissionLimit
           : submissionLimit // ignore: cast_nullable_to_non_nullable
               as double?,
+      testDuration: freezed == testDuration
+          ? _value.testDuration
+          : testDuration // ignore: cast_nullable_to_non_nullable
+              as double?,
+      totalSpentDuration: freezed == totalSpentDuration
+          ? _value.totalSpentDuration
+          : totalSpentDuration // ignore: cast_nullable_to_non_nullable
+              as double?,
+      totalQuestionCount: freezed == totalQuestionCount
+          ? _value.totalQuestionCount
+          : totalQuestionCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      incorrectAnswersCount: freezed == incorrectAnswersCount
+          ? _value.incorrectAnswersCount
+          : incorrectAnswersCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -1704,7 +1756,11 @@ class _$LessonTestEntityImpl implements _LessonTestEntity {
       this.correctAnswersCount,
       this.testResult,
       this.isCompleted,
-      this.submissionLimit});
+      this.submissionLimit,
+      this.testDuration,
+      this.totalSpentDuration,
+      this.totalQuestionCount,
+      this.incorrectAnswersCount});
 
   factory _$LessonTestEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$LessonTestEntityImplFromJson(json);
@@ -1747,10 +1803,18 @@ class _$LessonTestEntityImpl implements _LessonTestEntity {
   final bool? isCompleted;
   @override
   final double? submissionLimit;
+  @override
+  final double? testDuration;
+  @override
+  final double? totalSpentDuration;
+  @override
+  final int? totalQuestionCount;
+  @override
+  final int? incorrectAnswersCount;
 
   @override
   String toString() {
-    return 'LessonTestEntity(courseId: $courseId, courseTopicId: $courseTopicId, details: $details, id: $id, title: $title, totalDuration: $totalDuration, attemptId: $attemptId, orderNumber: $orderNumber, locked: $locked, questionCount: $questionCount, completedQuestionCount: $completedQuestionCount, completedPercent: $completedPercent, lessonTypeId: $lessonTypeId, lessonType: $lessonType, lessonTestThumbnailId: $lessonTestThumbnailId, correctAnswersCount: $correctAnswersCount, testResult: $testResult, isCompleted: $isCompleted, submissionLimit: $submissionLimit)';
+    return 'LessonTestEntity(courseId: $courseId, courseTopicId: $courseTopicId, details: $details, id: $id, title: $title, totalDuration: $totalDuration, attemptId: $attemptId, orderNumber: $orderNumber, locked: $locked, questionCount: $questionCount, completedQuestionCount: $completedQuestionCount, completedPercent: $completedPercent, lessonTypeId: $lessonTypeId, lessonType: $lessonType, lessonTestThumbnailId: $lessonTestThumbnailId, correctAnswersCount: $correctAnswersCount, testResult: $testResult, isCompleted: $isCompleted, submissionLimit: $submissionLimit, testDuration: $testDuration, totalSpentDuration: $totalSpentDuration, totalQuestionCount: $totalQuestionCount, incorrectAnswersCount: $incorrectAnswersCount)';
   }
 
   @override
@@ -1791,7 +1855,15 @@ class _$LessonTestEntityImpl implements _LessonTestEntity {
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
             (identical(other.submissionLimit, submissionLimit) ||
-                other.submissionLimit == submissionLimit));
+                other.submissionLimit == submissionLimit) &&
+            (identical(other.testDuration, testDuration) ||
+                other.testDuration == testDuration) &&
+            (identical(other.totalSpentDuration, totalSpentDuration) ||
+                other.totalSpentDuration == totalSpentDuration) &&
+            (identical(other.totalQuestionCount, totalQuestionCount) ||
+                other.totalQuestionCount == totalQuestionCount) &&
+            (identical(other.incorrectAnswersCount, incorrectAnswersCount) ||
+                other.incorrectAnswersCount == incorrectAnswersCount));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1816,7 +1888,11 @@ class _$LessonTestEntityImpl implements _LessonTestEntity {
         correctAnswersCount,
         testResult,
         isCompleted,
-        submissionLimit
+        submissionLimit,
+        testDuration,
+        totalSpentDuration,
+        totalQuestionCount,
+        incorrectAnswersCount
       ]);
 
   /// Create a copy of LessonTestEntity
@@ -1856,7 +1932,11 @@ abstract class _LessonTestEntity implements LessonTestEntity {
       final int? correctAnswersCount,
       final double? testResult,
       final bool? isCompleted,
-      final double? submissionLimit}) = _$LessonTestEntityImpl;
+      final double? submissionLimit,
+      final double? testDuration,
+      final double? totalSpentDuration,
+      final int? totalQuestionCount,
+      final int? incorrectAnswersCount}) = _$LessonTestEntityImpl;
 
   factory _LessonTestEntity.fromJson(Map<String, dynamic> json) =
       _$LessonTestEntityImpl.fromJson;
@@ -1899,6 +1979,14 @@ abstract class _LessonTestEntity implements LessonTestEntity {
   bool? get isCompleted;
   @override
   double? get submissionLimit;
+  @override
+  double? get testDuration;
+  @override
+  double? get totalSpentDuration;
+  @override
+  int? get totalQuestionCount;
+  @override
+  int? get incorrectAnswersCount;
 
   /// Create a copy of LessonTestEntity
   /// with the given fields replaced by the non-null parameter values.

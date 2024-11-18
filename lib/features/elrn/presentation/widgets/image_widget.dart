@@ -12,8 +12,9 @@ class ImageWidget extends StatefulWidget {
   final double? width;
   final bool? isCircular;
   final double? height;
+  final double? borderRadius;
 
-  const ImageWidget({super.key, required this.url, this.width, this.isCircular, this.height});
+  const ImageWidget({super.key, required this.url, this.width, this.isCircular, this.height,   this.borderRadius});
 
   @override
   State<ImageWidget> createState() => _ImageWidgetState();
@@ -34,10 +35,12 @@ class _ImageWidgetState extends State<ImageWidget> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width == null ? 120 : (widget.width!),
+      height: widget.height,
       child: Center(
         child: BlocBuilder<ImageBloc, ImageState>(
           bloc: _bloc,
@@ -48,28 +51,37 @@ class _ImageWidgetState extends State<ImageWidget> {
               //make base64 String to image
               return SizedBox(
                 width: widget.width ?? 100,
-                height: widget.height ?? widget.width ?? 100,
                 child: widget.isCircular == true
                     ? ClipRRect(borderRadius: BorderRadius.circular(widget.width ?? 100), child: Image.memory(state.bytes, width: widget.width ?? 100, fit: BoxFit.cover))
-                    : Image.memory(
-                        state.bytes,
-                        width: widget.width ?? 100,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Icon(
-                            Icons.error,
-                            color: Colors.grey,
-                          );
-                        },
-                      ),
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
+                      child: Image.memory(
+                          state.bytes,
+                          width: widget.width ?? 100,
+                          fit: BoxFit.cover,
+
+                          errorBuilder: (context, error, stackTrace) {
+                            return SizedBox(
+                              height:  200,
+                              child: const Icon(
+                                Icons.image_outlined,
+                                color: Colors.grey,
+                                size: 40,
+                              ),
+                            );
+                          },
+                        ),
+                    ),
               );
             } else if (state is ImageErrorState) {
               return const Icon(
-                Icons.error,
+                Icons.image_outlined,
                 color: Colors.grey,
+                size: 40,
               );
             } else {
               return const Icon(
-                Icons.image,
+                Icons.image_outlined,
                 color: Colors.grey,
               );
             }

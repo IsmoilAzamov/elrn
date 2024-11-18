@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                           selected: state == 1,
                           state: state,
                           iconUrl: "award.png",
-                          title: "certificates".tr(),
+                          title: "my_results".tr(),
                           onTap: () {
                             context.read<HomeBloc>().add(1);
                           },

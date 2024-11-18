@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elrn/features/elrn/domain/entities/my_lesson/my_lesson_entity.dart';
 import 'package:elrn/features/elrn/presentation/bloc/test/start_lesson_test/start_lesson_test_bloc.dart';
+import 'package:elrn/features/elrn/presentation/pages/courses/test/lesson_test_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -121,7 +122,14 @@ class _StartLessonTestPageState extends State<StartLessonTestPage> {
               )),
           continueButton(
             onPressed: () {
-              // Navigator.of(context).pop();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LessonTestPage(
+                    testId: widget.testId,
+                  ),
+                ),
+              );
             },
             title: "start_test".tr(),
           ),

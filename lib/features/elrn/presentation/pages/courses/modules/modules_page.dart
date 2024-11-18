@@ -49,14 +49,8 @@ class _ModulesPageState extends State<ModulesPage> {
             onBackPressed: () {
               Navigator.pop(context);
             },
-            actions: [
-              IconButton(
-                onPressed: () {
-                  // _bloc.add(ModulesLoadEvent(programId: widget.programId));
-                },
-                icon: const Icon(Icons.more_vert_outlined),
-              ),
-            ],
+
+
           ),
           BlocProvider(
               create: (context) => _bloc,

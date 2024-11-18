@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 
-import '../../../../core/logs/write_logs_to_storage.dart';
 import '../../presentation/widgets/toasts.dart';
+import '../index.dart';
+import 'package:retrofit/retrofit.dart';
 
 DioException errorHandler(DioException e) {
 
@@ -42,10 +41,42 @@ DioException errorHandler(DioException e) {
     // print('Error: ${e.error}--------------------------');
     return (e);
   } on Error catch (handleError) {
-    // print('Error: $handleError at errorHandler');
-    // print(e.stackTrace);
+     print('Error: $handleError at errorHandler');
+     print(e.stackTrace);
  //   writeLogsToStorage(handleError.toString());
 
     return (e);
   }
 }
+
+
+Future<DataState<T>> getCheckedResponse<T>(
+    Future<HttpResponse<T>> Function() func) async {
+  try {
+    print("-----------------------------");
+
+    HttpResponse response = await func();
+    print("-----------------------------");
+    print(response.data);
+    if (response.response.statusCode == 200) {
+      return DataSuccess(response.data);
+    } else {
+      DioException error = errorHandler(DioException(
+        response: response.response,
+        requestOptions: response.response.requestOptions,
+        message: response.response.statusMessage ?? "Unknown error",
+      ));
+      print("Error during request: ${response.response.requestOptions.uri}");
+      return DataError(error);
+    }
+  } on DioException catch (e) {
+    DioException error = errorHandler(e);
+    print("DioException: ${e.message}");
+    print("Request options: ${e.requestOptions.uri}");
+    print("Response: ${e.response}");
+    print("Error: ${e.error}");
+    print("StackTrace: ${e.stackTrace}");
+    return DataError(error);
+  }
+}
+
