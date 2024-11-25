@@ -8,6 +8,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="E-Learning">
 
+        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -19,7 +20,7 @@
 
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
-                android:resource="@style/NormalTheme" />
+                android:resource="@style/NormalTheme"/>
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,32 +28,35 @@
             </intent-filter>
         </activity>
 
+        <!-- AppAuth Redirect Activity -->
         <activity
             android:name="net.openid.appauth.RedirectUriReceiverActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-            tools:replace="android:theme">
+            tools:replace="android:theme"
+            tools:targetApi="m">
 
+            <!-- Handle deep link for "ihmamobile2" scheme -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="tauth.ihmatest.uz"
-                    android:scheme="ihmamobile2" />
+                <data android:scheme="ihmamobile2" android:host="tauth.ihmatest.uz" />
             </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="ihmamobile2" android:host="auth.ihma.uz" />
+            </intent-filter>
 
-                <data
-                    android:host="auth.ihma.uz"
-                    android:scheme="ihmamobile2" />
+            <!-- Handle deep link for "elrn" scheme -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="elrn" android:host="uz.ihma.app" />
             </intent-filter>
         </activity>
 
@@ -61,6 +65,7 @@
             android:value="2" />
     </application>
 
+    <!-- Queries for apps supporting processing text -->
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT" />

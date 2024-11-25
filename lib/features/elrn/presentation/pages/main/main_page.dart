@@ -1,12 +1,13 @@
+import 'package:app_links/app_links.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elrn/core/utils/get_logo.dart';
 import 'package:elrn/features/elrn/domain/entities/auth_info/auth_info_entity.dart';
 import 'package:elrn/features/elrn/domain/entities/program/program_entity.dart';
-import 'package:elrn/features/elrn/presentation/bloc/home/home_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/main/main_event.dart';
 import 'package:elrn/features/elrn/presentation/bloc/main/main_state.dart';
 import 'package:elrn/features/elrn/presentation/pages/courses/modules/modules_page.dart';
+import 'package:elrn/features/elrn/presentation/pages/saved_lessons/saved_lessons_page.dart';
 import 'package:elrn/features/elrn/presentation/widgets/error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,12 +17,12 @@ import '../../../../../core/widgets/loading_indicator.dart';
 import '../../../../../di.dart';
 import '../../../../../main.dart';
 import '../../bloc/main/main_bloc.dart';
-import '../../bloc/theme/theme_bloc.dart';
 import '../../widgets/toasts.dart';
 import '../certificate/certificate_courses_page.dart';
 import '../courses/courses_page.dart';
 import '../documents/document_courses_page.dart';
 import '../personal_info/personal_info_page.dart';
+import '../settings/settings_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -31,7 +32,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final themeBloc = BlocProvider.of<ThemeBloc>(navigatorKey.currentContext!);
   DateTime oldTime = DateTime.now();
   DateTime newTime = DateTime.now();
   DateTime? currentBackPressTime;
@@ -41,10 +41,52 @@ class _MainPageState extends State<MainPage> {
   final _bloc = sl<MainBloc>();
   int _currentIndex = 0; // Add this to track the current carousel index
 
+  late final AppLinks _appLinks;
+
+  String? _username;
+  String? _token;
+
   @override
   void initState() {
     _bloc.add(MainLoadEvent());
     super.initState();
+    _appLinks = AppLinks();
+
+    _handleInitialLink();
+  }
+
+
+  Future<void> _handleInitialLink() async {
+    print('handleInitialLink--------------------------------------------');
+    try {
+      final Uri? initialUri = await _appLinks.getInitialLink();
+      if (initialUri != null) {
+        setState(() {
+          // Extract username and token from the deep link
+          _username = initialUri.queryParameters['username'];
+          _token = initialUri.queryParameters['token'];
+        });
+        _showDeepLinkData();
+      }
+    } catch (e) {
+      print('Failed to process deep link: $e');
+    }
+  }
+
+  void _showDeepLinkData() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Deep Link Received'),
+        content: Text('Username: $_username\nToken: $_token'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -76,137 +118,158 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _loadedUI(MainLoadedState state) {
-    bool isDark = box.get('theme') == "dark";
 
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // CustomAppBar(title: "main_page".tr(),
-          // onBackPressed:  onWillPop,
-          //   isBac
-          //  kButtonVisible: false,
-          // ),
+    return RefreshIndicator(
+      backgroundColor: AppColors.middleBlue,
+      color: Colors.white,
+      onRefresh: () async {
+        _bloc.add(MainLoadEvent());
+      },
+      child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height-24,
+          padding: EdgeInsets.symmetric(horizontal: 0),
+          child: RefreshIndicator(
+            backgroundColor: AppColors.middleBlue,
+            color: Colors.white,
 
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Image.asset(
-                      getLogo(),
-                      width: 32,
-                      height: 32,
+            onRefresh: () async {
+              _bloc.add(MainLoadEvent());
+            },
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // CustomAppBar(title: "main_page".tr(),
+                  // onBackPressed:  onWillPop,
+                  //   isBac
+                  //  kButtonVisible: false,
+                  // ),
+
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              getLogo(),
+                              width: 32,
+                              height: 32,
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Text(
+                                state.authInfo.fullName ?? "",
+                                maxLines: 1,
+                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                              ),
+                            )
+                          ],
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                              onTap: () {
+                                showErrorToast("no_notification".tr());
+                                // showErrorToast2( "no_notification".tr());
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => const LogoutPage()));
+                              },
+                              child: Image.asset(
+                                width: 20,
+                                'assets/icons/bell.png',
+                                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : AppColors.blueColor,
+                              )),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Text(
-                        state.authInfo.fullName ?? "",
-                        maxLines: 1,
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                  ),
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          child: Text(
+                            "edu_courses".tr(),
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
+                        ),
                       ),
-                    )
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                      onTap: () {
-                        showErrorToast("no_notification".tr());
-                        // showErrorToast2( "no_notification".tr());
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => const LogoutPage()));
-                      },
-                      child: Image.asset(
-                        width: 20,
-                        'assets/icons/bell.png',
-                        color: isDark ? Colors.white : AppColors.blueColor,
-                      )),
-                ),
-              ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CoursesPage()));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(width: 1.2, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : AppColors.blueColor)),
+                          ),
+                          child: Text(
+                            "all_courses".tr(),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  carouselSlider(programs: state.programs),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  dotsIndicator(state.programs),
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text("sections".tr(), textAlign: TextAlign.start, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20)),
+                  ),
+
+                  sectionWidgets(state.authInfo, state.programs),
+                  // sectionWidgets(),
+                  // sectionWidgets(),
+
+                  const SizedBox(
+                    height: 100,
+                  ),
+
+                  // ElevatedButton(
+                  //   onPressed: () {
+                  //     if (themeBloc.state is LightTheme) {
+                  //       themeBloc.add(ToggleDark());
+                  //     } else {
+                  //       themeBloc.add(ToggleLight());
+                  //     }
+                  //
+                  //     // setState(() {});
+                  //     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage(pageIndex: 0)));
+                  //   },
+                  //   child: Text("change_theme".tr()),
+                  // ),
+                ],
+              ),
             ),
           ),
+        ),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  child: Text(
-                    "edu_courses".tr(),
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CoursesPage(courses: state.programs)));
-                },
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 1.2, color: isDark ? Colors.white : AppColors.blueColor)),
-                  ),
-                  child: Text(
-                    "all_courses".tr(),
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          carouselSlider(programs: state.programs),
-
-          const SizedBox(
-            height: 10,
-          ),
-          dotsIndicator(state.programs),
-          const SizedBox(
-            height: 20,
-          ),
-
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text("sections".tr(), textAlign: TextAlign.start, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20)),
-          ),
-
-          sectionWidgets(state.authInfo, state.programs),
-          // sectionWidgets(),
-          // sectionWidgets(),
-
-          const SizedBox(
-            height: 40,
-          ),
-
-          ElevatedButton(
-            onPressed: () {
-              if (themeBloc.state is LightTheme) {
-                themeBloc.add(ToggleDark());
-              } else {
-                themeBloc.add(ToggleLight());
-              }
-
-              // setState(() {});
-              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage(pageIndex: 0)));
-            },
-            child: Text("change_theme".tr()),
-          ),
-        ],
-      ),
     );
   }
 
   Widget dotsIndicator(List<ProgramEntity> programs) {
-    bool isDark = box.get('theme') == "dark";
+    bool isDark = prefs.getString("theme") != 'light';
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -247,7 +310,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget carouselSlider({required List<ProgramEntity> programs}) {
-    return Flexible(
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 0),
       child: CarouselSlider(
         carouselController: _carouselController,
         options: CarouselOptions(
@@ -271,7 +335,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget programCard(ProgramEntity item) {
-    bool isDark = box.get('theme') == "dark";
+    bool isDark = prefs.getString("theme") != 'light';
 
     return GestureDetector(
       onTap: () {
@@ -368,11 +432,15 @@ class _MainPageState extends State<MainPage> {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.35,
-                        child: Text(
-                          "${"duration".tr()}: ${getCourseDuration(item.totalVideosCount ?? 0)}",
-                          maxLines: 1,
-                          overflow: TextOverflow.visible,
-                          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.white),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "${"duration".tr()}: ${item.programDuration ?? ""}",
+                            maxLines: 1,
+                            overflow: TextOverflow.visible,
+                            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.white),
+                          ),
                         ),
                       ),
                     ],
@@ -391,7 +459,7 @@ class _MainPageState extends State<MainPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.35,
                     child: Text(
-                      "${"lesson_count".tr()}: ${getCourseDuration(item.courseTopicChildCount ?? 0)}",
+                      "${"lesson_count".tr()}: ${item.courseTopicChildCount ?? 0}",
                       maxLines: 1,
                       overflow: TextOverflow.visible,
                       style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.white),
@@ -430,13 +498,13 @@ class _MainPageState extends State<MainPage> {
                   icon: "personal_info.png",
                   title: "personal_info".tr(),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInfoPage(authInfo: authInfo)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInfoPage()));
                   }),
               sectionItem(
                 icon: "courses.png",
                 title: "my_courses".tr(),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CoursesPage(courses: courses)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CoursesPage()));
                 },
               ),
               sectionItem(
@@ -444,7 +512,6 @@ class _MainPageState extends State<MainPage> {
                 title: "key_point".tr(),
                 onPressed: () {
                   showSimpleToast("coming_soon".tr());
-
                 },
               ),
             ],
@@ -455,26 +522,44 @@ class _MainPageState extends State<MainPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              sectionItem(icon: "certificate.png", title: "certificates".tr(),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateCoursesPage(courses: courses)));
-              }
-              ),
-              sectionItem(icon: "document.png", title: "documents".tr(),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => DocumentCoursesPage(courses: courses)));
-              }
-              ),
-              sectionItem(icon: "settings.png", title: "settings".tr()),
+              sectionItem(
+                  icon: "certificate.png",
+                  title: "certificates".tr(),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateCoursesPage()));
+                  }),
+              if(authInfo.userName!="IHM581641171")
+              sectionItem(
+                  icon: "document.png",
+                  title: "documents".tr(),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DocumentCoursesPage()));
+                  }),
+
+              if(authInfo.userName=="IHM581641171")
+                sectionItem(
+                    icon: "heart.png",
+                    title: "saved_lessons".tr(),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SavedLessonsPage()));
+                    }),
+              sectionItem(
+                  icon: "settings.png",
+                  title: "settings".tr(),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
+                  }),
             ],
           ),
+
+
         ],
       ),
     );
   }
 
   Widget sectionItem({required String icon, required String title, VoidCallback? onPressed}) {
-    bool isDark = box.get('theme') == "dark";
+    bool isDark = prefs.getString("theme") != 'light';
 
     return GestureDetector(
       onTap: onPressed,
@@ -502,10 +587,12 @@ class _MainPageState extends State<MainPage> {
             const SizedBox(
               height: 8,
             ),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            Expanded(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
             ),
           ],
         ),
@@ -520,3 +607,4 @@ String getCourseDuration(int videosCount) {
   }
   return "$videosCount ${"days".tr()}";
 }
+

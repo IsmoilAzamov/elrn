@@ -15,16 +15,16 @@ class ProgramItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = box.get('theme') == "dark";
+    bool isDark = prefs.getString("theme") != 'light';
     return Container(
       height: showProgress == false ? 120 : 185,
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 0),
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
       child: Card(
         elevation: 6,
         shadowColor: AppColors.bgDark,
         child: Container(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.all(8),
 
           // margin: const EdgeInsets.symmetric(horizontal: 12),
 
@@ -107,11 +107,13 @@ class ProgramItem extends StatelessWidget {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.35,
-                        child: Text(
-                          "${"duration".tr()}: ${getCourseDuration(item.totalVideosCount ?? 0)}",
-                          maxLines: 1,
-                          overflow: TextOverflow.visible,
-                          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.white),
+                        child: FittedBox(
+                          child: Text(
+                            "${"duration".tr()}: ${item.programDuration ?? ""}",
+                            maxLines: 1,
+                            overflow: TextOverflow.visible,
+                            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.white),
+                          ),
                         ),
                       ),
                     ],

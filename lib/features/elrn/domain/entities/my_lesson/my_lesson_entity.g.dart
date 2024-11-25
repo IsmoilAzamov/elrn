@@ -3,6 +3,193 @@
 part of 'my_lesson_entity.dart';
 
 // **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class VideoLessonEntityAdapter extends TypeAdapter<VideoLessonEntity> {
+  @override
+  final int typeId = 5;
+
+  @override
+  VideoLessonEntity read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return VideoLessonEntity(
+      id: fields[0] as String?,
+      title: fields[1] as String?,
+      orderNumber: fields[2] as int?,
+      lessonTypeId: fields[3] as int?,
+      lessonType: fields[4] as String?,
+      watchedDuration: fields[5] as double?,
+      videoDuration: fields[6] as double?,
+      locked: fields[7] as bool?,
+      completionPercentage: fields[8] as double?,
+      videoThumbnailId: fields[9] as String?,
+      isVideoClip: fields[10] as bool?,
+      course: fields[11] as String?,
+      courseId: fields[12] as String?,
+      courseTopic: fields[13] as String?,
+      courseTopicId: fields[14] as String?,
+      lessonId: fields[15] as String?,
+      details: fields[16] as String?,
+      nextVideoLessonId: fields[17] as String?,
+      nextVideoLessonTitle: fields[18] as String?,
+      watchedPercent: fields[19] as double?,
+      canRate: fields[20] as bool?,
+      videoFiles: (fields[21] as List?)?.cast<VideoFileEntity>(),
+      materialFiles: (fields[22] as List?)?.cast<MaterialFileEntity>(),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, VideoLessonEntity obj) {
+    writer
+      ..writeByte(23)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.title)
+      ..writeByte(2)
+      ..write(obj.orderNumber)
+      ..writeByte(3)
+      ..write(obj.lessonTypeId)
+      ..writeByte(4)
+      ..write(obj.lessonType)
+      ..writeByte(5)
+      ..write(obj.watchedDuration)
+      ..writeByte(6)
+      ..write(obj.videoDuration)
+      ..writeByte(7)
+      ..write(obj.locked)
+      ..writeByte(8)
+      ..write(obj.completionPercentage)
+      ..writeByte(9)
+      ..write(obj.videoThumbnailId)
+      ..writeByte(10)
+      ..write(obj.isVideoClip)
+      ..writeByte(11)
+      ..write(obj.course)
+      ..writeByte(12)
+      ..write(obj.courseId)
+      ..writeByte(13)
+      ..write(obj.courseTopic)
+      ..writeByte(14)
+      ..write(obj.courseTopicId)
+      ..writeByte(15)
+      ..write(obj.lessonId)
+      ..writeByte(16)
+      ..write(obj.details)
+      ..writeByte(17)
+      ..write(obj.nextVideoLessonId)
+      ..writeByte(18)
+      ..write(obj.nextVideoLessonTitle)
+      ..writeByte(19)
+      ..write(obj.watchedPercent)
+      ..writeByte(20)
+      ..write(obj.canRate)
+      ..writeByte(21)
+      ..write(obj.videoFiles)
+      ..writeByte(22)
+      ..write(obj.materialFiles);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is VideoLessonEntityAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class VideoFileEntityAdapter extends TypeAdapter<VideoFileEntity> {
+  @override
+  final int typeId = 6;
+
+  @override
+  VideoFileEntity read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return VideoFileEntity(
+      id: fields[0] as String?,
+      fileName: fields[1] as String?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, VideoFileEntity obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.fileName);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is VideoFileEntityAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class MaterialFileEntityAdapter extends TypeAdapter<MaterialFileEntity> {
+  @override
+  final int typeId = 7;
+
+  @override
+  MaterialFileEntity read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return MaterialFileEntity(
+      id: fields[0] as String?,
+      fileName: fields[1] as String?,
+      fileSize: fields[2] as int?,
+      fileExtension: fields[3] as String?,
+      canDownload: fields[4] as bool?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, MaterialFileEntity obj) {
+    writer
+      ..writeByte(5)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.fileName)
+      ..writeByte(2)
+      ..write(obj.fileSize)
+      ..writeByte(3)
+      ..write(obj.fileExtension)
+      ..writeByte(4)
+      ..write(obj.canDownload);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MaterialFileEntityAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

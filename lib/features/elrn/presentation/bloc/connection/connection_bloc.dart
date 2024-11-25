@@ -25,7 +25,7 @@ class ConnectionBloc extends Bloc<ConnectionEvent, ConnectionBlocState> {
 
   void _monitorConnection() {
     _internetStream = InternetConnectionChecker().onStatusChange.listen((status) {
-      if (status == InternetConnectionStatus.connected) {
+      if (true) {
         add(ConnectionSuccessEvent());
       } else {
         add(ConnectionFailureEvent());

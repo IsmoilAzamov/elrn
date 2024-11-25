@@ -1,9 +1,11 @@
 
+import 'package:flutter/material.dart';
+
 import '../../main.dart';
 
 String  getLogo(){
   try{
-    bool isDark = box.get('theme') == "dark";
+    bool isDark = prefs.getString("theme") != 'light';
     if(isDark){
       // print('dark');
       return 'assets/images/elrn_logo.png';

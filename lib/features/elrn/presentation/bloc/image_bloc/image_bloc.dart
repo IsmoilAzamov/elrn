@@ -12,15 +12,16 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
   }
 
   // Define a custom cache manager (optional, you can use DefaultCacheManager as well)
-  final CacheManager _cacheManager = CacheManager(
-    Config(
-      'elRNImageCache',
-      stalePeriod: const Duration(days: 7), // Cache for 7 days
-      maxNrOfCacheObjects: 100, // Keep up to 100 objects in the cache
-    ),
-  );
 
   Future<void> _getImage(GetImageEvent event, Emitter<ImageState> emit) async {
+    final CacheManager cacheManager = CacheManager(
+      Config(
+        event.url,
+
+        stalePeriod: const Duration(days: 7), // Cache for 7 days
+        maxNrOfCacheObjects: 100, // Keep up to 100 objects in the cache
+      ),
+    );
     Dio dio = sl<Dio>();
     emit(ImageLoadingState());
 
@@ -28,7 +29,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       print("ImageBloc: _getImage: event.url: ${event.url}");
 
       // First, try to get the image from the cache
-      FileInfo? cachedFile = await _cacheManager.getFileFromCache(event.url);
+      FileInfo? cachedFile = await cacheManager.getFileFromCache(event.url);
 
       if (cachedFile != null) {
         // Image is available in the cache, so load it
@@ -48,7 +49,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
           Uint8List imageData = Uint8List.fromList(response.data!);
 
           // Cache the image after downloading
-          await _cacheManager.putFile(
+          await cacheManager.putFile(
             event.url, // Use the URL as the cache key
             imageData,
           );

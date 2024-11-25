@@ -3,6 +3,7 @@ import 'package:elrn/features/elrn/data/datasources/remote/my_lesson_api_service
 import 'package:elrn/features/elrn/domain/entities/certificate/certificate_entity.dart';
 import 'package:elrn/features/elrn/domain/entities/my_lesson/my_lesson_entity.dart';
 import 'package:elrn/features/elrn/domain/entities/test/test_entity.dart';
+import 'package:elrn/features/elrn/domain/entities/test_result/test_result_entity.dart';
 
 import '../../domain/repositories/my_lesson_repository.dart';
 import '../index.dart';
@@ -34,4 +35,7 @@ class MyLessonRepositoryImpl extends MyLessonRepository {
 
   @override
   Future<DataState<List<CertificateEntity>>> getMyCertificates({required String programId}) => getCheckedResponse(() => _myProgramApiService.getMyCertificates( programId));
+
+  @override
+  Future<DataState<List<TestResultEntity>>> getMyTestResults() => getCheckedResponse(() => _myProgramApiService.getMyTestResults());
 }

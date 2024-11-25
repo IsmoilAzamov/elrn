@@ -16,7 +16,7 @@ class ModuleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = box.get('theme') == "dark";
+    bool isDark = prefs.getString("theme") != 'light';
     return Container(
         height: 120,
         padding: const EdgeInsets.symmetric(vertical: 6),

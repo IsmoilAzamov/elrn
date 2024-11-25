@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:chewie/chewie.dart';
-import 'package:elrn/features/elrn/presentation/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -91,7 +90,7 @@ class _CustomChewieControlsState extends State<CustomChewieControls> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.replay_10, color: Colors.white),
+                        icon: const Icon(Icons.replay_10, color: Colors.white,size: 32,),
                         onPressed: () {
                           if (!_controlsVisible) {
                             _resetHideControlsTimer();
@@ -119,8 +118,8 @@ class _CustomChewieControlsState extends State<CustomChewieControls> {
                         },
                         child: Center(
                           child: Container(
-                            width: 45,
-                            height: 45,
+                            width: 50,
+                            height: 50,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: AppColors.bgDark.withOpacity(0.5),
@@ -129,13 +128,14 @@ class _CustomChewieControlsState extends State<CustomChewieControls> {
                             child: Icon(
                               videoPlayerController.value.isPlaying ? Icons.pause : Icons.play_arrow,
                               color: Colors.white,
+                              size: 32
                             ),
                           ),
                         ),
                       ),
                       const SizedBox(width: 10),
                       IconButton(
-                        icon: const Icon(Icons.forward_10, color: Colors.white),
+                        icon: const Icon(Icons.forward_10, color: Colors.white,size: 32,),
                         onPressed: () {
                           if (!_controlsVisible) {
                             _resetHideControlsTimer();
@@ -218,3 +218,4 @@ class _CustomChewieControlsState extends State<CustomChewieControls> {
         : '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 }
+

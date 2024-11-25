@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:elrn/core/constants/urls.dart';
 import 'package:elrn/features/elrn/domain/entities/my_lesson/my_lesson_entity.dart';
 import 'package:elrn/features/elrn/presentation/bloc/modules/topics/topic_children/topic_contents/topic_contents_bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,7 +49,6 @@ class _CourseTopicContentsPageState extends State<CourseTopicContentsPage> {
             onBackPressed: () {
               Navigator.pop(context);
             },
-
           ),
           Expanded(
             child: BlocProvider(
@@ -83,67 +83,70 @@ class _CourseTopicContentsPageState extends State<CourseTopicContentsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if(topicContent.videoLessons?.any((element) => element.isVideoClip==true)??false)
-            Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Text(
-                "video_lecture".tr(),
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+            if (topicContent.videoLessons?.any((element) => element.isVideoClip == true) ?? false)
+              Padding(
+                padding: const EdgeInsets.only(top: 12.0),
+                child: Text(
+                  "video_lecture".tr(),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
               ),
-            ),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: topicContent.videoLessons?.length ?? 0,
               itemBuilder: (context, index) {
-                if(topicContent.videoLessons?[index].isVideoClip==false) {
+                if (topicContent.videoLessons?[index].isVideoClip == false) {
                   return VideoCard(videoLesson: topicContent.videoLessons![index]);
                 } else {
-                  return const SizedBox(height: 0,);
+                  return const SizedBox(
+                    height: 0,
+                  );
                 }
               },
             ),
-            if(topicContent.videoLessons?.any((element) => element.isVideoClip==false)??false)
-            Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Text(
-                "video_clips".tr(),
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+            if (topicContent.videoLessons?.any((element) => element.isVideoClip == false) ?? false)
+              Padding(
+                padding: const EdgeInsets.only(top: 12.0),
+                child: Text(
+                  "video_clips".tr(),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
               ),
-            ),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: topicContent.videoLessons?.length ?? 0,
               itemBuilder: (context, index) {
-                if(topicContent.videoLessons?[index].isVideoClip==true) {
+                if (topicContent.videoLessons?[index].isVideoClip == true) {
                   return VideoCard(videoLesson: topicContent.videoLessons![index]);
                 } else {
-                  return const SizedBox(height: 0,);
+                  return const SizedBox(
+                    height: 0,
+                  );
                 }
               },
             ),
-
-            if(topicContent.lessonTests?.isNotEmpty ?? false)
-            Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Text(
-                "tests".tr(),
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+            if (topicContent.lessonTests?.isNotEmpty ?? false)
+              Padding(
+                padding: const EdgeInsets.only(top: 12.0),
+                child: Text(
+                  "tests".tr(),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
               ),
-            ),
             if (topicContent.lessonTests?.isNotEmpty ?? false)
               ListView.builder(
                 shrinkWrap: true,
@@ -173,7 +176,7 @@ class VideoCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => VideoLessonPage(lessonId: videoLesson.id??"", title: videoLesson.title??"",lessonTypeId: videoLesson.lessonTypeId??0),
+            builder: (context) => VideoLessonPage(videoLesson: videoLesson),
           ),
         );
       },
@@ -191,27 +194,34 @@ class VideoCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(14.0),
-
-                  child: Image.network(
-                    "$LMS_DOMAIN/api/VideoLesson/DownloadFile/${videoLesson.videoThumbnailId}",
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width*9/16,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
+                  child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.width * 9 / 16,
+                      decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.lightBlue : AppColors.darkBlue),
+                      child: Center(
+                        child: Icon(
+                          Icons.video_library_outlined,
+                          color: AppColors.middleBlue,
+                          size: 102,
+                        ),
+                      )),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(14.0),
+                  child: Image.network("$LMS_DOMAIN/api/VideoLesson/DownloadFile/${videoLesson.videoThumbnailId}",
+                      width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.width * 9 / 16, fit: BoxFit.cover, errorBuilder: (context, error, stackTrace) {
+                    return Container(
                         width: double.infinity,
                         height: 200,
                         color: AppColors.lightBlue,
                         child: Center(
                           child: Icon(
                             Icons.image_outlined,
-                            color: Colors.red,
+                            color: AppColors.middleBlue,
                             size: 40,
                           ),
-                        )
-                      );
-                    }
-                  ),
+                        ));
+                  }),
                 ),
                 if (!(videoLesson.locked ?? false))
                   Positioned(
@@ -221,12 +231,13 @@ class VideoCard extends StatelessWidget {
                     right: 0,
                     child: Center(
                       child: Container(
-                        width: 35,
-                        height: 35,
+                        width: 50,
+                        height: 50,
                         decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.bgDark.withOpacity(0.5), border: Border.all(color: AppColors.greenColor)),
                         child: Icon(
                           Icons.play_arrow,
                           color: Colors.white,
+                          size: 32,
                         ),
                       ),
                     ),
@@ -350,25 +361,24 @@ class TestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        if(!(lessonTest.locked ?? false) && lessonTest.isCompleted == true){
+      onTap: () {
+        if (!(lessonTest.locked ?? false) && lessonTest.isCompleted == true) {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => LessonTestResultPage(testResult: lessonTest),
             ),
           );
-      }
-        if(!(lessonTest.locked ?? false) && lessonTest.isCompleted == false){
+        }
+        if (!(lessonTest.locked ?? false) && lessonTest.isCompleted == false) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => StartLessonTestPage(testId: lessonTest.id??""),
+              builder: (context) => StartLessonTestPage(testId: lessonTest.id ?? ""),
             ),
           );
         }
-
-        },
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -376,31 +386,42 @@ class TestCard extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
-              border: Border.all(color: AppColors.lightBlue,width: 1),
+              border: Border.all(color: AppColors.lightBlue, width: 1),
               boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.3), spreadRadius: 1.2, blurRadius: 3, offset: Offset(0, 4))],
-
             ),
             child: Stack(
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(14.0),
-                  child: Image.network( "$LMS_DOMAIN/api/LessonTest/DownloadFile/${lessonTest.lessonTestThumbnailId}",
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: AppColors.lightBlue,
-                        height:  200,
-                        width: double.infinity,
-                        child: const Icon(
-                          Icons.image_outlined,
-                          color: Colors.white,
-                          size: 40,
+                  child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.width * 9 / 16,
+                      decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.lightBlue : AppColors.darkBlue),
+                      child: Center(
+                        child: Icon(
+                          CupertinoIcons.text_badge_checkmark,
+                          color: AppColors.middleBlue,
+                          size: 102,
                         ),
-                      );
-                    }
-                  ),
-
+                      )),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(14.0),
+                  child: Image.network("$LMS_DOMAIN/api/LessonTest/DownloadFile/${lessonTest.lessonTestThumbnailId}", width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.width * 9 / 16,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: AppColors.lightBlue,
+                      height: 200,
+                      width: double.infinity,
+                      child: const Icon(
+                        Icons.image_outlined,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    );
+                  }),
                 ),
                 if (!(lessonTest.locked ?? false))
                   Positioned(

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 part 'my_lesson_entity.freezed.dart';
 
@@ -40,31 +41,32 @@ class MyLessonTopicChildEntity with _$MyLessonTopicChildEntity {
 }
 
 @freezed
+@HiveType(typeId: 5) // Assign a unique type ID
 class VideoLessonEntity with _$VideoLessonEntity {
   const factory VideoLessonEntity({
-    String? id,
-    String? title,
-    int? orderNumber,
-    int? lessonTypeId,
-    String? lessonType,
-    double? watchedDuration,
-    double? videoDuration,
-    bool? locked,
-    double? completionPercentage,
-    String? videoThumbnailId,
-    bool? isVideoClip,
-    String? course,
-    String? courseId,
-    String? courseTopic,
-    String? courseTopicId,
-    String? lessonId,
-    String? details,
-    String? nextVideoLessonId,
-    String? nextVideoLessonTitle,
-    double? watchedPercent,
-    bool? canRate,
-    List<VideoFileEntity>? videoFiles,
-    List<MaterialFileEntity>? materialFiles,
+    @HiveField(0) String? id,
+    @HiveField(1) String? title,
+    @HiveField(2) int? orderNumber,
+    @HiveField(3) int? lessonTypeId,
+    @HiveField(4) String? lessonType,
+    @HiveField(5) double? watchedDuration,
+    @HiveField(6) double? videoDuration,
+    @HiveField(7) bool? locked,
+    @HiveField(8) double? completionPercentage,
+    @HiveField(9) String? videoThumbnailId,
+    @HiveField(10) bool? isVideoClip,
+    @HiveField(11) String? course,
+    @HiveField(12) String? courseId,
+    @HiveField(13) String? courseTopic,
+    @HiveField(14) String? courseTopicId,
+    @HiveField(15) String? lessonId,
+    @HiveField(16) String? details,
+    @HiveField(17) String? nextVideoLessonId,
+    @HiveField(18) String? nextVideoLessonTitle,
+    @HiveField(19) double? watchedPercent,
+    @HiveField(20) bool? canRate,
+    @HiveField(21) List<VideoFileEntity>? videoFiles, // Custom adapter required
+    @HiveField(22) List<MaterialFileEntity>? materialFiles, // Custom adapter required
   }) = _VideoLessonEntity;
 
   factory VideoLessonEntity.fromJson(Map<String, dynamic> json) => _$VideoLessonEntityFromJson(json);
@@ -106,24 +108,27 @@ class LessonTestEntity with _$LessonTestEntity {
 
 
 @freezed
+@HiveType(typeId: 6) // Assign a unique type ID for this entity
 class VideoFileEntity with _$VideoFileEntity {
   const factory VideoFileEntity({
-    String? id,
-    String? fileName,
+    @HiveField(0) String? id,
+    @HiveField(1) String? fileName,
   }) = _VideoFileEntity;
 
   factory VideoFileEntity.fromJson(Map<String, dynamic> json) => _$VideoFileEntityFromJson(json);
 }
 
 
+
 @freezed
+@HiveType(typeId: 7) // Assign a unique type ID for this entity
 class MaterialFileEntity with _$MaterialFileEntity {
   const factory MaterialFileEntity({
-    String? id,
-    String? fileName,
-    int? fileSize,
-    String? fileExtension,
-    bool? canDownload,
+    @HiveField(0) String? id,
+    @HiveField(1) String? fileName,
+    @HiveField(2) int? fileSize,
+    @HiveField(3) String? fileExtension,
+    @HiveField(4) bool? canDownload,
   }) = _MaterialFileEntity;
 
   factory MaterialFileEntity.fromJson(Map<String, dynamic> json) => _$MaterialFileEntityFromJson(json);

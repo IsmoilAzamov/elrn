@@ -23,7 +23,7 @@ Widget continueButton({required VoidCallback onPressed, bool isLoading = false, 
               ? WidgetStateProperty.all(AppColors.borderGray)
               : color != null
                   ? WidgetStateProperty.all(color)
-                  : (box.get('theme') == 'dark' ? WidgetStateProperty.all(const Color(0xFFEAF2FF)) : WidgetStateProperty.all(AppColors.blueColor)),
+                  : (prefs.getString("theme") != 'light'? WidgetStateProperty.all(const Color(0xFFEAF2FF)) : WidgetStateProperty.all(AppColors.blueColor)),
           padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 15)),
           shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
@@ -34,7 +34,7 @@ Widget continueButton({required VoidCallback onPressed, bool isLoading = false, 
         child: Text(
           title ?? 'continue'.tr(),
           style: TextStyle(
-            color: textColor ?? (box.get('theme') == 'dark' ? AppColors.bgDark : Colors.white),
+            color: textColor ?? (prefs.getString("theme") != 'light' ? AppColors.bgDark : Colors.white),
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),

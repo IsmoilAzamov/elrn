@@ -1,7 +1,6 @@
 import 'package:elrn/core/constants/app_colors.dart';
 import 'package:elrn/features/elrn/domain/entities/certificate/certificate_entity.dart';
 import 'package:elrn/features/elrn/presentation/pages/courses/video_lesson/video_lesson_page.dart';
-import 'package:elrn/features/elrn/presentation/widgets/continue_button.dart';
 import 'package:elrn/features/elrn/presentation/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../core/widgets/loading_indicator.dart';
 import '../../../../../../../di.dart';
-import '../../../../../../../main.dart';
+import '../../../../../main.dart';
 import '../../../data/index.dart';
 import '../../bloc/certificate/certificates_bloc.dart';
 import '../../bloc/certificate/certificates_event.dart';
@@ -108,7 +107,7 @@ class CertificateItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = box.get('theme') == "dark";
+    bool isDark = prefs.getString("theme") != 'light';
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
@@ -117,75 +116,77 @@ class CertificateItem extends StatelessWidget {
         color: isDark ? AppColors.darkBlue : AppColors.blueColor,
         border: Border.all(color: AppColors.lightBlue),
       ),
-      child: SingleChildScrollView(
-        child: ExpansionTile(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-          ),
-          dense: true,
-          iconColor: AppColors.greenColor,
-          textColor: AppColors.greenColor,
-          collapsedTextColor: Colors.white,
-          collapsedIconColor: Colors.white,
-          leading: CircleAvatar(
-            radius: 30,
-            backgroundColor: AppColors.lightBlue,
-            child: Image.asset(
-              'assets/icons/globe.png',
-              width: 32,
-              height: 32,
-            ),
-          ),
-          title: Text(
-            item.title ?? "",
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
-          ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0), // (12.0),
-              child: customDivider(height: 1),
-            ),
-            Container(
-              constraints: const BoxConstraints(maxHeight: 300),
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: .0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: ImageWidget(
-                  url: "$DOMAIN/api/MyLesson/GetMyCertificate/${item.certificateFileId}",
-                  width: double.infinity,
-                  borderRadius: 12,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
-              child: Text("certificate_congratulations".tr(), style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14)),
-            ),
-            const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
-              child: ElevatedButton(
-                onPressed: () async {
-                  Uri uri = Uri.parse("$DOMAIN/api/MyLesson/GetMyCertificate/${item.certificateFileId}");
-                  if (await canLaunchUrl(uri)) {
-                    launchUrl(uri);
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.middleBlue,
-                ),
-                child: Text('download'.tr(), style: const TextStyle(color: Colors.white)),
-              ),
-            )
-          ],
+      child: ExpansionTile(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
+        dense: true,
+        iconColor: AppColors.greenColor,
+        textColor: AppColors.greenColor,
+        collapsedTextColor: Colors.white,
+        collapsedIconColor: Colors.white,
+        leading: CircleAvatar(
+          radius: 30,
+          backgroundColor: AppColors.lightBlue,
+          child: Image.asset(
+            'assets/icons/globe.png',
+            width: 32,
+            height: 32,
+          ),
+        ),
+        title: Text(
+          item.title ?? "",
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+        ),
+        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0), // (12.0),
+            child: customDivider(height: 1),
+          ),
+          Container(
+            width: double.infinity,
+            constraints: const BoxConstraints(
+              maxHeight: 300,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ImageWidget(
+
+                url: "$DOMAIN/api/MyLesson/GetMyCertificate/${item.certificateFileId}",
+                width: double.infinity,
+                borderRadius: 12,
+              ),
+            ),
+          ),
+          // const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text("certificate_congratulations".tr(), style: const TextStyle(fontWeight: FontWeight.w500,color: Colors.white, fontSize: 14)),
+          ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+            child: ElevatedButton(
+              onPressed: () async {
+                Uri uri = Uri.parse("$DOMAIN/api/MyLesson/GetMyCertificate/${item.certificateFileId}");
+                if (await canLaunchUrl(uri)) {
+                  launchUrl(uri);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.middleBlue,
+              ),
+              child: Text('download'.tr(), style: const TextStyle(color: Colors.white)),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -218,6 +218,7 @@ class _LessonTestPageState extends State<LessonTestPage> {
         Container(
           margin: EdgeInsets.only(top: 37.5),
           padding: const EdgeInsets.only(top: 44.0, bottom: 16.0, left: 8.0, right: 8.0),
+          width: double.infinity,
           decoration: BoxDecoration(
             color: Theme.of(context).brightness == Brightness.dark ? AppColors.darkBlue : AppColors.blueColor,
             borderRadius: BorderRadius.circular(8.0),

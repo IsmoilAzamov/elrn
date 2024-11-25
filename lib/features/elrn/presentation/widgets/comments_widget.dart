@@ -123,7 +123,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         dateWidget(dateString), // Show the date once
-                        ...dateComments.map(_buildComment).toList(), // Show all comments for that date
+                        ...dateComments.map(_buildComment), // Show all comments for that date
                       ],
                     );
                   },
@@ -263,7 +263,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
   }
 
   Widget dateWidget(String date) {
-    return Text(date, style: const TextStyle( fontSize: 14.0));
+    return Text(date, style: const TextStyle( fontSize: 14.0,  color: Colors.white),);
   }
 }
 

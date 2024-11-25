@@ -14,7 +14,7 @@ class SuccessBottomSheet extends StatefulWidget {
 }
 
 class _SuccessBottomSheetState extends State<SuccessBottomSheet> {
-  bool isDark = box.get('theme') == 'dark';
+  bool isDark = prefs.getString("theme") != 'light';
 
   @override
   Widget build(BuildContext context) {
@@ -35,46 +35,48 @@ class _SuccessBottomSheetState extends State<SuccessBottomSheet> {
           )
       ),
 
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox(
-            height: 12,
-          ),
-          Image.asset(
-            'assets/images/start_work.png',
-            width: MediaQuery.of(context).size.width * 0.55,
-            height: MediaQuery.of(context).size.width * 0.55,
-          ),
-
-
-
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.all(8),
-            child: Text(
-              "Ajoooyib! E-learning profilingizga muvoffaqiyatli kirdingiz! “Davom etish” ga bosing va o’quv jarayonini boshlang",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(
+              height: 12,
+            ),
+            Image.asset(
+              'assets/images/start_work.png',
+              width: MediaQuery.of(context).size.width * 0.55,
+              height: MediaQuery.of(context).size.width * 0.55,
+            ),
+        
+        
+        
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.all(8),
+              child: Text(
+                "Ajoooyib! E-learning profilingizga muvoffaqiyatli kirdingiz! “Davom etish” ga bosing va o’quv jarayonini boshlang",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-
-
-          continueButton(onPressed: (){
-            Navigator.of(context).pop();
-          },
-              color: Color(0xFFEAF2FF),
-              textColor: AppColors.bgDark
-
-
-          )
-        ],
+            const SizedBox(
+              height: 12,
+            ),
+        
+        
+            continueButton(onPressed: (){
+              Navigator.of(context).pop();
+            },
+                color: Color(0xFFEAF2FF),
+                textColor: AppColors.bgDark
+        
+        
+            )
+          ],
+        ),
       ),
     );
   }

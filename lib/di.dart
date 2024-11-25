@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:elrn/features/elrn/data/datasources/local/personal_info_db_service.dart';
+import 'package:elrn/features/elrn/data/datasources/local/prograam_db_service.dart';
 import 'package:elrn/features/elrn/data/datasources/remote/account_api_service.dart';
 import 'package:elrn/features/elrn/data/datasources/remote/login_api_service.dart';
 import 'package:elrn/features/elrn/data/datasources/remote/my_comment_api_service.dart';
@@ -15,18 +17,23 @@ import 'package:elrn/features/elrn/domain/repositories/rating_repository.dart';
 import 'package:elrn/features/elrn/presentation/bloc/certificate/certificates_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/connection/connection_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/documents/documents_bloc.dart';
+import 'package:elrn/features/elrn/presentation/bloc/home/home_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/image_bloc/image_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/main/main_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/modules/modules_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/modules/topics/topic_children/topic_contents/topic_contents_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/modules/topics/topics_bloc.dart';
+import 'package:elrn/features/elrn/presentation/bloc/personal_info/personal_info_bloc.dart';
+import 'package:elrn/features/elrn/presentation/bloc/programs/programs_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/rating/rating_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/start/login_oauth2/login_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/test/lesson_test/lesson_test_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/test/start_lesson_test/start_lesson_test_bloc.dart';
+import 'package:elrn/features/elrn/presentation/bloc/test_results/test_results_bloc.dart';
 import 'package:elrn/features/elrn/presentation/bloc/video_lesson/video_lesson_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import 'features/elrn/data/datasources/local/saved_lessons_db_service.dart';
 import 'features/elrn/data/datasources/local/token_db_service.dart';
 import 'features/elrn/data/datasources/remote/my_lesson_api_service.dart';
 import 'features/elrn/data/datasources/remote/my_program_api_service.dart';
@@ -69,6 +76,10 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<MyCourseApiService>(() => MyCourseApiService(sl()));
 
   //databases
+  sl.registerLazySingleton<ProgramsDBService>(() => ProgramsDBService());
+  sl.registerLazySingleton<SavedLessonsDBService>(() => SavedLessonsDBService());
+  sl.registerLazySingleton<AuthInfoDBService>(() => AuthInfoDBService());
+
 
   //repositories
   sl.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl(sl()));
@@ -80,15 +91,17 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<MyCourseRepository>(() => MyCourseRepositoryImpl(sl()));
 
 //bloc
+  sl.registerFactory(() => HomeBloc());
+  sl.registerFactory(() => PersonalInfoBloc(sl()));
   sl.registerFactory(() => LoginBloc(sl()));
   sl.registerFactory(() => ThemeBloc());
   sl.registerFactory(() => ConnectionBloc());
-  sl.registerFactory(() => MainBloc(sl(), sl()));
+  sl.registerFactory(() => MainBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ModulesBloc(sl(),sl()));
   sl.registerFactory(() => ImageBloc());
   sl.registerFactory(() => TopicsBloc(sl()));
   sl.registerFactory(() => TopicChildrenBloc(sl()));
-  sl.registerFactory(() => TopicContentsBloc(sl()));
+  sl.registerFactory(() => TopicContentsBloc(sl(),sl()));
   sl.registerFactory(() => VideoLessonBloc(sl()));
   sl.registerFactory(() => RatingBloc(sl()));
   sl.registerFactory(() => CommentsBloc(sl()));
@@ -96,4 +109,6 @@ Future<void> initializeDependencies() async {
   sl.registerFactory(() => LessonTestBloc(sl()));
   sl.registerFactory(() => CertificatesBloc(sl()));
   sl.registerFactory(() => DocumentsBloc(sl()));
+  sl.registerFactory(() => ProgramsBloc(sl()));
+  sl.registerFactory(() => TestResultsBloc(sl()));
 }

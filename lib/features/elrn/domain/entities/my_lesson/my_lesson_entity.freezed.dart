@@ -710,28 +710,52 @@ VideoLessonEntity _$VideoLessonEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$VideoLessonEntity {
+  @HiveField(0)
   String? get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get title => throw _privateConstructorUsedError;
+  @HiveField(2)
   int? get orderNumber => throw _privateConstructorUsedError;
+  @HiveField(3)
   int? get lessonTypeId => throw _privateConstructorUsedError;
+  @HiveField(4)
   String? get lessonType => throw _privateConstructorUsedError;
+  @HiveField(5)
   double? get watchedDuration => throw _privateConstructorUsedError;
+  @HiveField(6)
   double? get videoDuration => throw _privateConstructorUsedError;
+  @HiveField(7)
   bool? get locked => throw _privateConstructorUsedError;
+  @HiveField(8)
   double? get completionPercentage => throw _privateConstructorUsedError;
+  @HiveField(9)
   String? get videoThumbnailId => throw _privateConstructorUsedError;
+  @HiveField(10)
   bool? get isVideoClip => throw _privateConstructorUsedError;
+  @HiveField(11)
   String? get course => throw _privateConstructorUsedError;
+  @HiveField(12)
   String? get courseId => throw _privateConstructorUsedError;
+  @HiveField(13)
   String? get courseTopic => throw _privateConstructorUsedError;
+  @HiveField(14)
   String? get courseTopicId => throw _privateConstructorUsedError;
+  @HiveField(15)
   String? get lessonId => throw _privateConstructorUsedError;
+  @HiveField(16)
   String? get details => throw _privateConstructorUsedError;
+  @HiveField(17)
   String? get nextVideoLessonId => throw _privateConstructorUsedError;
+  @HiveField(18)
   String? get nextVideoLessonTitle => throw _privateConstructorUsedError;
+  @HiveField(19)
   double? get watchedPercent => throw _privateConstructorUsedError;
+  @HiveField(20)
   bool? get canRate => throw _privateConstructorUsedError;
-  List<VideoFileEntity>? get videoFiles => throw _privateConstructorUsedError;
+  @HiveField(21)
+  List<VideoFileEntity>? get videoFiles =>
+      throw _privateConstructorUsedError; // Custom adapter required
+  @HiveField(22)
   List<MaterialFileEntity>? get materialFiles =>
       throw _privateConstructorUsedError;
 
@@ -752,29 +776,29 @@ abstract class $VideoLessonEntityCopyWith<$Res> {
       _$VideoLessonEntityCopyWithImpl<$Res, VideoLessonEntity>;
   @useResult
   $Res call(
-      {String? id,
-      String? title,
-      int? orderNumber,
-      int? lessonTypeId,
-      String? lessonType,
-      double? watchedDuration,
-      double? videoDuration,
-      bool? locked,
-      double? completionPercentage,
-      String? videoThumbnailId,
-      bool? isVideoClip,
-      String? course,
-      String? courseId,
-      String? courseTopic,
-      String? courseTopicId,
-      String? lessonId,
-      String? details,
-      String? nextVideoLessonId,
-      String? nextVideoLessonTitle,
-      double? watchedPercent,
-      bool? canRate,
-      List<VideoFileEntity>? videoFiles,
-      List<MaterialFileEntity>? materialFiles});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? title,
+      @HiveField(2) int? orderNumber,
+      @HiveField(3) int? lessonTypeId,
+      @HiveField(4) String? lessonType,
+      @HiveField(5) double? watchedDuration,
+      @HiveField(6) double? videoDuration,
+      @HiveField(7) bool? locked,
+      @HiveField(8) double? completionPercentage,
+      @HiveField(9) String? videoThumbnailId,
+      @HiveField(10) bool? isVideoClip,
+      @HiveField(11) String? course,
+      @HiveField(12) String? courseId,
+      @HiveField(13) String? courseTopic,
+      @HiveField(14) String? courseTopicId,
+      @HiveField(15) String? lessonId,
+      @HiveField(16) String? details,
+      @HiveField(17) String? nextVideoLessonId,
+      @HiveField(18) String? nextVideoLessonTitle,
+      @HiveField(19) double? watchedPercent,
+      @HiveField(20) bool? canRate,
+      @HiveField(21) List<VideoFileEntity>? videoFiles,
+      @HiveField(22) List<MaterialFileEntity>? materialFiles});
 }
 
 /// @nodoc
@@ -922,29 +946,29 @@ abstract class _$$VideoLessonEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
-      String? title,
-      int? orderNumber,
-      int? lessonTypeId,
-      String? lessonType,
-      double? watchedDuration,
-      double? videoDuration,
-      bool? locked,
-      double? completionPercentage,
-      String? videoThumbnailId,
-      bool? isVideoClip,
-      String? course,
-      String? courseId,
-      String? courseTopic,
-      String? courseTopicId,
-      String? lessonId,
-      String? details,
-      String? nextVideoLessonId,
-      String? nextVideoLessonTitle,
-      double? watchedPercent,
-      bool? canRate,
-      List<VideoFileEntity>? videoFiles,
-      List<MaterialFileEntity>? materialFiles});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? title,
+      @HiveField(2) int? orderNumber,
+      @HiveField(3) int? lessonTypeId,
+      @HiveField(4) String? lessonType,
+      @HiveField(5) double? watchedDuration,
+      @HiveField(6) double? videoDuration,
+      @HiveField(7) bool? locked,
+      @HiveField(8) double? completionPercentage,
+      @HiveField(9) String? videoThumbnailId,
+      @HiveField(10) bool? isVideoClip,
+      @HiveField(11) String? course,
+      @HiveField(12) String? courseId,
+      @HiveField(13) String? courseTopic,
+      @HiveField(14) String? courseTopicId,
+      @HiveField(15) String? lessonId,
+      @HiveField(16) String? details,
+      @HiveField(17) String? nextVideoLessonId,
+      @HiveField(18) String? nextVideoLessonTitle,
+      @HiveField(19) double? watchedPercent,
+      @HiveField(20) bool? canRate,
+      @HiveField(21) List<VideoFileEntity>? videoFiles,
+      @HiveField(22) List<MaterialFileEntity>? materialFiles});
 }
 
 /// @nodoc
@@ -1085,29 +1109,29 @@ class __$$VideoLessonEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$VideoLessonEntityImpl implements _VideoLessonEntity {
   const _$VideoLessonEntityImpl(
-      {this.id,
-      this.title,
-      this.orderNumber,
-      this.lessonTypeId,
-      this.lessonType,
-      this.watchedDuration,
-      this.videoDuration,
-      this.locked,
-      this.completionPercentage,
-      this.videoThumbnailId,
-      this.isVideoClip,
-      this.course,
-      this.courseId,
-      this.courseTopic,
-      this.courseTopicId,
-      this.lessonId,
-      this.details,
-      this.nextVideoLessonId,
-      this.nextVideoLessonTitle,
-      this.watchedPercent,
-      this.canRate,
-      final List<VideoFileEntity>? videoFiles,
-      final List<MaterialFileEntity>? materialFiles})
+      {@HiveField(0) this.id,
+      @HiveField(1) this.title,
+      @HiveField(2) this.orderNumber,
+      @HiveField(3) this.lessonTypeId,
+      @HiveField(4) this.lessonType,
+      @HiveField(5) this.watchedDuration,
+      @HiveField(6) this.videoDuration,
+      @HiveField(7) this.locked,
+      @HiveField(8) this.completionPercentage,
+      @HiveField(9) this.videoThumbnailId,
+      @HiveField(10) this.isVideoClip,
+      @HiveField(11) this.course,
+      @HiveField(12) this.courseId,
+      @HiveField(13) this.courseTopic,
+      @HiveField(14) this.courseTopicId,
+      @HiveField(15) this.lessonId,
+      @HiveField(16) this.details,
+      @HiveField(17) this.nextVideoLessonId,
+      @HiveField(18) this.nextVideoLessonTitle,
+      @HiveField(19) this.watchedPercent,
+      @HiveField(20) this.canRate,
+      @HiveField(21) final List<VideoFileEntity>? videoFiles,
+      @HiveField(22) final List<MaterialFileEntity>? materialFiles})
       : _videoFiles = videoFiles,
         _materialFiles = materialFiles;
 
@@ -1115,49 +1139,71 @@ class _$VideoLessonEntityImpl implements _VideoLessonEntity {
       _$$VideoLessonEntityImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String? id;
   @override
+  @HiveField(1)
   final String? title;
   @override
+  @HiveField(2)
   final int? orderNumber;
   @override
+  @HiveField(3)
   final int? lessonTypeId;
   @override
+  @HiveField(4)
   final String? lessonType;
   @override
+  @HiveField(5)
   final double? watchedDuration;
   @override
+  @HiveField(6)
   final double? videoDuration;
   @override
+  @HiveField(7)
   final bool? locked;
   @override
+  @HiveField(8)
   final double? completionPercentage;
   @override
+  @HiveField(9)
   final String? videoThumbnailId;
   @override
+  @HiveField(10)
   final bool? isVideoClip;
   @override
+  @HiveField(11)
   final String? course;
   @override
+  @HiveField(12)
   final String? courseId;
   @override
+  @HiveField(13)
   final String? courseTopic;
   @override
+  @HiveField(14)
   final String? courseTopicId;
   @override
+  @HiveField(15)
   final String? lessonId;
   @override
+  @HiveField(16)
   final String? details;
   @override
+  @HiveField(17)
   final String? nextVideoLessonId;
   @override
+  @HiveField(18)
   final String? nextVideoLessonTitle;
   @override
+  @HiveField(19)
   final double? watchedPercent;
   @override
+  @HiveField(20)
   final bool? canRate;
   final List<VideoFileEntity>? _videoFiles;
   @override
+  @HiveField(21)
   List<VideoFileEntity>? get videoFiles {
     final value = _videoFiles;
     if (value == null) return null;
@@ -1166,8 +1212,11 @@ class _$VideoLessonEntityImpl implements _VideoLessonEntity {
     return EqualUnmodifiableListView(value);
   }
 
+// Custom adapter required
   final List<MaterialFileEntity>? _materialFiles;
+// Custom adapter required
   @override
+  @HiveField(22)
   List<MaterialFileEntity>? get materialFiles {
     final value = _materialFiles;
     if (value == null) return null;
@@ -1276,78 +1325,102 @@ class _$VideoLessonEntityImpl implements _VideoLessonEntity {
 
 abstract class _VideoLessonEntity implements VideoLessonEntity {
   const factory _VideoLessonEntity(
-      {final String? id,
-      final String? title,
-      final int? orderNumber,
-      final int? lessonTypeId,
-      final String? lessonType,
-      final double? watchedDuration,
-      final double? videoDuration,
-      final bool? locked,
-      final double? completionPercentage,
-      final String? videoThumbnailId,
-      final bool? isVideoClip,
-      final String? course,
-      final String? courseId,
-      final String? courseTopic,
-      final String? courseTopicId,
-      final String? lessonId,
-      final String? details,
-      final String? nextVideoLessonId,
-      final String? nextVideoLessonTitle,
-      final double? watchedPercent,
-      final bool? canRate,
-      final List<VideoFileEntity>? videoFiles,
-      final List<MaterialFileEntity>? materialFiles}) = _$VideoLessonEntityImpl;
+          {@HiveField(0) final String? id,
+          @HiveField(1) final String? title,
+          @HiveField(2) final int? orderNumber,
+          @HiveField(3) final int? lessonTypeId,
+          @HiveField(4) final String? lessonType,
+          @HiveField(5) final double? watchedDuration,
+          @HiveField(6) final double? videoDuration,
+          @HiveField(7) final bool? locked,
+          @HiveField(8) final double? completionPercentage,
+          @HiveField(9) final String? videoThumbnailId,
+          @HiveField(10) final bool? isVideoClip,
+          @HiveField(11) final String? course,
+          @HiveField(12) final String? courseId,
+          @HiveField(13) final String? courseTopic,
+          @HiveField(14) final String? courseTopicId,
+          @HiveField(15) final String? lessonId,
+          @HiveField(16) final String? details,
+          @HiveField(17) final String? nextVideoLessonId,
+          @HiveField(18) final String? nextVideoLessonTitle,
+          @HiveField(19) final double? watchedPercent,
+          @HiveField(20) final bool? canRate,
+          @HiveField(21) final List<VideoFileEntity>? videoFiles,
+          @HiveField(22) final List<MaterialFileEntity>? materialFiles}) =
+      _$VideoLessonEntityImpl;
 
   factory _VideoLessonEntity.fromJson(Map<String, dynamic> json) =
       _$VideoLessonEntityImpl.fromJson;
 
   @override
+  @HiveField(0)
   String? get id;
   @override
+  @HiveField(1)
   String? get title;
   @override
+  @HiveField(2)
   int? get orderNumber;
   @override
+  @HiveField(3)
   int? get lessonTypeId;
   @override
+  @HiveField(4)
   String? get lessonType;
   @override
+  @HiveField(5)
   double? get watchedDuration;
   @override
+  @HiveField(6)
   double? get videoDuration;
   @override
+  @HiveField(7)
   bool? get locked;
   @override
+  @HiveField(8)
   double? get completionPercentage;
   @override
+  @HiveField(9)
   String? get videoThumbnailId;
   @override
+  @HiveField(10)
   bool? get isVideoClip;
   @override
+  @HiveField(11)
   String? get course;
   @override
+  @HiveField(12)
   String? get courseId;
   @override
+  @HiveField(13)
   String? get courseTopic;
   @override
+  @HiveField(14)
   String? get courseTopicId;
   @override
+  @HiveField(15)
   String? get lessonId;
   @override
+  @HiveField(16)
   String? get details;
   @override
+  @HiveField(17)
   String? get nextVideoLessonId;
   @override
+  @HiveField(18)
   String? get nextVideoLessonTitle;
   @override
+  @HiveField(19)
   double? get watchedPercent;
   @override
+  @HiveField(20)
   bool? get canRate;
   @override
-  List<VideoFileEntity>? get videoFiles;
+  @HiveField(21)
+  List<VideoFileEntity>? get videoFiles; // Custom adapter required
   @override
+  @HiveField(22)
   List<MaterialFileEntity>? get materialFiles;
 
   /// Create a copy of VideoLessonEntity
@@ -2002,7 +2075,9 @@ VideoFileEntity _$VideoFileEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$VideoFileEntity {
+  @HiveField(0)
   String? get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get fileName => throw _privateConstructorUsedError;
 
   /// Serializes this VideoFileEntity to a JSON map.
@@ -2021,7 +2096,7 @@ abstract class $VideoFileEntityCopyWith<$Res> {
           VideoFileEntity value, $Res Function(VideoFileEntity) then) =
       _$VideoFileEntityCopyWithImpl<$Res, VideoFileEntity>;
   @useResult
-  $Res call({String? id, String? fileName});
+  $Res call({@HiveField(0) String? id, @HiveField(1) String? fileName});
 }
 
 /// @nodoc
@@ -2063,7 +2138,7 @@ abstract class _$$VideoFileEntityImplCopyWith<$Res>
       __$$VideoFileEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String? fileName});
+  $Res call({@HiveField(0) String? id, @HiveField(1) String? fileName});
 }
 
 /// @nodoc
@@ -2098,14 +2173,17 @@ class __$$VideoFileEntityImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$VideoFileEntityImpl implements _VideoFileEntity {
-  const _$VideoFileEntityImpl({this.id, this.fileName});
+  const _$VideoFileEntityImpl(
+      {@HiveField(0) this.id, @HiveField(1) this.fileName});
 
   factory _$VideoFileEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$VideoFileEntityImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String? id;
   @override
+  @HiveField(1)
   final String? fileName;
 
   @override
@@ -2145,15 +2223,18 @@ class _$VideoFileEntityImpl implements _VideoFileEntity {
 }
 
 abstract class _VideoFileEntity implements VideoFileEntity {
-  const factory _VideoFileEntity({final String? id, final String? fileName}) =
-      _$VideoFileEntityImpl;
+  const factory _VideoFileEntity(
+      {@HiveField(0) final String? id,
+      @HiveField(1) final String? fileName}) = _$VideoFileEntityImpl;
 
   factory _VideoFileEntity.fromJson(Map<String, dynamic> json) =
       _$VideoFileEntityImpl.fromJson;
 
   @override
+  @HiveField(0)
   String? get id;
   @override
+  @HiveField(1)
   String? get fileName;
 
   /// Create a copy of VideoFileEntity
@@ -2170,10 +2251,15 @@ MaterialFileEntity _$MaterialFileEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MaterialFileEntity {
+  @HiveField(0)
   String? get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get fileName => throw _privateConstructorUsedError;
+  @HiveField(2)
   int? get fileSize => throw _privateConstructorUsedError;
+  @HiveField(3)
   String? get fileExtension => throw _privateConstructorUsedError;
+  @HiveField(4)
   bool? get canDownload => throw _privateConstructorUsedError;
 
   /// Serializes this MaterialFileEntity to a JSON map.
@@ -2193,11 +2279,11 @@ abstract class $MaterialFileEntityCopyWith<$Res> {
       _$MaterialFileEntityCopyWithImpl<$Res, MaterialFileEntity>;
   @useResult
   $Res call(
-      {String? id,
-      String? fileName,
-      int? fileSize,
-      String? fileExtension,
-      bool? canDownload});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? fileName,
+      @HiveField(2) int? fileSize,
+      @HiveField(3) String? fileExtension,
+      @HiveField(4) bool? canDownload});
 }
 
 /// @nodoc
@@ -2255,11 +2341,11 @@ abstract class _$$MaterialFileEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
-      String? fileName,
-      int? fileSize,
-      String? fileExtension,
-      bool? canDownload});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? fileName,
+      @HiveField(2) int? fileSize,
+      @HiveField(3) String? fileExtension,
+      @HiveField(4) bool? canDownload});
 }
 
 /// @nodoc
@@ -2310,24 +2396,29 @@ class __$$MaterialFileEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MaterialFileEntityImpl implements _MaterialFileEntity {
   const _$MaterialFileEntityImpl(
-      {this.id,
-      this.fileName,
-      this.fileSize,
-      this.fileExtension,
-      this.canDownload});
+      {@HiveField(0) this.id,
+      @HiveField(1) this.fileName,
+      @HiveField(2) this.fileSize,
+      @HiveField(3) this.fileExtension,
+      @HiveField(4) this.canDownload});
 
   factory _$MaterialFileEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$MaterialFileEntityImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String? id;
   @override
+  @HiveField(1)
   final String? fileName;
   @override
+  @HiveField(2)
   final int? fileSize;
   @override
+  @HiveField(3)
   final String? fileExtension;
   @override
+  @HiveField(4)
   final bool? canDownload;
 
   @override
@@ -2375,24 +2466,29 @@ class _$MaterialFileEntityImpl implements _MaterialFileEntity {
 
 abstract class _MaterialFileEntity implements MaterialFileEntity {
   const factory _MaterialFileEntity(
-      {final String? id,
-      final String? fileName,
-      final int? fileSize,
-      final String? fileExtension,
-      final bool? canDownload}) = _$MaterialFileEntityImpl;
+      {@HiveField(0) final String? id,
+      @HiveField(1) final String? fileName,
+      @HiveField(2) final int? fileSize,
+      @HiveField(3) final String? fileExtension,
+      @HiveField(4) final bool? canDownload}) = _$MaterialFileEntityImpl;
 
   factory _MaterialFileEntity.fromJson(Map<String, dynamic> json) =
       _$MaterialFileEntityImpl.fromJson;
 
   @override
+  @HiveField(0)
   String? get id;
   @override
+  @HiveField(1)
   String? get fileName;
   @override
+  @HiveField(2)
   int? get fileSize;
   @override
+  @HiveField(3)
   String? get fileExtension;
   @override
+  @HiveField(4)
   bool? get canDownload;
 
   /// Create a copy of MaterialFileEntity

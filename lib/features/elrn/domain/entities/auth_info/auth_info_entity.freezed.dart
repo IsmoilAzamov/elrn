@@ -20,19 +20,33 @@ AuthInfoEntity _$AuthInfoEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AuthInfoEntity {
+  @HiveField(0)
   String? get userName => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get fullName => throw _privateConstructorUsedError;
+  @HiveField(2)
   String? get shortName => throw _privateConstructorUsedError;
+  @HiveField(3)
   String? get firstName => throw _privateConstructorUsedError;
+  @HiveField(4)
   String? get middleName => throw _privateConstructorUsedError;
+  @HiveField(5)
   String? get lastName => throw _privateConstructorUsedError;
+  @HiveField(6)
   String? get livingRegion => throw _privateConstructorUsedError;
+  @HiveField(7)
   String? get livingDistrict => throw _privateConstructorUsedError;
+  @HiveField(8)
   String? get birthDate => throw _privateConstructorUsedError;
+  @HiveField(9)
   String? get birthRegion => throw _privateConstructorUsedError;
+  @HiveField(10)
   String? get passportSeria => throw _privateConstructorUsedError;
+  @HiveField(11)
   String? get currentOrganizationName => throw _privateConstructorUsedError;
+  @HiveField(12)
   int? get currentOrganizationId => throw _privateConstructorUsedError;
+  @HiveField(13)
   RegionEntity? get region => throw _privateConstructorUsedError;
 
   /// Serializes this AuthInfoEntity to a JSON map.
@@ -52,20 +66,20 @@ abstract class $AuthInfoEntityCopyWith<$Res> {
       _$AuthInfoEntityCopyWithImpl<$Res, AuthInfoEntity>;
   @useResult
   $Res call(
-      {String? userName,
-      String? fullName,
-      String? shortName,
-      String? firstName,
-      String? middleName,
-      String? lastName,
-      String? livingRegion,
-      String? livingDistrict,
-      String? birthDate,
-      String? birthRegion,
-      String? passportSeria,
-      String? currentOrganizationName,
-      int? currentOrganizationId,
-      RegionEntity? region});
+      {@HiveField(0) String? userName,
+      @HiveField(1) String? fullName,
+      @HiveField(2) String? shortName,
+      @HiveField(3) String? firstName,
+      @HiveField(4) String? middleName,
+      @HiveField(5) String? lastName,
+      @HiveField(6) String? livingRegion,
+      @HiveField(7) String? livingDistrict,
+      @HiveField(8) String? birthDate,
+      @HiveField(9) String? birthRegion,
+      @HiveField(10) String? passportSeria,
+      @HiveField(11) String? currentOrganizationName,
+      @HiveField(12) int? currentOrganizationId,
+      @HiveField(13) RegionEntity? region});
 
   $RegionEntityCopyWith<$Res>? get region;
 }
@@ -184,20 +198,20 @@ abstract class _$$AuthInfoEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? userName,
-      String? fullName,
-      String? shortName,
-      String? firstName,
-      String? middleName,
-      String? lastName,
-      String? livingRegion,
-      String? livingDistrict,
-      String? birthDate,
-      String? birthRegion,
-      String? passportSeria,
-      String? currentOrganizationName,
-      int? currentOrganizationId,
-      RegionEntity? region});
+      {@HiveField(0) String? userName,
+      @HiveField(1) String? fullName,
+      @HiveField(2) String? shortName,
+      @HiveField(3) String? firstName,
+      @HiveField(4) String? middleName,
+      @HiveField(5) String? lastName,
+      @HiveField(6) String? livingRegion,
+      @HiveField(7) String? livingDistrict,
+      @HiveField(8) String? birthDate,
+      @HiveField(9) String? birthRegion,
+      @HiveField(10) String? passportSeria,
+      @HiveField(11) String? currentOrganizationName,
+      @HiveField(12) int? currentOrganizationId,
+      @HiveField(13) RegionEntity? region});
 
   @override
   $RegionEntityCopyWith<$Res>? get region;
@@ -296,51 +310,65 @@ class __$$AuthInfoEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AuthInfoEntityImpl implements _AuthInfoEntity {
   const _$AuthInfoEntityImpl(
-      {this.userName,
-      this.fullName,
-      this.shortName,
-      this.firstName,
-      this.middleName,
-      this.lastName,
-      this.livingRegion,
-      this.livingDistrict,
-      this.birthDate,
-      this.birthRegion,
-      this.passportSeria,
-      this.currentOrganizationName,
-      this.currentOrganizationId,
-      this.region});
+      {@HiveField(0) this.userName,
+      @HiveField(1) this.fullName,
+      @HiveField(2) this.shortName,
+      @HiveField(3) this.firstName,
+      @HiveField(4) this.middleName,
+      @HiveField(5) this.lastName,
+      @HiveField(6) this.livingRegion,
+      @HiveField(7) this.livingDistrict,
+      @HiveField(8) this.birthDate,
+      @HiveField(9) this.birthRegion,
+      @HiveField(10) this.passportSeria,
+      @HiveField(11) this.currentOrganizationName,
+      @HiveField(12) this.currentOrganizationId,
+      @HiveField(13) this.region});
 
   factory _$AuthInfoEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$AuthInfoEntityImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String? userName;
   @override
+  @HiveField(1)
   final String? fullName;
   @override
+  @HiveField(2)
   final String? shortName;
   @override
+  @HiveField(3)
   final String? firstName;
   @override
+  @HiveField(4)
   final String? middleName;
   @override
+  @HiveField(5)
   final String? lastName;
   @override
+  @HiveField(6)
   final String? livingRegion;
   @override
+  @HiveField(7)
   final String? livingDistrict;
   @override
+  @HiveField(8)
   final String? birthDate;
   @override
+  @HiveField(9)
   final String? birthRegion;
   @override
+  @HiveField(10)
   final String? passportSeria;
   @override
+  @HiveField(11)
   final String? currentOrganizationName;
   @override
+  @HiveField(12)
   final int? currentOrganizationId;
   @override
+  @HiveField(13)
   final RegionEntity? region;
 
   @override
@@ -421,51 +449,65 @@ class _$AuthInfoEntityImpl implements _AuthInfoEntity {
 
 abstract class _AuthInfoEntity implements AuthInfoEntity {
   const factory _AuthInfoEntity(
-      {final String? userName,
-      final String? fullName,
-      final String? shortName,
-      final String? firstName,
-      final String? middleName,
-      final String? lastName,
-      final String? livingRegion,
-      final String? livingDistrict,
-      final String? birthDate,
-      final String? birthRegion,
-      final String? passportSeria,
-      final String? currentOrganizationName,
-      final int? currentOrganizationId,
-      final RegionEntity? region}) = _$AuthInfoEntityImpl;
+      {@HiveField(0) final String? userName,
+      @HiveField(1) final String? fullName,
+      @HiveField(2) final String? shortName,
+      @HiveField(3) final String? firstName,
+      @HiveField(4) final String? middleName,
+      @HiveField(5) final String? lastName,
+      @HiveField(6) final String? livingRegion,
+      @HiveField(7) final String? livingDistrict,
+      @HiveField(8) final String? birthDate,
+      @HiveField(9) final String? birthRegion,
+      @HiveField(10) final String? passportSeria,
+      @HiveField(11) final String? currentOrganizationName,
+      @HiveField(12) final int? currentOrganizationId,
+      @HiveField(13) final RegionEntity? region}) = _$AuthInfoEntityImpl;
 
   factory _AuthInfoEntity.fromJson(Map<String, dynamic> json) =
       _$AuthInfoEntityImpl.fromJson;
 
   @override
+  @HiveField(0)
   String? get userName;
   @override
+  @HiveField(1)
   String? get fullName;
   @override
+  @HiveField(2)
   String? get shortName;
   @override
+  @HiveField(3)
   String? get firstName;
   @override
+  @HiveField(4)
   String? get middleName;
   @override
+  @HiveField(5)
   String? get lastName;
   @override
+  @HiveField(6)
   String? get livingRegion;
   @override
+  @HiveField(7)
   String? get livingDistrict;
   @override
+  @HiveField(8)
   String? get birthDate;
   @override
+  @HiveField(9)
   String? get birthRegion;
   @override
+  @HiveField(10)
   String? get passportSeria;
   @override
+  @HiveField(11)
   String? get currentOrganizationName;
   @override
+  @HiveField(12)
   int? get currentOrganizationId;
   @override
+  @HiveField(13)
   RegionEntity? get region;
 
   /// Create a copy of AuthInfoEntity

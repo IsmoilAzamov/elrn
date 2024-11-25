@@ -1,32 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../main.dart';
 
-sealed class ThemeEvent {}
-
-class ToggleLight extends ThemeEvent {}
-
-class ToggleDark extends ThemeEvent {}
-
-var brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
+// var brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBloc()
-      : super(box.get('theme') == "dark"
-            ? DarkTheme()
-            : (
-
-      box.get('theme') == "light"
-                ? LightTheme()
-                : brightness == Brightness.dark
-                    ? DarkTheme()
-                    : LightTheme()
-            //if system theme is dark
-            )) {
+  ThemeBloc() : super(prefs.getString("theme") != 'light' ? DarkTheme() : LightTheme()) {
     on<ThemeEvent>((event, emit) {
       print(event);
       print(ThemeEvent);
@@ -38,12 +20,12 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         systemNavigationBarIconBrightness: event is ToggleLight ? Brightness.dark : Brightness.light,
       ));
       if (event is ToggleDark) {
-        box.put('theme', 'dark');
+        prefs.setString('theme', 'dark');
         emit(DarkTheme());
         return;
       }
       if (event is ToggleLight) {
-        box.put('theme', 'light');
+        prefs.setString('theme', 'light');
         emit(LightTheme());
         return;
       }
@@ -56,6 +38,12 @@ sealed class ThemeState {}
 class DarkTheme extends ThemeState {}
 
 class LightTheme extends ThemeState {}
+
+sealed class ThemeEvent {}
+
+class ToggleLight extends ThemeEvent {}
+
+class ToggleDark extends ThemeEvent {}
 
 // setStatusBarVisibility() {
 //   ThemeEvent event = themeData == lightTheme ? ThemeEvent.toggleDark : ThemeEvent.toggleLight;

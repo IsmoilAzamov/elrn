@@ -89,5 +89,6 @@ void showSimpleToast(String message) {
     style: ToastificationStyle.flat,
     type: ToastificationType.info,
     autoCloseDuration: const Duration(seconds: 3),
+
   );
 }

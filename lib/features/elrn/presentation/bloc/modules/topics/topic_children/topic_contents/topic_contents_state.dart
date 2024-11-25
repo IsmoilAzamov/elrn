@@ -18,3 +18,9 @@ class TopicContentsErrorState extends TopicContentsState{
 
   TopicContentsErrorState(this.message);
 }
+
+class SavedVideosLoadedState extends  TopicContentsState{
+  final List<dynamic> videoLessons;
+
+  SavedVideosLoadedState(this.videoLessons);
+}

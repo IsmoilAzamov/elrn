@@ -1,10 +1,7 @@
 import 'package:elrn/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../di.dart';
 import '../../../../main.dart';
-import '../bloc/theme/theme_bloc.dart';
 
 class CurvedAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
@@ -37,7 +34,7 @@ class _CurvedAppBarState extends State<CurvedAppBar> {
               bottomRight: Radius.circular(8),
             ),
             color: AppColors.lightBlue,
-            boxShadow: box.get('theme') == 'dark'
+            boxShadow: prefs.getString("theme") != 'light'
                 ? [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.3),
@@ -89,22 +86,23 @@ class _CurvedAppBarState extends State<CurvedAppBar> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                actions: (widget.actions ?? []) +
-                    [
-                      //theme icon
-                      IconButton(
-                        icon: Icon(Icons.brightness_4, color: Colors.white, size: 18),
-                        onPressed: () {
-                          final themeBloc = BlocProvider.of<ThemeBloc>(navigatorKey.currentContext!);
-                          if (themeBloc.state is LightTheme) {
-                            themeBloc.add(ToggleDark());
-                          } else {
-                            themeBloc.add(ToggleLight());
-                          }
-
-                        },
-                      ),
-                    ],
+                actions: (widget.actions ?? [])
+                    // +
+                    // [
+                    //   //theme icon
+                    //   IconButton(
+                    //     icon: Icon(Icons.brightness_4, color: Colors.white, size: 18),
+                    //     onPressed: () {
+                    //       final themeBloc = BlocProvider.of<ThemeBloc>(navigatorKey.currentContext!);
+                    //       if (themeBloc.state is LightTheme) {
+                    //         themeBloc.add(ToggleDark());
+                    //       } else {
+                    //         themeBloc.add(ToggleLight());
+                    //       }
+                    //
+                    //     },
+                    //   ),
+                    // ],
               ),
             ),
           ),

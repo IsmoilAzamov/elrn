@@ -6,3 +6,4 @@ class TopicContentsLoadEvent extends TopicContentsEvent {
 
   TopicContentsLoadEvent({required this.topicId});
 }
+class SavedLessonsLoadEvent extends TopicContentsEvent {}

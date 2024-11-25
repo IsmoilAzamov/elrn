@@ -1,8 +1,13 @@
 import 'dart:io';
 
+import 'package:chewie/chewie.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elrn/features/elrn/data/models/token_model.dart';
+import 'package:elrn/features/elrn/domain/entities/address/region_entity.dart';
+import 'package:elrn/features/elrn/domain/entities/auth_info/auth_info_entity.dart';
+import 'package:elrn/features/elrn/domain/entities/my_lesson/my_lesson_entity.dart';
 import 'package:elrn/features/elrn/presentation/pages/courses/modules/topics/course_topic_contents/course_topic_contents_page.dart';
+import 'package:elrn/features/elrn/presentation/pages/settings/language_page.dart';
 import 'package:elrn/features/elrn/presentation/pages/start/start_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,18 +23,17 @@ import 'features/elrn/domain/entities/program/program_entity.dart';
 import 'features/elrn/presentation/bloc/theme/theme_bloc.dart';
 import 'features/elrn/presentation/pages/home_page/home_page.dart';
 import 'features/elrn/presentation/pages/start/login_oauth2_page.dart';
-import 'features/elrn/presentation/pages/start/login_page.dart';
 import 'features/elrn/presentation/pages/start/onboarding_page.dart';
 
 late SharedPreferences prefs;
+ChewieController? chewieController;
 
 const String APP_VERSION = '1.2.0';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<ScaffoldState> myScaffoldKey = GlobalKey<ScaffoldState>();
 
 late Box box;
-ThemeData themeData = lightTheme;
-
+final themeBloc = ThemeBloc();
 
 List<ProgramEntity> programsGlobal = [];
 
@@ -39,6 +43,7 @@ Future<void> main() async {
 
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+
   await Hive.initFlutter();
   await registerAdapters();
   prefs = await SharedPreferences.getInstance();
@@ -78,14 +83,16 @@ Future<void> main() async {
   // }
 
   await initializeDependencies();
-  var myTheme= box.get('theme')=="dark" ? ToggleDark() : ToggleLight();
+  //if system is in dark mode themeData = darkTheme else lightTheme
+
+  var myTheme = prefs.getString("theme") != "light" ? ToggleDark() : ToggleLight();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
- SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: myTheme is ToggleLight ? const Color(0xffFFFFFF) : AppColors.bgDark,
     statusBarIconBrightness: myTheme is ToggleLight ? Brightness.dark : Brightness.light,
-    statusBarBrightness:  myTheme is ToggleLight ? Brightness.light : Brightness.dark,
-    systemNavigationBarColor: myTheme is ToggleLight  ? Colors.white : AppColors.bgDark,
-    systemNavigationBarIconBrightness: myTheme is ToggleLight? Brightness.dark : Brightness.light,
+    statusBarBrightness: myTheme is ToggleLight ? Brightness.light : Brightness.dark,
+    systemNavigationBarColor: myTheme is ToggleLight ? Colors.white : AppColors.bgDark,
+    systemNavigationBarIconBrightness: myTheme is ToggleLight ? Brightness.dark : Brightness.light,
   ));
 
   runApp(EasyLocalization(
@@ -99,20 +106,33 @@ Future<void> main() async {
 
 Future<void> registerAdapters() async {
   Hive.registerAdapter(TokenModelBoxAdapter());
-  //last hiveTypeId =0
+  Hive.registerAdapter(ProgramEntityAdapter());
+  Hive.registerAdapter(CourseEntityAdapter());
+  Hive.registerAdapter(TopicEntityAdapter());
+  Hive.registerAdapter(ProfessionEntityAdapter());
+  Hive.registerAdapter(VideoLessonEntityAdapter());
+  Hive.registerAdapter(MaterialFileEntityAdapter());
+  Hive.registerAdapter(VideoFileEntityAdapter());
+  Hive.registerAdapter(AuthInfoEntityAdapter());
+  Hive.registerAdapter(RegionEntityAdapter());
+
+  //last hiveTypeId = 9
 }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  static void setLocale(BuildContext context, Locale newLocale) async {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state?.context.setLocale(newLocale);
+  }
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  final _bloc = sl<ThemeBloc>();
-
-  bool isDark = box.get('theme') == "dark";
+  bool isDark = prefs.getString("theme", ) != 'light';
 
   @override
   Widget build(BuildContext context) {
@@ -120,17 +140,20 @@ class _MyAppState extends State<MyApp> {
       // '/': (context) => getStartPage(),
       '/home': (context) => const HomePage(pageIndex: 0),
       '/onboarding': (context) => OnboardingPage(),
-      '/login': (context) => const LoginPage(),
       '/loginOauth2': (context) => const LoginOauth2Page(),
       '/start': (context) => const StartPage(),
       '/courseTopicContents': (context) => CourseTopicContentsPage(topicId: '', title: ''),
+      '/language': (context) => LanguagePage(),
     };
     return BlocProvider(
-      create: (context) => _bloc,
+      create: (context) => themeBloc,
       child: BlocConsumer<ThemeBloc, ThemeState>(
-          bloc: _bloc,
+          bloc: themeBloc,
           listener: (context, state) {
-            isDark = box.get('theme') == "dark";
+            setState(() {
+              isDark = prefs.getString("theme") != 'light';
+              print("-------------------------------------RunApp theme: ${prefs.getString("theme")}------------------------------------");
+            });
           },
           builder: (context, state) {
             return ToastificationWrapper(
@@ -138,6 +161,8 @@ class _MyAppState extends State<MyApp> {
                 locale: context.locale,
                 localizationsDelegates: context.localizationDelegates,
                 supportedLocales: context.supportedLocales,
+                darkTheme: darkTheme,
+                themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
                 title: 'E-learning',
                 theme: isDark ? darkTheme : lightTheme,
                 debugShowCheckedModeBanner: false,
@@ -150,13 +175,12 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-
- Widget getStartPage() {
-    try{
+  Widget getStartPage() {
+    try {
       if (prefs.getString('token')?.isEmpty ?? true) {
         return StartPage();
       } else {
-       return const HomePage(pageIndex: 0);
+        return const HomePage(pageIndex: 0);
       }
     } catch (e) {
       return StartPage();
@@ -177,3 +201,6 @@ getStartLocale() {
       return const Locale('uz', 'UZ');
   }
 }
+
+
+

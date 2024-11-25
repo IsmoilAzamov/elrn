@@ -13,6 +13,7 @@ import '../../../bloc/test/start_lesson_test/start_lesson_test_state.dart';
 import '../../../widgets/continue_button.dart';
 import '../../../widgets/error_widget.dart';
 import '../../../widgets/my_scaffold.dart';
+import '../../../widgets/test_info_row.dart';
 import '../video_lesson/video_lesson_page.dart';
 
 class StartLessonTestPage extends StatefulWidget {
@@ -139,28 +140,3 @@ class _StartLessonTestPageState extends State<StartLessonTestPage> {
   }
 }
 
-Widget testInfoRow({required String title, required String iconName, Color? circleColor}) {
-  return Row(
-    children: [
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: circleColor ?? AppColors.middleBlue,
-        ),
-        child: Image.asset(
-          "assets/icons/$iconName",
-          width: 24,
-          color: Colors.white,
-        ),
-      ),
-      const SizedBox(width: 12),
-      Expanded(
-        child: Text(
-          title,
-          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
-        ),
-      ),
-    ],
-  );
-}

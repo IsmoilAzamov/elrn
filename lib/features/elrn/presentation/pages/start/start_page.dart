@@ -1,10 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:elrn/features/elrn/presentation/bloc/theme/theme_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../../core/constants/app_colors.dart';
-import '../../../../../di.dart';
 import '../../../../../main.dart';
 import '../../widgets/continue_button.dart';
 import '../../widgets/my_scaffold.dart';
@@ -18,9 +16,8 @@ class StartPage extends StatefulWidget {
 
 class _StartPageState extends State<StartPage> {
   String _selectedLanguage = 'uz';
-  bool isDark = box.get('theme') == 'dark';
 
-  final _bloc = sl<ThemeBloc>();
+
 
   @override
   void initState() {
@@ -29,6 +26,7 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = prefs.getString("theme") != 'light';
     _selectedLanguage = context.locale.toString();
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -129,6 +127,7 @@ class _StartPageState extends State<StartPage> {
   }
 
   Widget languageItem(String title, String locale) {
+    bool isDark = prefs.getString("theme") != 'light';
     return GestureDetector(
       onTap: () {
         context.setLocale(Locale(locale.split('_').first, locale.split('_').last));
@@ -171,12 +170,5 @@ class _StartPageState extends State<StartPage> {
       ),
     );
   }
-  void toggleTheme() {
-    setState(() {
-      // Toggle the theme and save the new preference
-      isDark = !isDark;
-      box.put('theme', isDark ? 'dark' : 'light');
-      _bloc.add(isDark ? ToggleDark() : ToggleLight());
-    });
-  }
+
 }

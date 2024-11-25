@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../di.dart';
@@ -36,23 +37,31 @@ class _MyScaffoldState extends State<MyScaffold> {
   bool _isDialogVisible = false;
 
   final _bloc = sl<ConnectionBloc>();
-  bool isDark = box.get("theme") == "dark";
+
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the subscription
+
+  }
 
   void _showNoNetworkDialog() {
     if (!_isDialogVisible) {
       _isDialogVisible = true;
       showDialog(
         context: context,
+
         barrierDismissible: false,
         builder: (context) => PopScope(
           canPop: false,
           child: Scaffold(
-            backgroundColor: isDark ? AppColors.bgDark : AppColors.lightBgBlue,
+            backgroundColor: prefs.getString("theme") != 'light' ? AppColors.bgDark : AppColors.lightBgBlue,
             body: Stack(
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    isDark ? 'assets/background_pattern.png' : 'assets/background_pattern_light.png',
+                    prefs.getString("theme") != 'light' ? 'assets/background_pattern.png' : 'assets/background_pattern_light.png',
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -102,16 +111,18 @@ class _MyScaffoldState extends State<MyScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = prefs.getString("theme") != 'light';
+    print("=========================Theme: ${prefs.getString("theme")} --=========================");
     return SafeArea(
       child: BlocProvider(
-        create: (context) => context.read<ThemeBloc>(),
+        create: (context) => themeBloc,
         child: BlocConsumer<ThemeBloc, ThemeState>(
-          bloc: context.read<ThemeBloc>(),
+          bloc: themeBloc,
           listener: (context, themeState) {
             // print(themeState);
             // showSuccessToast(themeState.toString());
             setState(() {
-              isDark = box.get("theme") == "dark";
+               isDark = prefs.getString("theme") != 'light';
             });
           },
           builder: (context, themeState) {
@@ -119,7 +130,6 @@ class _MyScaffoldState extends State<MyScaffold> {
               create: (context) => _bloc,
               child: BlocConsumer<ConnectionBloc, ConnectionBlocState>(
                 listener: (context, state) {
-                  print(state);
                   if (state is ConnectionFailureState) {
                     _showNoNetworkDialog();
                   } else if (state is ConnectionSuccess) {

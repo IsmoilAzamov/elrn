@@ -20,10 +20,15 @@ RegionEntity _$RegionEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RegionEntity {
+  @HiveField(0)
   String? get regionName => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get districtName => throw _privateConstructorUsedError;
+  @HiveField(2)
   int? get regionId => throw _privateConstructorUsedError;
+  @HiveField(3)
   int? get districtId => throw _privateConstructorUsedError;
+  @HiveField(4)
   int? get appId => throw _privateConstructorUsedError;
 
   /// Serializes this RegionEntity to a JSON map.
@@ -43,11 +48,11 @@ abstract class $RegionEntityCopyWith<$Res> {
       _$RegionEntityCopyWithImpl<$Res, RegionEntity>;
   @useResult
   $Res call(
-      {String? regionName,
-      String? districtName,
-      int? regionId,
-      int? districtId,
-      int? appId});
+      {@HiveField(0) String? regionName,
+      @HiveField(1) String? districtName,
+      @HiveField(2) int? regionId,
+      @HiveField(3) int? districtId,
+      @HiveField(4) int? appId});
 }
 
 /// @nodoc
@@ -105,11 +110,11 @@ abstract class _$$RegionEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? regionName,
-      String? districtName,
-      int? regionId,
-      int? districtId,
-      int? appId});
+      {@HiveField(0) String? regionName,
+      @HiveField(1) String? districtName,
+      @HiveField(2) int? regionId,
+      @HiveField(3) int? districtId,
+      @HiveField(4) int? appId});
 }
 
 /// @nodoc
@@ -160,24 +165,29 @@ class __$$RegionEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RegionEntityImpl implements _RegionEntity {
   const _$RegionEntityImpl(
-      {this.regionName,
-      this.districtName,
-      this.regionId,
-      this.districtId,
-      this.appId});
+      {@HiveField(0) this.regionName,
+      @HiveField(1) this.districtName,
+      @HiveField(2) this.regionId,
+      @HiveField(3) this.districtId,
+      @HiveField(4) this.appId});
 
   factory _$RegionEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$RegionEntityImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String? regionName;
   @override
+  @HiveField(1)
   final String? districtName;
   @override
+  @HiveField(2)
   final int? regionId;
   @override
+  @HiveField(3)
   final int? districtId;
   @override
+  @HiveField(4)
   final int? appId;
 
   @override
@@ -224,24 +234,29 @@ class _$RegionEntityImpl implements _RegionEntity {
 
 abstract class _RegionEntity implements RegionEntity {
   const factory _RegionEntity(
-      {final String? regionName,
-      final String? districtName,
-      final int? regionId,
-      final int? districtId,
-      final int? appId}) = _$RegionEntityImpl;
+      {@HiveField(0) final String? regionName,
+      @HiveField(1) final String? districtName,
+      @HiveField(2) final int? regionId,
+      @HiveField(3) final int? districtId,
+      @HiveField(4) final int? appId}) = _$RegionEntityImpl;
 
   factory _RegionEntity.fromJson(Map<String, dynamic> json) =
       _$RegionEntityImpl.fromJson;
 
   @override
+  @HiveField(0)
   String? get regionName;
   @override
+  @HiveField(1)
   String? get districtName;
   @override
+  @HiveField(2)
   int? get regionId;
   @override
+  @HiveField(3)
   int? get districtId;
   @override
+  @HiveField(4)
   int? get appId;
 
   /// Create a copy of RegionEntity

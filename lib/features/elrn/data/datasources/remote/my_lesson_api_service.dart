@@ -4,6 +4,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../domain/entities/certificate/certificate_entity.dart';
 import '../../../domain/entities/test/test_entity.dart';
+import '../../../domain/entities/test_result/test_result_entity.dart';
 
 part 'my_lesson_api_service.g.dart';
 
@@ -38,4 +39,7 @@ abstract class MyLessonApiService {
 
   @GET('/api/MyLesson/GetMyCertificates/{programId}')
   Future<HttpResponse<List<CertificateEntity>>> getMyCertificates(@Path('programId') String programId);
+
+  @GET('/api/MyLesson/GetMyTestResults')
+  Future<HttpResponse<List<TestResultEntity>>> getMyTestResults();
 }

@@ -20,30 +20,56 @@ ProgramEntity _$ProgramEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProgramEntity {
+  @HiveField(0)
   String? get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get title => throw _privateConstructorUsedError;
+  @HiveField(2)
   double? get price => throw _privateConstructorUsedError;
+  @HiveField(3)
   String? get description => throw _privateConstructorUsedError;
+  @HiveField(4)
   String? get docOn => throw _privateConstructorUsedError;
+  @HiveField(5)
   String? get docNumber => throw _privateConstructorUsedError;
+  @HiveField(6)
   String? get status => throw _privateConstructorUsedError;
+  @HiveField(7)
   String? get language => throw _privateConstructorUsedError;
+  @HiveField(8)
   int? get languageId => throw _privateConstructorUsedError;
+  @HiveField(9)
   int? get statusId => throw _privateConstructorUsedError;
+  @HiveField(10)
   int? get organizationId => throw _privateConstructorUsedError;
+  @HiveField(11)
   String? get organization => throw _privateConstructorUsedError;
+  @HiveField(12)
   int? get courseTopicChildCount => throw _privateConstructorUsedError;
+  @HiveField(13)
   int? get courseTopicCount => throw _privateConstructorUsedError;
+  @HiveField(14)
   String? get iconFileId => throw _privateConstructorUsedError;
+  @HiveField(15)
   String? get backgroundColorCode => throw _privateConstructorUsedError;
+  @HiveField(16)
   int? get courseCount => throw _privateConstructorUsedError;
+  @HiveField(17)
   double? get completionPercent => throw _privateConstructorUsedError;
+  @HiveField(18)
   int? get totalVideosCount => throw _privateConstructorUsedError;
+  @HiveField(19)
   int? get totalTestsCount => throw _privateConstructorUsedError;
+  @HiveField(20)
   bool? get canStart => throw _privateConstructorUsedError;
+  @HiveField(21)
   int? get totalCertificatesCount => throw _privateConstructorUsedError;
+  @HiveField(22)
   List<CourseEntity>? get courses => throw _privateConstructorUsedError;
+  @HiveField(23)
   List<ProfessionEntity>? get professions => throw _privateConstructorUsedError;
+  @HiveField(24)
+  String? get programDuration => throw _privateConstructorUsedError;
 
   /// Serializes this ProgramEntity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -62,30 +88,31 @@ abstract class $ProgramEntityCopyWith<$Res> {
       _$ProgramEntityCopyWithImpl<$Res, ProgramEntity>;
   @useResult
   $Res call(
-      {String? id,
-      String? title,
-      double? price,
-      String? description,
-      String? docOn,
-      String? docNumber,
-      String? status,
-      String? language,
-      int? languageId,
-      int? statusId,
-      int? organizationId,
-      String? organization,
-      int? courseTopicChildCount,
-      int? courseTopicCount,
-      String? iconFileId,
-      String? backgroundColorCode,
-      int? courseCount,
-      double? completionPercent,
-      int? totalVideosCount,
-      int? totalTestsCount,
-      bool? canStart,
-      int? totalCertificatesCount,
-      List<CourseEntity>? courses,
-      List<ProfessionEntity>? professions});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? title,
+      @HiveField(2) double? price,
+      @HiveField(3) String? description,
+      @HiveField(4) String? docOn,
+      @HiveField(5) String? docNumber,
+      @HiveField(6) String? status,
+      @HiveField(7) String? language,
+      @HiveField(8) int? languageId,
+      @HiveField(9) int? statusId,
+      @HiveField(10) int? organizationId,
+      @HiveField(11) String? organization,
+      @HiveField(12) int? courseTopicChildCount,
+      @HiveField(13) int? courseTopicCount,
+      @HiveField(14) String? iconFileId,
+      @HiveField(15) String? backgroundColorCode,
+      @HiveField(16) int? courseCount,
+      @HiveField(17) double? completionPercent,
+      @HiveField(18) int? totalVideosCount,
+      @HiveField(19) int? totalTestsCount,
+      @HiveField(20) bool? canStart,
+      @HiveField(21) int? totalCertificatesCount,
+      @HiveField(22) List<CourseEntity>? courses,
+      @HiveField(23) List<ProfessionEntity>? professions,
+      @HiveField(24) String? programDuration});
 }
 
 /// @nodoc
@@ -127,6 +154,7 @@ class _$ProgramEntityCopyWithImpl<$Res, $Val extends ProgramEntity>
     Object? totalCertificatesCount = freezed,
     Object? courses = freezed,
     Object? professions = freezed,
+    Object? programDuration = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -225,6 +253,10 @@ class _$ProgramEntityCopyWithImpl<$Res, $Val extends ProgramEntity>
           ? _value.professions
           : professions // ignore: cast_nullable_to_non_nullable
               as List<ProfessionEntity>?,
+      programDuration: freezed == programDuration
+          ? _value.programDuration
+          : programDuration // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -238,30 +270,31 @@ abstract class _$$ProgramEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
-      String? title,
-      double? price,
-      String? description,
-      String? docOn,
-      String? docNumber,
-      String? status,
-      String? language,
-      int? languageId,
-      int? statusId,
-      int? organizationId,
-      String? organization,
-      int? courseTopicChildCount,
-      int? courseTopicCount,
-      String? iconFileId,
-      String? backgroundColorCode,
-      int? courseCount,
-      double? completionPercent,
-      int? totalVideosCount,
-      int? totalTestsCount,
-      bool? canStart,
-      int? totalCertificatesCount,
-      List<CourseEntity>? courses,
-      List<ProfessionEntity>? professions});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? title,
+      @HiveField(2) double? price,
+      @HiveField(3) String? description,
+      @HiveField(4) String? docOn,
+      @HiveField(5) String? docNumber,
+      @HiveField(6) String? status,
+      @HiveField(7) String? language,
+      @HiveField(8) int? languageId,
+      @HiveField(9) int? statusId,
+      @HiveField(10) int? organizationId,
+      @HiveField(11) String? organization,
+      @HiveField(12) int? courseTopicChildCount,
+      @HiveField(13) int? courseTopicCount,
+      @HiveField(14) String? iconFileId,
+      @HiveField(15) String? backgroundColorCode,
+      @HiveField(16) int? courseCount,
+      @HiveField(17) double? completionPercent,
+      @HiveField(18) int? totalVideosCount,
+      @HiveField(19) int? totalTestsCount,
+      @HiveField(20) bool? canStart,
+      @HiveField(21) int? totalCertificatesCount,
+      @HiveField(22) List<CourseEntity>? courses,
+      @HiveField(23) List<ProfessionEntity>? professions,
+      @HiveField(24) String? programDuration});
 }
 
 /// @nodoc
@@ -301,6 +334,7 @@ class __$$ProgramEntityImplCopyWithImpl<$Res>
     Object? totalCertificatesCount = freezed,
     Object? courses = freezed,
     Object? professions = freezed,
+    Object? programDuration = freezed,
   }) {
     return _then(_$ProgramEntityImpl(
       id: freezed == id
@@ -399,6 +433,10 @@ class __$$ProgramEntityImplCopyWithImpl<$Res>
           ? _value._professions
           : professions // ignore: cast_nullable_to_non_nullable
               as List<ProfessionEntity>?,
+      programDuration: freezed == programDuration
+          ? _value.programDuration
+          : programDuration // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -407,30 +445,31 @@ class __$$ProgramEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProgramEntityImpl implements _ProgramEntity {
   _$ProgramEntityImpl(
-      {this.id,
-      this.title,
-      this.price,
-      this.description,
-      this.docOn,
-      this.docNumber,
-      this.status,
-      this.language,
-      this.languageId,
-      this.statusId,
-      this.organizationId,
-      this.organization,
-      this.courseTopicChildCount,
-      this.courseTopicCount,
-      this.iconFileId,
-      this.backgroundColorCode,
-      this.courseCount,
-      this.completionPercent,
-      this.totalVideosCount,
-      this.totalTestsCount,
-      this.canStart,
-      this.totalCertificatesCount,
-      final List<CourseEntity>? courses,
-      final List<ProfessionEntity>? professions})
+      {@HiveField(0) this.id,
+      @HiveField(1) this.title,
+      @HiveField(2) this.price,
+      @HiveField(3) this.description,
+      @HiveField(4) this.docOn,
+      @HiveField(5) this.docNumber,
+      @HiveField(6) this.status,
+      @HiveField(7) this.language,
+      @HiveField(8) this.languageId,
+      @HiveField(9) this.statusId,
+      @HiveField(10) this.organizationId,
+      @HiveField(11) this.organization,
+      @HiveField(12) this.courseTopicChildCount,
+      @HiveField(13) this.courseTopicCount,
+      @HiveField(14) this.iconFileId,
+      @HiveField(15) this.backgroundColorCode,
+      @HiveField(16) this.courseCount,
+      @HiveField(17) this.completionPercent,
+      @HiveField(18) this.totalVideosCount,
+      @HiveField(19) this.totalTestsCount,
+      @HiveField(20) this.canStart,
+      @HiveField(21) this.totalCertificatesCount,
+      @HiveField(22) final List<CourseEntity>? courses,
+      @HiveField(23) final List<ProfessionEntity>? professions,
+      @HiveField(24) this.programDuration})
       : _courses = courses,
         _professions = professions;
 
@@ -438,51 +477,74 @@ class _$ProgramEntityImpl implements _ProgramEntity {
       _$$ProgramEntityImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String? id;
   @override
+  @HiveField(1)
   final String? title;
   @override
+  @HiveField(2)
   final double? price;
   @override
+  @HiveField(3)
   final String? description;
   @override
+  @HiveField(4)
   final String? docOn;
   @override
+  @HiveField(5)
   final String? docNumber;
   @override
+  @HiveField(6)
   final String? status;
   @override
+  @HiveField(7)
   final String? language;
   @override
+  @HiveField(8)
   final int? languageId;
   @override
+  @HiveField(9)
   final int? statusId;
   @override
+  @HiveField(10)
   final int? organizationId;
   @override
+  @HiveField(11)
   final String? organization;
   @override
+  @HiveField(12)
   final int? courseTopicChildCount;
   @override
+  @HiveField(13)
   final int? courseTopicCount;
   @override
+  @HiveField(14)
   final String? iconFileId;
   @override
+  @HiveField(15)
   final String? backgroundColorCode;
   @override
+  @HiveField(16)
   final int? courseCount;
   @override
+  @HiveField(17)
   final double? completionPercent;
   @override
+  @HiveField(18)
   final int? totalVideosCount;
   @override
+  @HiveField(19)
   final int? totalTestsCount;
   @override
+  @HiveField(20)
   final bool? canStart;
   @override
+  @HiveField(21)
   final int? totalCertificatesCount;
   final List<CourseEntity>? _courses;
   @override
+  @HiveField(22)
   List<CourseEntity>? get courses {
     final value = _courses;
     if (value == null) return null;
@@ -493,6 +555,7 @@ class _$ProgramEntityImpl implements _ProgramEntity {
 
   final List<ProfessionEntity>? _professions;
   @override
+  @HiveField(23)
   List<ProfessionEntity>? get professions {
     final value = _professions;
     if (value == null) return null;
@@ -502,8 +565,12 @@ class _$ProgramEntityImpl implements _ProgramEntity {
   }
 
   @override
+  @HiveField(24)
+  final String? programDuration;
+
+  @override
   String toString() {
-    return 'ProgramEntity(id: $id, title: $title, price: $price, description: $description, docOn: $docOn, docNumber: $docNumber, status: $status, language: $language, languageId: $languageId, statusId: $statusId, organizationId: $organizationId, organization: $organization, courseTopicChildCount: $courseTopicChildCount, courseTopicCount: $courseTopicCount, iconFileId: $iconFileId, backgroundColorCode: $backgroundColorCode, courseCount: $courseCount, completionPercent: $completionPercent, totalVideosCount: $totalVideosCount, totalTestsCount: $totalTestsCount, canStart: $canStart, totalCertificatesCount: $totalCertificatesCount, courses: $courses, professions: $professions)';
+    return 'ProgramEntity(id: $id, title: $title, price: $price, description: $description, docOn: $docOn, docNumber: $docNumber, status: $status, language: $language, languageId: $languageId, statusId: $statusId, organizationId: $organizationId, organization: $organization, courseTopicChildCount: $courseTopicChildCount, courseTopicCount: $courseTopicCount, iconFileId: $iconFileId, backgroundColorCode: $backgroundColorCode, courseCount: $courseCount, completionPercent: $completionPercent, totalVideosCount: $totalVideosCount, totalTestsCount: $totalTestsCount, canStart: $canStart, totalCertificatesCount: $totalCertificatesCount, courses: $courses, professions: $professions, programDuration: $programDuration)';
   }
 
   @override
@@ -552,7 +619,9 @@ class _$ProgramEntityImpl implements _ProgramEntity {
                 other.totalCertificatesCount == totalCertificatesCount) &&
             const DeepCollectionEquality().equals(other._courses, _courses) &&
             const DeepCollectionEquality()
-                .equals(other._professions, _professions));
+                .equals(other._professions, _professions) &&
+            (identical(other.programDuration, programDuration) ||
+                other.programDuration == programDuration));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -582,7 +651,8 @@ class _$ProgramEntityImpl implements _ProgramEntity {
         canStart,
         totalCertificatesCount,
         const DeepCollectionEquality().hash(_courses),
-        const DeepCollectionEquality().hash(_professions)
+        const DeepCollectionEquality().hash(_professions),
+        programDuration
       ]);
 
   /// Create a copy of ProgramEntity
@@ -603,82 +673,110 @@ class _$ProgramEntityImpl implements _ProgramEntity {
 
 abstract class _ProgramEntity implements ProgramEntity {
   factory _ProgramEntity(
-      {final String? id,
-      final String? title,
-      final double? price,
-      final String? description,
-      final String? docOn,
-      final String? docNumber,
-      final String? status,
-      final String? language,
-      final int? languageId,
-      final int? statusId,
-      final int? organizationId,
-      final String? organization,
-      final int? courseTopicChildCount,
-      final int? courseTopicCount,
-      final String? iconFileId,
-      final String? backgroundColorCode,
-      final int? courseCount,
-      final double? completionPercent,
-      final int? totalVideosCount,
-      final int? totalTestsCount,
-      final bool? canStart,
-      final int? totalCertificatesCount,
-      final List<CourseEntity>? courses,
-      final List<ProfessionEntity>? professions}) = _$ProgramEntityImpl;
+      {@HiveField(0) final String? id,
+      @HiveField(1) final String? title,
+      @HiveField(2) final double? price,
+      @HiveField(3) final String? description,
+      @HiveField(4) final String? docOn,
+      @HiveField(5) final String? docNumber,
+      @HiveField(6) final String? status,
+      @HiveField(7) final String? language,
+      @HiveField(8) final int? languageId,
+      @HiveField(9) final int? statusId,
+      @HiveField(10) final int? organizationId,
+      @HiveField(11) final String? organization,
+      @HiveField(12) final int? courseTopicChildCount,
+      @HiveField(13) final int? courseTopicCount,
+      @HiveField(14) final String? iconFileId,
+      @HiveField(15) final String? backgroundColorCode,
+      @HiveField(16) final int? courseCount,
+      @HiveField(17) final double? completionPercent,
+      @HiveField(18) final int? totalVideosCount,
+      @HiveField(19) final int? totalTestsCount,
+      @HiveField(20) final bool? canStart,
+      @HiveField(21) final int? totalCertificatesCount,
+      @HiveField(22) final List<CourseEntity>? courses,
+      @HiveField(23) final List<ProfessionEntity>? professions,
+      @HiveField(24) final String? programDuration}) = _$ProgramEntityImpl;
 
   factory _ProgramEntity.fromJson(Map<String, dynamic> json) =
       _$ProgramEntityImpl.fromJson;
 
   @override
+  @HiveField(0)
   String? get id;
   @override
+  @HiveField(1)
   String? get title;
   @override
+  @HiveField(2)
   double? get price;
   @override
+  @HiveField(3)
   String? get description;
   @override
+  @HiveField(4)
   String? get docOn;
   @override
+  @HiveField(5)
   String? get docNumber;
   @override
+  @HiveField(6)
   String? get status;
   @override
+  @HiveField(7)
   String? get language;
   @override
+  @HiveField(8)
   int? get languageId;
   @override
+  @HiveField(9)
   int? get statusId;
   @override
+  @HiveField(10)
   int? get organizationId;
   @override
+  @HiveField(11)
   String? get organization;
   @override
+  @HiveField(12)
   int? get courseTopicChildCount;
   @override
+  @HiveField(13)
   int? get courseTopicCount;
   @override
+  @HiveField(14)
   String? get iconFileId;
   @override
+  @HiveField(15)
   String? get backgroundColorCode;
   @override
+  @HiveField(16)
   int? get courseCount;
   @override
+  @HiveField(17)
   double? get completionPercent;
   @override
+  @HiveField(18)
   int? get totalVideosCount;
   @override
+  @HiveField(19)
   int? get totalTestsCount;
   @override
+  @HiveField(20)
   bool? get canStart;
   @override
+  @HiveField(21)
   int? get totalCertificatesCount;
   @override
+  @HiveField(22)
   List<CourseEntity>? get courses;
   @override
+  @HiveField(23)
   List<ProfessionEntity>? get professions;
+  @override
+  @HiveField(24)
+  String? get programDuration;
 
   /// Create a copy of ProgramEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -694,21 +792,37 @@ CourseEntity _$CourseEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CourseEntity {
+  @HiveField(0)
   String? get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get title => throw _privateConstructorUsedError;
+  @HiveField(2)
   String? get details => throw _privateConstructorUsedError;
+  @HiveField(3)
   String? get docOn => throw _privateConstructorUsedError;
+  @HiveField(4)
   String? get releaseOn => throw _privateConstructorUsedError;
+  @HiveField(5)
   String? get docNumber => throw _privateConstructorUsedError;
+  @HiveField(6)
   String? get orderNumber => throw _privateConstructorUsedError;
+  @HiveField(7)
   int? get courseDuration => throw _privateConstructorUsedError;
+  @HiveField(8)
   String? get iconFileId => throw _privateConstructorUsedError;
+  @HiveField(9)
   int? get courseTypeId => throw _privateConstructorUsedError;
+  @HiveField(10)
   String? get courseType => throw _privateConstructorUsedError;
+  @HiveField(11)
   int? get courseTopicCount => throw _privateConstructorUsedError;
+  @HiveField(12)
   bool? get canStart => throw _privateConstructorUsedError;
+  @HiveField(13)
   double? get completionPercent => throw _privateConstructorUsedError;
+  @HiveField(14)
   int? get completedCourseTopicCount => throw _privateConstructorUsedError;
+  @HiveField(15)
   List<TopicEntity>? get topics => throw _privateConstructorUsedError;
 
   /// Serializes this CourseEntity to a JSON map.
@@ -728,22 +842,22 @@ abstract class $CourseEntityCopyWith<$Res> {
       _$CourseEntityCopyWithImpl<$Res, CourseEntity>;
   @useResult
   $Res call(
-      {String? id,
-      String? title,
-      String? details,
-      String? docOn,
-      String? releaseOn,
-      String? docNumber,
-      String? orderNumber,
-      int? courseDuration,
-      String? iconFileId,
-      int? courseTypeId,
-      String? courseType,
-      int? courseTopicCount,
-      bool? canStart,
-      double? completionPercent,
-      int? completedCourseTopicCount,
-      List<TopicEntity>? topics});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? title,
+      @HiveField(2) String? details,
+      @HiveField(3) String? docOn,
+      @HiveField(4) String? releaseOn,
+      @HiveField(5) String? docNumber,
+      @HiveField(6) String? orderNumber,
+      @HiveField(7) int? courseDuration,
+      @HiveField(8) String? iconFileId,
+      @HiveField(9) int? courseTypeId,
+      @HiveField(10) String? courseType,
+      @HiveField(11) int? courseTopicCount,
+      @HiveField(12) bool? canStart,
+      @HiveField(13) double? completionPercent,
+      @HiveField(14) int? completedCourseTopicCount,
+      @HiveField(15) List<TopicEntity>? topics});
 }
 
 /// @nodoc
@@ -856,22 +970,22 @@ abstract class _$$CourseEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
-      String? title,
-      String? details,
-      String? docOn,
-      String? releaseOn,
-      String? docNumber,
-      String? orderNumber,
-      int? courseDuration,
-      String? iconFileId,
-      int? courseTypeId,
-      String? courseType,
-      int? courseTopicCount,
-      bool? canStart,
-      double? completionPercent,
-      int? completedCourseTopicCount,
-      List<TopicEntity>? topics});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? title,
+      @HiveField(2) String? details,
+      @HiveField(3) String? docOn,
+      @HiveField(4) String? releaseOn,
+      @HiveField(5) String? docNumber,
+      @HiveField(6) String? orderNumber,
+      @HiveField(7) int? courseDuration,
+      @HiveField(8) String? iconFileId,
+      @HiveField(9) int? courseTypeId,
+      @HiveField(10) String? courseType,
+      @HiveField(11) int? courseTopicCount,
+      @HiveField(12) bool? canStart,
+      @HiveField(13) double? completionPercent,
+      @HiveField(14) int? completedCourseTopicCount,
+      @HiveField(15) List<TopicEntity>? topics});
 }
 
 /// @nodoc
@@ -977,59 +1091,75 @@ class __$$CourseEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CourseEntityImpl implements _CourseEntity {
   _$CourseEntityImpl(
-      {this.id,
-      this.title,
-      this.details,
-      this.docOn,
-      this.releaseOn,
-      this.docNumber,
-      this.orderNumber,
-      this.courseDuration,
-      this.iconFileId,
-      this.courseTypeId,
-      this.courseType,
-      this.courseTopicCount,
-      this.canStart,
-      this.completionPercent,
-      this.completedCourseTopicCount,
-      final List<TopicEntity>? topics})
+      {@HiveField(0) this.id,
+      @HiveField(1) this.title,
+      @HiveField(2) this.details,
+      @HiveField(3) this.docOn,
+      @HiveField(4) this.releaseOn,
+      @HiveField(5) this.docNumber,
+      @HiveField(6) this.orderNumber,
+      @HiveField(7) this.courseDuration,
+      @HiveField(8) this.iconFileId,
+      @HiveField(9) this.courseTypeId,
+      @HiveField(10) this.courseType,
+      @HiveField(11) this.courseTopicCount,
+      @HiveField(12) this.canStart,
+      @HiveField(13) this.completionPercent,
+      @HiveField(14) this.completedCourseTopicCount,
+      @HiveField(15) final List<TopicEntity>? topics})
       : _topics = topics;
 
   factory _$CourseEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$CourseEntityImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String? id;
   @override
+  @HiveField(1)
   final String? title;
   @override
+  @HiveField(2)
   final String? details;
   @override
+  @HiveField(3)
   final String? docOn;
   @override
+  @HiveField(4)
   final String? releaseOn;
   @override
+  @HiveField(5)
   final String? docNumber;
   @override
+  @HiveField(6)
   final String? orderNumber;
   @override
+  @HiveField(7)
   final int? courseDuration;
   @override
+  @HiveField(8)
   final String? iconFileId;
   @override
+  @HiveField(9)
   final int? courseTypeId;
   @override
+  @HiveField(10)
   final String? courseType;
   @override
+  @HiveField(11)
   final int? courseTopicCount;
   @override
+  @HiveField(12)
   final bool? canStart;
   @override
+  @HiveField(13)
   final double? completionPercent;
   @override
+  @HiveField(14)
   final int? completedCourseTopicCount;
   final List<TopicEntity>? _topics;
   @override
+  @HiveField(15)
   List<TopicEntity>? get topics {
     final value = _topics;
     if (value == null) return null;
@@ -1117,57 +1247,73 @@ class _$CourseEntityImpl implements _CourseEntity {
 
 abstract class _CourseEntity implements CourseEntity {
   factory _CourseEntity(
-      {final String? id,
-      final String? title,
-      final String? details,
-      final String? docOn,
-      final String? releaseOn,
-      final String? docNumber,
-      final String? orderNumber,
-      final int? courseDuration,
-      final String? iconFileId,
-      final int? courseTypeId,
-      final String? courseType,
-      final int? courseTopicCount,
-      final bool? canStart,
-      final double? completionPercent,
-      final int? completedCourseTopicCount,
-      final List<TopicEntity>? topics}) = _$CourseEntityImpl;
+      {@HiveField(0) final String? id,
+      @HiveField(1) final String? title,
+      @HiveField(2) final String? details,
+      @HiveField(3) final String? docOn,
+      @HiveField(4) final String? releaseOn,
+      @HiveField(5) final String? docNumber,
+      @HiveField(6) final String? orderNumber,
+      @HiveField(7) final int? courseDuration,
+      @HiveField(8) final String? iconFileId,
+      @HiveField(9) final int? courseTypeId,
+      @HiveField(10) final String? courseType,
+      @HiveField(11) final int? courseTopicCount,
+      @HiveField(12) final bool? canStart,
+      @HiveField(13) final double? completionPercent,
+      @HiveField(14) final int? completedCourseTopicCount,
+      @HiveField(15) final List<TopicEntity>? topics}) = _$CourseEntityImpl;
 
   factory _CourseEntity.fromJson(Map<String, dynamic> json) =
       _$CourseEntityImpl.fromJson;
 
   @override
+  @HiveField(0)
   String? get id;
   @override
+  @HiveField(1)
   String? get title;
   @override
+  @HiveField(2)
   String? get details;
   @override
+  @HiveField(3)
   String? get docOn;
   @override
+  @HiveField(4)
   String? get releaseOn;
   @override
+  @HiveField(5)
   String? get docNumber;
   @override
+  @HiveField(6)
   String? get orderNumber;
   @override
+  @HiveField(7)
   int? get courseDuration;
   @override
+  @HiveField(8)
   String? get iconFileId;
   @override
+  @HiveField(9)
   int? get courseTypeId;
   @override
+  @HiveField(10)
   String? get courseType;
   @override
+  @HiveField(11)
   int? get courseTopicCount;
   @override
+  @HiveField(12)
   bool? get canStart;
   @override
+  @HiveField(13)
   double? get completionPercent;
   @override
+  @HiveField(14)
   int? get completedCourseTopicCount;
   @override
+  @HiveField(15)
   List<TopicEntity>? get topics;
 
   /// Create a copy of CourseEntity
@@ -1184,12 +1330,19 @@ TopicEntity _$TopicEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TopicEntity {
+  @HiveField(0)
   String? get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get title => throw _privateConstructorUsedError;
+  @HiveField(2)
   String? get details => throw _privateConstructorUsedError;
+  @HiveField(3)
   String? get docOn => throw _privateConstructorUsedError;
+  @HiveField(4)
   String? get releaseOn => throw _privateConstructorUsedError;
+  @HiveField(5)
   String? get docNumber => throw _privateConstructorUsedError;
+  @HiveField(6)
   String? get orderNumber => throw _privateConstructorUsedError;
 
   /// Serializes this TopicEntity to a JSON map.
@@ -1209,13 +1362,13 @@ abstract class $TopicEntityCopyWith<$Res> {
       _$TopicEntityCopyWithImpl<$Res, TopicEntity>;
   @useResult
   $Res call(
-      {String? id,
-      String? title,
-      String? details,
-      String? docOn,
-      String? releaseOn,
-      String? docNumber,
-      String? orderNumber});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? title,
+      @HiveField(2) String? details,
+      @HiveField(3) String? docOn,
+      @HiveField(4) String? releaseOn,
+      @HiveField(5) String? docNumber,
+      @HiveField(6) String? orderNumber});
 }
 
 /// @nodoc
@@ -1283,13 +1436,13 @@ abstract class _$$TopicEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
-      String? title,
-      String? details,
-      String? docOn,
-      String? releaseOn,
-      String? docNumber,
-      String? orderNumber});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? title,
+      @HiveField(2) String? details,
+      @HiveField(3) String? docOn,
+      @HiveField(4) String? releaseOn,
+      @HiveField(5) String? docNumber,
+      @HiveField(6) String? orderNumber});
 }
 
 /// @nodoc
@@ -1350,30 +1503,37 @@ class __$$TopicEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TopicEntityImpl implements _TopicEntity {
   _$TopicEntityImpl(
-      {this.id,
-      this.title,
-      this.details,
-      this.docOn,
-      this.releaseOn,
-      this.docNumber,
-      this.orderNumber});
+      {@HiveField(0) this.id,
+      @HiveField(1) this.title,
+      @HiveField(2) this.details,
+      @HiveField(3) this.docOn,
+      @HiveField(4) this.releaseOn,
+      @HiveField(5) this.docNumber,
+      @HiveField(6) this.orderNumber});
 
   factory _$TopicEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$TopicEntityImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String? id;
   @override
+  @HiveField(1)
   final String? title;
   @override
+  @HiveField(2)
   final String? details;
   @override
+  @HiveField(3)
   final String? docOn;
   @override
+  @HiveField(4)
   final String? releaseOn;
   @override
+  @HiveField(5)
   final String? docNumber;
   @override
+  @HiveField(6)
   final String? orderNumber;
 
   @override
@@ -1421,30 +1581,37 @@ class _$TopicEntityImpl implements _TopicEntity {
 
 abstract class _TopicEntity implements TopicEntity {
   factory _TopicEntity(
-      {final String? id,
-      final String? title,
-      final String? details,
-      final String? docOn,
-      final String? releaseOn,
-      final String? docNumber,
-      final String? orderNumber}) = _$TopicEntityImpl;
+      {@HiveField(0) final String? id,
+      @HiveField(1) final String? title,
+      @HiveField(2) final String? details,
+      @HiveField(3) final String? docOn,
+      @HiveField(4) final String? releaseOn,
+      @HiveField(5) final String? docNumber,
+      @HiveField(6) final String? orderNumber}) = _$TopicEntityImpl;
 
   factory _TopicEntity.fromJson(Map<String, dynamic> json) =
       _$TopicEntityImpl.fromJson;
 
   @override
+  @HiveField(0)
   String? get id;
   @override
+  @HiveField(1)
   String? get title;
   @override
+  @HiveField(2)
   String? get details;
   @override
+  @HiveField(3)
   String? get docOn;
   @override
+  @HiveField(4)
   String? get releaseOn;
   @override
+  @HiveField(5)
   String? get docNumber;
   @override
+  @HiveField(6)
   String? get orderNumber;
 
   /// Create a copy of TopicEntity
@@ -1461,10 +1628,15 @@ ProfessionEntity _$ProfessionEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProfessionEntity {
+  @HiveField(0)
   String? get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get title => throw _privateConstructorUsedError;
+  @HiveField(2)
   String? get details => throw _privateConstructorUsedError;
+  @HiveField(3)
   String? get docOn => throw _privateConstructorUsedError;
+  @HiveField(4)
   String? get docNumber => throw _privateConstructorUsedError;
 
   /// Serializes this ProfessionEntity to a JSON map.
@@ -1484,11 +1656,11 @@ abstract class $ProfessionEntityCopyWith<$Res> {
       _$ProfessionEntityCopyWithImpl<$Res, ProfessionEntity>;
   @useResult
   $Res call(
-      {String? id,
-      String? title,
-      String? details,
-      String? docOn,
-      String? docNumber});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? title,
+      @HiveField(2) String? details,
+      @HiveField(3) String? docOn,
+      @HiveField(4) String? docNumber});
 }
 
 /// @nodoc
@@ -1546,11 +1718,11 @@ abstract class _$$ProfessionEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
-      String? title,
-      String? details,
-      String? docOn,
-      String? docNumber});
+      {@HiveField(0) String? id,
+      @HiveField(1) String? title,
+      @HiveField(2) String? details,
+      @HiveField(3) String? docOn,
+      @HiveField(4) String? docNumber});
 }
 
 /// @nodoc
@@ -1601,20 +1773,29 @@ class __$$ProfessionEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProfessionEntityImpl implements _ProfessionEntity {
   _$ProfessionEntityImpl(
-      {this.id, this.title, this.details, this.docOn, this.docNumber});
+      {@HiveField(0) this.id,
+      @HiveField(1) this.title,
+      @HiveField(2) this.details,
+      @HiveField(3) this.docOn,
+      @HiveField(4) this.docNumber});
 
   factory _$ProfessionEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProfessionEntityImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String? id;
   @override
+  @HiveField(1)
   final String? title;
   @override
+  @HiveField(2)
   final String? details;
   @override
+  @HiveField(3)
   final String? docOn;
   @override
+  @HiveField(4)
   final String? docNumber;
 
   @override
@@ -1659,24 +1840,29 @@ class _$ProfessionEntityImpl implements _ProfessionEntity {
 
 abstract class _ProfessionEntity implements ProfessionEntity {
   factory _ProfessionEntity(
-      {final String? id,
-      final String? title,
-      final String? details,
-      final String? docOn,
-      final String? docNumber}) = _$ProfessionEntityImpl;
+      {@HiveField(0) final String? id,
+      @HiveField(1) final String? title,
+      @HiveField(2) final String? details,
+      @HiveField(3) final String? docOn,
+      @HiveField(4) final String? docNumber}) = _$ProfessionEntityImpl;
 
   factory _ProfessionEntity.fromJson(Map<String, dynamic> json) =
       _$ProfessionEntityImpl.fromJson;
 
   @override
+  @HiveField(0)
   String? get id;
   @override
+  @HiveField(1)
   String? get title;
   @override
+  @HiveField(2)
   String? get details;
   @override
+  @HiveField(3)
   String? get docOn;
   @override
+  @HiveField(4)
   String? get docNumber;
 
   /// Create a copy of ProfessionEntity

@@ -5,7 +5,6 @@ import 'package:elrn/features/elrn/domain/repositories/my_course_repository.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/resources/datastate.dart';
-import '../../../domain/repositories/my_lesson_repository.dart';
 import 'documents_event.dart';
 import 'documents_state.dart';
 

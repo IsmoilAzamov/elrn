@@ -62,11 +62,15 @@ class LoginApiService {
 
  // String password = await box.get('password')??'';
  // int passcodeStatus = await box.get('passcodeStatus')??0;
+      String theme =  prefs.getString("theme")??'dark';
+      print('themeee: $theme');
        box.clear();
       // box.put('password', password);
       // box.put('passcodeStatus', passcodeStatus);
       prefs.setString('password', '');
       prefs.setInt('passcodeStatus', 0);
+      prefs.setString('theme', theme);
+      print('############################21323$theme############################################');
       const FlutterAppAuth appAuth = FlutterAppAuth();
       EndSessionResponse? result = await appAuth.endSession(
         EndSessionRequest(

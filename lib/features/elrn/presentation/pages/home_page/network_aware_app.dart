@@ -26,14 +26,17 @@ class _NetworkAwareAppState extends State<NetworkAwareApp> {
     // Listen for connectivity changes
     _subscription = InternetConnectionChecker().onStatusChange.listen((status) {
       setState(() {
-        _isConnected = status == InternetConnectionStatus.connected;
+        // _isConnected = status == InternetConnectionStatus.connected;
+        _isConnected = true;
       });
     });
   }
 
   Future<void> _checkInitialConnection() async {
-    _isConnected = await InternetConnectionChecker().hasConnection;
+    // _isConnected = await InternetConnectionChecker().hasConnection;
+    _isConnected = true;
     setState(() {});
+
   }
 
 
@@ -45,9 +48,7 @@ class _NetworkAwareAppState extends State<NetworkAwareApp> {
 
   @override
   Widget build(BuildContext context) {
-    return _isConnected ? HomePage(initialLogin: true, pageIndex: 0,) : Scaffold(
-        body: ErrorWidget(),
-    );
+    return HomePage(initialLogin: true, pageIndex: 0,);
   }
 }
 

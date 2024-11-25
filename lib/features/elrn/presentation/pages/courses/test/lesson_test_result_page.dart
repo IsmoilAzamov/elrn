@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elrn/core/constants/app_colors.dart';
-import 'package:elrn/features/elrn/presentation/pages/courses/test/start_lesson_test_page.dart';
 import 'package:elrn/features/elrn/presentation/pages/courses/video_lesson/video_lesson_page.dart';
 import 'package:elrn/features/elrn/presentation/widgets/continue_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entities/my_lesson/my_lesson_entity.dart';
 import '../../../widgets/my_scaffold.dart';
+import '../../../widgets/test_info_row.dart';
 
 class LessonTestResultPage extends StatelessWidget {
   final LessonTestEntity testResult;
@@ -17,7 +17,6 @@ class LessonTestResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     bool passed =
         (testResult.submissionLimit ?? 0) <= (testResult.completedPercent ?? ((testResult.correctAnswersCount ?? 0) / (testResult.totalQuestionCount ?? 1) * 100)) ? true : false;
-    print(passed);
     return MyScaffold(
       body: Container(
         padding: const EdgeInsets.all(16),
@@ -68,7 +67,7 @@ class LessonTestResultPage extends StatelessWidget {
                     customDivider(height: 1),
                     const SizedBox(height: 12),
                     testInfoRow(
-                        title: "${"result".tr()}: ${testResult.completedPercent ?? ((testResult.correctAnswersCount ?? 0) / (testResult.totalQuestionCount ?? 1) * 100)}%",
+                        title: "${"result".tr()}: ${(testResult.completedPercent ?? ((testResult.correctAnswersCount ?? 0) / (testResult.totalQuestionCount ?? 1) * 100)).toStringAsFixed(2)}%",
                         iconName: "bar_chart.png",
                         circleColor: passed ? AppColors.middleBlue : AppColors.redColor)
                   ],

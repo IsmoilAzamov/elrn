@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:elrn/features/elrn/data/datasources/local/personal_info_db_service.dart';
+import 'package:elrn/features/elrn/data/datasources/local/prograam_db_service.dart';
 import 'package:elrn/features/elrn/domain/repositories/account_repository.dart';
 import 'package:elrn/features/elrn/domain/repositories/my_program_repository.dart';
 import 'package:elrn/features/elrn/presentation/bloc/main/main_event.dart';
@@ -10,29 +12,38 @@ import '../../../../../core/resources/datastate.dart';
 class MainBloc extends Bloc<MainEvent, MainState> {
   final AccountRepository _accountRepository;
   final MyProgramRepository _myProgramRepository;
+  final ProgramsDBService _programsDBService;
+  final AuthInfoDBService _authInfoDBService;
 
-  MainBloc(this._accountRepository, this._myProgramRepository) : super(MainLoadingState()) {
-    {
-      on<MainLoadEvent>(_load);
-    }
+  MainBloc(this._accountRepository, this._myProgramRepository, this._programsDBService, this._authInfoDBService)
+      : super(MainLoadingState()) {
+    on<MainLoadEvent>(_load);
   }
 
-  _load(MainLoadEvent event, Emitter<MainState> emit) async {
+  Future<void> _load(MainLoadEvent event, Emitter<MainState> emit) async {
     emit(MainLoadingState());
-    var result = await _accountRepository.getAuthInfo();
-    final result2 = await _myProgramRepository.getPrograms();
-    if (result is DataSuccess && result.data != null) {
-      if(result2 is DataError && result2.data == null) {
-        showErrorToast(result2.error?.error.toString() ?? "something_went_wrong".tr());
-        emit(MainLoadedState(result.data!, []));
-        return;
-      }
-      emit(MainLoadedState(result.data!, result2.data?? []));
-      return;
-    } else if (result is DataError) {
-      emit(MainErrorState(result.error?.message ?? "something_went_wrong".tr()));
+
+    // Fetch authentication info
+    final authResult = await _accountRepository.getAuthInfo();
+    if (authResult is DataError) {
+      emit(MainErrorState(authResult.error?.message ?? "something_went_wrong".tr()));
       return;
     }
-    emit(MainErrorState("something_went_wrong".tr()));
+     _authInfoDBService.putAuthInfo(authResult.data!);
+
+    // Fetch programs
+    final programResult = await _myProgramRepository.getPrograms();
+    if (programResult is DataError) {
+      showErrorToast(programResult.error?.error.toString() ?? "something_went_wrong".tr());
+      // Emit loaded state with empty program list if there was an error fetching programs
+      emit(MainLoadedState(authResult.data!, []));
+      return;
+    }
+
+    // Save programs to the database
+    _programsDBService.putPrograms(programResult.data ?? []);
+
+    // Emit the final loaded state with both auth info and programs
+    emit(MainLoadedState(authResult.data!, programResult.data ?? []));
   }
 }

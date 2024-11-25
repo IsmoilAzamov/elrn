@@ -115,7 +115,7 @@ class TopicItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = box.get('theme') == "dark";
+    bool isDark = prefs.getString("theme") != 'light';
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
