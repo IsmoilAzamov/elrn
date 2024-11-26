@@ -11,15 +11,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../main.dart';
 import '../constants/app_colors.dart';
 
-
-void checkNewVersion(BuildContext context,
-    {required String currentVersion}) async {
+void checkNewVersion(BuildContext context, {required String currentVersion}) async {
   final String collectionName = Platform.isAndroid ? 'android' : 'ios';
-  final DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore
-      .instance
-      .collection(collectionName)
-      .doc('document')
-      .get();
+  final DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore.instance.collection(collectionName).doc('document').get();
   bool forceUpdate = doc.get('force') ?? false;
   String version = doc.get('version') ?? currentVersion;
   String text = doc.get('text') ?? '';
@@ -43,7 +37,7 @@ void checkNewVersion(BuildContext context,
               force: forceUpdate,
               description: text,
               version: version,
-              androidLink: 'https://play.google.com/store/apps/details?id=uz.kontrakt.eduuz',
+              androidLink: 'https://play.google.com/store/apps/',
               iosLink: 'https://play.google.com/store/apps/details?id=uz.kontrakt.eduuz',
             );
           });
@@ -64,13 +58,13 @@ Future<bool> isNewerVersion(String currentVersion, String version) async {
   int newVersion = int.parse(versionParts.join());
 
   if (newVersion > oldVersion) {
-    String dismissedTime = box.get('updateDismissedTime')??DateTime(2024, 1, 1).toString();
+    String dismissedTime = box.get('updateDismissedTime') ?? DateTime(2024, 1, 1).toString();
     String currentTime = DateTime.now().toString();
     if (dismissedTime.isNotEmpty) {
       DateTime dismissedDateTime = DateTime.parse(dismissedTime);
       DateTime currentDateTime = DateTime.parse(currentTime);
       Duration difference = currentDateTime.difference(dismissedDateTime);
-      if (difference.inHours < 24) {
+      if (difference.inHours < 12) {
         return false;
       }
     }
@@ -89,25 +83,35 @@ class UpdateDialog extends StatefulWidget {
   final String iosLink;
   final bool force;
 
-  const UpdateDialog(
-      {Key? key,
-        this.version = " ",
-        required this.description,
-        required this.androidLink,
-        required this.iosLink,
-        required this.force})
-      : super(key: key);
+  const UpdateDialog({
+    super.key,
+    required this.version,
+    required this.description,
+    required this.androidLink,
+    required this.iosLink,
+    required this.force,
+  });
 
   @override
   State<UpdateDialog> createState() => _UpdateDialogState();
 }
 
-class _UpdateDialogState extends State<UpdateDialog> {
-  double screenHeight = 0;
-  double screenWidth = 0;
+class _UpdateDialogState extends State<UpdateDialog> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _animationController.forward();
+  }
 
   @override
   void dispose() {
+    _animationController.dispose();
     if (widget.force) {
       SystemNavigator.pop();
     }
@@ -116,193 +120,138 @@ class _UpdateDialogState extends State<UpdateDialog> {
 
   @override
   Widget build(BuildContext context) {
-    screenHeight = MediaQuery.of(context).size.height;
-    screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.fastLinearToSlowEaseIn,
+    return ScaleTransition(
+      scale: CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeOutBack,
+      ),
       child: Dialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        child: content(context),
+        child: Container(
+          width: screenWidth * 0.85,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).brightness == Brightness.dark ? AppColors.bgDark : Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Custom Illustration or Icon
+              SizedBox(
+                height: 120,
+                child: Center(
+                  child: Image.asset(
+                    Theme.of(context).brightness == Brightness.dark ? 'assets/images/elrn_logo.png' : 'assets/images/elrn_logo_blue.png', // Replace with your asset
+                    height: 100,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "${'version'.tr()}: ",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    widget.version,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+
+              Text(
+                widget.description,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              // Buttons
+              Row(
+                children: [
+                  if (!widget.force)
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () {
+                          box.put('updateDismissedTime', DateTime.now().toString());
+                          Navigator.pop(context);
+                        },
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : AppColors.middleBlue,
+                          side: BorderSide(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          "later".tr().toUpperCase(),
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).brightness == Brightness.dark ? AppColors.bgDark : Colors.white, fontSize: 14),
+                        ),
+                      ),
+                    ),
+                  if (!widget.force) const SizedBox(width: 10),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        final link = Platform.isAndroid ? widget.androidLink : widget.iosLink;
+                        if (link.isNotEmpty) await launchUrl(Uri.parse(link));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        side: BorderSide(
+                          color: Theme.of(context).primaryColorLight,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: Text(
+                        "update".tr().toUpperCase(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).brightness == Brightness.dark ? Colors.white : AppColors.blueColor,
+                          fontSize: 14
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ),
       ),
-    );
-  }
-
-  Widget content(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          height: screenHeight * 0.1,
-          width: screenWidth / 1.5,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20),
-              topLeft: Radius.circular(20),
-            ),
-            color: AppColors.greenColor,
-          ),
-          child: const Center(
-            child: Icon(
-              Icons.error_outline_outlined,
-              color: Colors.white,
-              size: 40,
-            ),
-          ),
-        ),
-        Container(
-          height: screenHeight / 3,
-          width: screenWidth / 1.5,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(20),
-              bottomLeft: Radius.circular(20),
-            ),
-            color: Colors.white,
-          ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(20),
-              bottomLeft: Radius.circular(20),
-            ),
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 0,
-                    ),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'about_update'.tr(),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  widget.version,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: Scrollbar(
-                            child: Scrollbar(
-                              child: SingleChildScrollView(
-                                child: Text(
-                                  widget.description,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        !widget.force
-                            ? Expanded(
-                          child: GestureDetector(
-                            onTap: () async {
-                              box.put('updateDismissedTime',
-                                  DateTime.now().toString());
-
-                              if(mounted)  Navigator.pop(context);
-                            },
-                            child: Container(
-                              height: 40,
-                              width: 120,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.indigo,
-                                ),
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'later'.tr().toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.indigo,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                            : const SizedBox(),
-                        SizedBox(
-                          width: !widget.force ? 16 : 0,
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () async {
-                              if (Platform.isAndroid) {
-                                await launchUrl(Uri.parse(widget.androidLink));
-                              }
-                              if (Platform.isIOS) {
-                                await launchUrl(Uri.parse(widget.iosLink));
-                              }
-                            },
-                            child: Container(
-                              height: 40,
-                              width: 120,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: AppColors.greenColor,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'update'.tr().toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -64,7 +64,7 @@ class AboutAppPage extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   color: Theme.of(navigatorKey.currentContext!).brightness == Brightness.dark ? AppColors.darkBlue : AppColors.blueColor,

@@ -32,7 +32,7 @@ class ProgramEntity with _$ProgramEntity {
     @HiveField(21) int? totalCertificatesCount,
     @HiveField(22) List<CourseEntity>? courses,
     @HiveField(23) List<ProfessionEntity>? professions,
-    @HiveField(24) String? programDuration,
+    @HiveField(24) ProgramDuration? programDuration,
   }) = _ProgramEntity;
 
   factory ProgramEntity.fromJson(Map<String, dynamic> json) =>
@@ -96,4 +96,16 @@ class ProfessionEntity with _$ProfessionEntity {
 
   factory ProfessionEntity.fromJson(Map<String, dynamic> json) =>
       _$ProfessionEntityFromJson(json);
+}
+
+@freezed
+@HiveType(typeId: 10) // Assign unique typeId
+class ProgramDuration with _$ProgramDuration {
+  factory ProgramDuration({
+    @HiveField(0) int? month,
+    @HiveField(1) int? day,
+  }) = _ProgramDuration;
+
+  factory ProgramDuration.fromJson(Map<String, dynamic> json) =>
+      _$ProgramDurationFromJson(json);
 }

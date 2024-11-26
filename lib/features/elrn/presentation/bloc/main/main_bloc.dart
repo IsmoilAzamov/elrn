@@ -8,6 +8,8 @@ import 'package:elrn/features/elrn/presentation/bloc/main/main_state.dart';
 import 'package:elrn/features/elrn/presentation/widgets/toasts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/resources/datastate.dart';
+import '../../../../../core/widgets/update_dialog.dart';
+import '../../../../../main.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
   final AccountRepository _accountRepository;
@@ -22,6 +24,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
 
   Future<void> _load(MainLoadEvent event, Emitter<MainState> emit) async {
     emit(MainLoadingState());
+
 
     // Fetch authentication info
     final authResult = await _accountRepository.getAuthInfo();

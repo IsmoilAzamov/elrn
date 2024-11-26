@@ -18,6 +18,13 @@ final lightTheme = ThemeData(
     iconTheme: IconThemeData(color: Colors.white), // Set back icon color to white
   ),
 
+  pageTransitionsTheme:  PageTransitionsTheme(
+    builders: {
+      TargetPlatform.iOS: CustomPageTransitionBuilder(),
+      TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+    },
+  ),
+
   // Button Theme
   buttonTheme: const ButtonThemeData(
     buttonColor: AppColors.blueColor,
@@ -151,7 +158,7 @@ final lightTheme = ThemeData(
   ),
 
 
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: AppColors.lightBlue,
   cardColor: Colors.white,
   canvasColor: Colors.white,
   dividerColor: Colors.grey,
@@ -257,6 +264,7 @@ final darkTheme = ThemeData(
   primarySwatch: Colors.green,
   primaryColorDark: AppColors.bgDark,
   primaryColorLight: AppColors.lightBlue,
+
   fontFamily: "Montserrat",
   // AppBar Theme
   appBarTheme: const AppBarTheme(
@@ -282,6 +290,12 @@ final darkTheme = ThemeData(
     backgroundColor: Color(0xff001029),
   ),
 
+  pageTransitionsTheme:  PageTransitionsTheme(
+    builders: {
+      TargetPlatform.iOS: CustomPageTransitionBuilder(),
+      TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+    },
+  ),
   // Color Scheme
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
@@ -392,7 +406,7 @@ final darkTheme = ThemeData(
   ),
 
   // Icon Theme
-  scaffoldBackgroundColor: Colors.black,
+  scaffoldBackgroundColor: AppColors.bgDark,
   cardColor: Colors.black,
   canvasColor: Colors.black,
   dividerColor: Colors.grey,
@@ -474,3 +488,31 @@ final darkTheme = ThemeData(
     ),
   ),
 );
+
+
+
+
+
+
+
+
+
+class CustomPageTransitionBuilder extends PageTransitionsBuilder {
+  @override
+  Widget buildTransitions<T>(
+      PageRoute<T> route,
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    const curve = Curves.easeInOut;
+    var tween = Tween(begin: const Offset(1.0, 0.0), end: Offset.zero)
+        .chain(CurveTween(curve: curve));
+    var slideAnimation = animation.drive(tween);
+
+    return SlideTransition(
+      position: slideAnimation,
+      child: child,
+    );
+  }
+}

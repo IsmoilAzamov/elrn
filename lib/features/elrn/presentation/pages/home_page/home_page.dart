@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/widgets/update_dialog.dart';
 import '../../../../../di.dart';
 import '../../bloc/home/home_bloc.dart';
 import '../../widgets/success_bottom_sheet.dart';
@@ -45,6 +46,9 @@ class _HomePageState extends State<HomePage> {
     }
 
     super.initState();
+    checkNewVersion(navigatorKey.currentContext!, currentVersion: APP_VERSION);
+
+
 
     pages.addAll([
       ResultsPage(),

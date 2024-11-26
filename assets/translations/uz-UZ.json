@@ -102,7 +102,7 @@
   "contact_center": "Aloqa markazi",
   "about_app": "Ilova haqida",
   "ok": "OK",
-  "coming_soon": "Yakunlanmoqda",
+  "coming_soon": "Tez orada",
   "select_module": "Modulni tanlang",
   "select_lesson": "Darsni tanlang",
   "select_topic": "Mavzuni tanlang",
@@ -118,5 +118,12 @@
   "terms_of_use": "Foydalanish shartlari",
   "privacy_policy": "Maxfiylik siyosati",
   "no_saved_lessons": "Saqlangan darslar mavjud emas",
+  "are_you_going_to_call": "Qo'ng'iroq qilmoqchimisiz",
+  "open": "Ochish",
+  "lesson_progress": "O'zlashtirish ko'rsatgichi",
+  "about_update": "Yangilanish haqida",
+  "later": "Keyinroq",
+  "update": "Yangilash",
+"version": "Versiya",
   "continue": "Davom etish"
 }

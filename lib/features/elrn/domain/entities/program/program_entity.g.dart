@@ -41,7 +41,7 @@ class ProgramEntityAdapter extends TypeAdapter<ProgramEntity> {
       totalCertificatesCount: fields[21] as int?,
       courses: (fields[22] as List?)?.cast<CourseEntity>(),
       professions: (fields[23] as List?)?.cast<ProfessionEntity>(),
-      programDuration: fields[24] as String?,
+      programDuration: fields[24] as ProgramDuration?,
     );
   }
 
@@ -289,6 +289,43 @@ class ProfessionEntityAdapter extends TypeAdapter<ProfessionEntity> {
           typeId == other.typeId;
 }
 
+class ProgramDurationAdapter extends TypeAdapter<ProgramDuration> {
+  @override
+  final int typeId = 10;
+
+  @override
+  ProgramDuration read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return ProgramDuration(
+      month: fields[0] as int?,
+      day: fields[1] as int?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, ProgramDuration obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.month)
+      ..writeByte(1)
+      ..write(obj.day);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ProgramDurationAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
@@ -323,7 +360,10 @@ _$ProgramEntityImpl _$$ProgramEntityImplFromJson(Map<String, dynamic> json) =>
       professions: (json['professions'] as List<dynamic>?)
           ?.map((e) => ProfessionEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      programDuration: json['programDuration'] as String?,
+      programDuration: json['programDuration'] == null
+          ? null
+          : ProgramDuration.fromJson(
+              json['programDuration'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ProgramEntityImplToJson(_$ProgramEntityImpl instance) =>
@@ -438,4 +478,18 @@ Map<String, dynamic> _$$ProfessionEntityImplToJson(
       'details': instance.details,
       'docOn': instance.docOn,
       'docNumber': instance.docNumber,
+    };
+
+_$ProgramDurationImpl _$$ProgramDurationImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ProgramDurationImpl(
+      month: (json['month'] as num?)?.toInt(),
+      day: (json['day'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$ProgramDurationImplToJson(
+        _$ProgramDurationImpl instance) =>
+    <String, dynamic>{
+      'month': instance.month,
+      'day': instance.day,
     };

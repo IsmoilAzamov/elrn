@@ -155,13 +155,18 @@ class _ProfilePageState extends State<ProfilePage> {
                           // homeBloc.add(1);
                           Navigator.push(context, MaterialPageRoute(builder: (context) => ResultsPage2()));
                         }),
-                    customDivider(height: 1),
+
+                    if(authInfo.userName!="IHM581641171")
+                      customDivider(height: 1),
+                    if(authInfo.userName!="IHM581641171")
                     navigationRow(
                         title: "documents".tr(),
                         iconName: "document.png",
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => DocumentCoursesPage()));
                         }),
+
+
                     customDivider(height: 1),
                     navigationRow(
                         title: "saved_lessons".tr(),

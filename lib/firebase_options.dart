@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBjpRzNpcops-25SozE37q6DMZ1bodKcF8',
-    appId: '1:389200309765:android:6dc9907308a940a227366c',
-    messagingSenderId: '389200309765',
-    projectId: 'eduuz-3f94d',
-    storageBucket: 'eduuz-3f94d.appspot.com',
+    apiKey: 'AIzaSyDQwsWHi5QUJwgqY8tK0DdjkZ25-vNHJk4',
+    appId: '1:1093459290188:android:7f00caa45494027b8eace9',
+    messagingSenderId: '1093459290188',
+    projectId: 'e-learning-istc',
+    storageBucket: 'e-learning-istc.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA2d_ir-6xa5P7VRuTvtSgF5dy5gFw7uHw',
-    appId: '1:389200309765:ios:60758b2db7daee3b27366c',
-    messagingSenderId: '389200309765',
-    projectId: 'eduuz-3f94d',
-    storageBucket: 'eduuz-3f94d.appspot.com',
-    iosBundleId: 'uz.kontrakt.eduuz',
+    apiKey: 'AIzaSyCNvt2rD2iN5RRpn5gH1sa9Kce1oBtKfcQ',
+    appId: '1:1093459290188:ios:244b9881d470e88d8eace9',
+    messagingSenderId: '1093459290188',
+    projectId: 'e-learning-istc',
+    storageBucket: 'e-learning-istc.firebasestorage.app',
+    iosBundleId: 'uz.webase.elrn',
   );
 
 }

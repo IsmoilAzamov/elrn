@@ -33,7 +33,7 @@ Widget testInfoRow({required String title, required String iconName, Color? circ
 
 
 Widget navigationRow({required String title, required String iconName, Color? circleColor,  VoidCallback? onTap}) {
-  return GestureDetector(
+  return InkWell(
     onTap: onTap,
     child: Container(
       padding: const EdgeInsets.symmetric(vertical: 10),

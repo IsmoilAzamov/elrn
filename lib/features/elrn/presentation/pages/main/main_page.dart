@@ -126,18 +126,13 @@ class _MainPageState extends State<MainPage> {
         _bloc.add(MainLoadEvent());
       },
       child: Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height-24,
           padding: EdgeInsets.symmetric(horizontal: 0),
-          child: RefreshIndicator(
-            backgroundColor: AppColors.middleBlue,
-            color: Colors.white,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
 
-            onRefresh: () async {
-              _bloc.add(MainLoadEvent());
-            },
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height-32,
+              width: double.infinity,
 
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -241,11 +236,10 @@ class _MainPageState extends State<MainPage> {
                   sectionWidgets(state.authInfo, state.programs),
                   // sectionWidgets(),
                   // sectionWidgets(),
-
+                  const Spacer(),
                   const SizedBox(
-                    height: 100,
+                    height: 20,
                   ),
-
                   // ElevatedButton(
                   //   onPressed: () {
                   //     if (themeBloc.state is LightTheme) {
@@ -261,6 +255,7 @@ class _MainPageState extends State<MainPage> {
                   // ),
                 ],
               ),
+
             ),
           ),
         ),
@@ -436,7 +431,7 @@ class _MainPageState extends State<MainPage> {
                           fit: BoxFit.scaleDown,
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "${"duration".tr()}: ${item.programDuration ?? ""}",
+                            "${"duration".tr()}: ${(item.programDuration?.month??0)>0 ? "${item.programDuration?.month} ${"months".tr()}" : ""} ${(item.programDuration?.day??0)>0 ? "${item.programDuration?.day} ${"days".tr()}" : ""}",
                             maxLines: 1,
                             overflow: TextOverflow.visible,
                             style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.white),

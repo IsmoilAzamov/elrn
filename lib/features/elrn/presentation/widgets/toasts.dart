@@ -66,6 +66,7 @@ void showSuccessToast(String message) {
 }
 
 void showSimpleToast(String message) {
+  toastification.dismissAll();
   toastification.show(
     title: Text(
       message,

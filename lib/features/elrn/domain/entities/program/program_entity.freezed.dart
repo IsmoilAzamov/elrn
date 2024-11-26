@@ -69,7 +69,7 @@ mixin _$ProgramEntity {
   @HiveField(23)
   List<ProfessionEntity>? get professions => throw _privateConstructorUsedError;
   @HiveField(24)
-  String? get programDuration => throw _privateConstructorUsedError;
+  ProgramDuration? get programDuration => throw _privateConstructorUsedError;
 
   /// Serializes this ProgramEntity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -112,7 +112,9 @@ abstract class $ProgramEntityCopyWith<$Res> {
       @HiveField(21) int? totalCertificatesCount,
       @HiveField(22) List<CourseEntity>? courses,
       @HiveField(23) List<ProfessionEntity>? professions,
-      @HiveField(24) String? programDuration});
+      @HiveField(24) ProgramDuration? programDuration});
+
+  $ProgramDurationCopyWith<$Res>? get programDuration;
 }
 
 /// @nodoc
@@ -256,8 +258,22 @@ class _$ProgramEntityCopyWithImpl<$Res, $Val extends ProgramEntity>
       programDuration: freezed == programDuration
           ? _value.programDuration
           : programDuration // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ProgramDuration?,
     ) as $Val);
+  }
+
+  /// Create a copy of ProgramEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProgramDurationCopyWith<$Res>? get programDuration {
+    if (_value.programDuration == null) {
+      return null;
+    }
+
+    return $ProgramDurationCopyWith<$Res>(_value.programDuration!, (value) {
+      return _then(_value.copyWith(programDuration: value) as $Val);
+    });
   }
 }
 
@@ -294,7 +310,10 @@ abstract class _$$ProgramEntityImplCopyWith<$Res>
       @HiveField(21) int? totalCertificatesCount,
       @HiveField(22) List<CourseEntity>? courses,
       @HiveField(23) List<ProfessionEntity>? professions,
-      @HiveField(24) String? programDuration});
+      @HiveField(24) ProgramDuration? programDuration});
+
+  @override
+  $ProgramDurationCopyWith<$Res>? get programDuration;
 }
 
 /// @nodoc
@@ -436,7 +455,7 @@ class __$$ProgramEntityImplCopyWithImpl<$Res>
       programDuration: freezed == programDuration
           ? _value.programDuration
           : programDuration // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ProgramDuration?,
     ));
   }
 }
@@ -566,7 +585,7 @@ class _$ProgramEntityImpl implements _ProgramEntity {
 
   @override
   @HiveField(24)
-  final String? programDuration;
+  final ProgramDuration? programDuration;
 
   @override
   String toString() {
@@ -673,31 +692,32 @@ class _$ProgramEntityImpl implements _ProgramEntity {
 
 abstract class _ProgramEntity implements ProgramEntity {
   factory _ProgramEntity(
-      {@HiveField(0) final String? id,
-      @HiveField(1) final String? title,
-      @HiveField(2) final double? price,
-      @HiveField(3) final String? description,
-      @HiveField(4) final String? docOn,
-      @HiveField(5) final String? docNumber,
-      @HiveField(6) final String? status,
-      @HiveField(7) final String? language,
-      @HiveField(8) final int? languageId,
-      @HiveField(9) final int? statusId,
-      @HiveField(10) final int? organizationId,
-      @HiveField(11) final String? organization,
-      @HiveField(12) final int? courseTopicChildCount,
-      @HiveField(13) final int? courseTopicCount,
-      @HiveField(14) final String? iconFileId,
-      @HiveField(15) final String? backgroundColorCode,
-      @HiveField(16) final int? courseCount,
-      @HiveField(17) final double? completionPercent,
-      @HiveField(18) final int? totalVideosCount,
-      @HiveField(19) final int? totalTestsCount,
-      @HiveField(20) final bool? canStart,
-      @HiveField(21) final int? totalCertificatesCount,
-      @HiveField(22) final List<CourseEntity>? courses,
-      @HiveField(23) final List<ProfessionEntity>? professions,
-      @HiveField(24) final String? programDuration}) = _$ProgramEntityImpl;
+          {@HiveField(0) final String? id,
+          @HiveField(1) final String? title,
+          @HiveField(2) final double? price,
+          @HiveField(3) final String? description,
+          @HiveField(4) final String? docOn,
+          @HiveField(5) final String? docNumber,
+          @HiveField(6) final String? status,
+          @HiveField(7) final String? language,
+          @HiveField(8) final int? languageId,
+          @HiveField(9) final int? statusId,
+          @HiveField(10) final int? organizationId,
+          @HiveField(11) final String? organization,
+          @HiveField(12) final int? courseTopicChildCount,
+          @HiveField(13) final int? courseTopicCount,
+          @HiveField(14) final String? iconFileId,
+          @HiveField(15) final String? backgroundColorCode,
+          @HiveField(16) final int? courseCount,
+          @HiveField(17) final double? completionPercent,
+          @HiveField(18) final int? totalVideosCount,
+          @HiveField(19) final int? totalTestsCount,
+          @HiveField(20) final bool? canStart,
+          @HiveField(21) final int? totalCertificatesCount,
+          @HiveField(22) final List<CourseEntity>? courses,
+          @HiveField(23) final List<ProfessionEntity>? professions,
+          @HiveField(24) final ProgramDuration? programDuration}) =
+      _$ProgramEntityImpl;
 
   factory _ProgramEntity.fromJson(Map<String, dynamic> json) =
       _$ProgramEntityImpl.fromJson;
@@ -776,7 +796,7 @@ abstract class _ProgramEntity implements ProgramEntity {
   List<ProfessionEntity>? get professions;
   @override
   @HiveField(24)
-  String? get programDuration;
+  ProgramDuration? get programDuration;
 
   /// Create a copy of ProgramEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -1870,5 +1890,179 @@ abstract class _ProfessionEntity implements ProfessionEntity {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProfessionEntityImplCopyWith<_$ProfessionEntityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ProgramDuration _$ProgramDurationFromJson(Map<String, dynamic> json) {
+  return _ProgramDuration.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ProgramDuration {
+  @HiveField(0)
+  int? get month => throw _privateConstructorUsedError;
+  @HiveField(1)
+  int? get day => throw _privateConstructorUsedError;
+
+  /// Serializes this ProgramDuration to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of ProgramDuration
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ProgramDurationCopyWith<ProgramDuration> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProgramDurationCopyWith<$Res> {
+  factory $ProgramDurationCopyWith(
+          ProgramDuration value, $Res Function(ProgramDuration) then) =
+      _$ProgramDurationCopyWithImpl<$Res, ProgramDuration>;
+  @useResult
+  $Res call({@HiveField(0) int? month, @HiveField(1) int? day});
+}
+
+/// @nodoc
+class _$ProgramDurationCopyWithImpl<$Res, $Val extends ProgramDuration>
+    implements $ProgramDurationCopyWith<$Res> {
+  _$ProgramDurationCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ProgramDuration
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? month = freezed,
+    Object? day = freezed,
+  }) {
+    return _then(_value.copyWith(
+      month: freezed == month
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int?,
+      day: freezed == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ProgramDurationImplCopyWith<$Res>
+    implements $ProgramDurationCopyWith<$Res> {
+  factory _$$ProgramDurationImplCopyWith(_$ProgramDurationImpl value,
+          $Res Function(_$ProgramDurationImpl) then) =
+      __$$ProgramDurationImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({@HiveField(0) int? month, @HiveField(1) int? day});
+}
+
+/// @nodoc
+class __$$ProgramDurationImplCopyWithImpl<$Res>
+    extends _$ProgramDurationCopyWithImpl<$Res, _$ProgramDurationImpl>
+    implements _$$ProgramDurationImplCopyWith<$Res> {
+  __$$ProgramDurationImplCopyWithImpl(
+      _$ProgramDurationImpl _value, $Res Function(_$ProgramDurationImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ProgramDuration
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? month = freezed,
+    Object? day = freezed,
+  }) {
+    return _then(_$ProgramDurationImpl(
+      month: freezed == month
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int?,
+      day: freezed == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ProgramDurationImpl implements _ProgramDuration {
+  _$ProgramDurationImpl({@HiveField(0) this.month, @HiveField(1) this.day});
+
+  factory _$ProgramDurationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProgramDurationImplFromJson(json);
+
+  @override
+  @HiveField(0)
+  final int? month;
+  @override
+  @HiveField(1)
+  final int? day;
+
+  @override
+  String toString() {
+    return 'ProgramDuration(month: $month, day: $day)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProgramDurationImpl &&
+            (identical(other.month, month) || other.month == month) &&
+            (identical(other.day, day) || other.day == day));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, month, day);
+
+  /// Create a copy of ProgramDuration
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProgramDurationImplCopyWith<_$ProgramDurationImpl> get copyWith =>
+      __$$ProgramDurationImplCopyWithImpl<_$ProgramDurationImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ProgramDurationImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ProgramDuration implements ProgramDuration {
+  factory _ProgramDuration(
+      {@HiveField(0) final int? month,
+      @HiveField(1) final int? day}) = _$ProgramDurationImpl;
+
+  factory _ProgramDuration.fromJson(Map<String, dynamic> json) =
+      _$ProgramDurationImpl.fromJson;
+
+  @override
+  @HiveField(0)
+  int? get month;
+  @override
+  @HiveField(1)
+  int? get day;
+
+  /// Create a copy of ProgramDuration
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ProgramDurationImplCopyWith<_$ProgramDurationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

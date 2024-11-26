@@ -482,6 +482,7 @@ showElrnDialog({
               Image.asset(
                 imageUrl ?? "assets/images/finish_test.png",
                 width: MediaQuery.of(context).size.width * 0.5,
+
               ),
               const SizedBox(height: 12),
               Text(

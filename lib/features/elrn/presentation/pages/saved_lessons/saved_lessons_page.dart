@@ -10,6 +10,7 @@ import '../../bloc/modules/topics/topic_children/topic_contents/topic_contents_s
 import '../../widgets/app_bar.dart';
 import '../../widgets/error_widget.dart';
 import '../../widgets/my_scaffold.dart';
+import '../../widgets/no_item_widget.dart';
 import '../courses/modules/topics/course_topic_contents/course_topic_contents_page.dart';
 
 class SavedLessonsPage extends StatefulWidget {
@@ -83,19 +84,14 @@ class _SavedLessonsPageState extends State<SavedLessonsPage> {
   Widget _loadedUI(List<dynamic> videoLessons) {
     print(videoLessons.length);
     if (videoLessons.isEmpty) {
-      return Column(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-          Container(
-            padding: const EdgeInsets.all(16.0),
-            width: double.infinity,
-            child: Text(
-              "no_saved_lessons".tr(),
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            ),
-          ),
-        ],
+      return SizedBox(
+        height: MediaQuery.of(context).size.height*0.85,
+        child: noItemWidget(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          text: "no_saved_lessons".tr(),
+        ),
       );
 
     }
@@ -105,7 +101,7 @@ class _SavedLessonsPageState extends State<SavedLessonsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (videoLessons.any((element) => element.isVideoClip == true))
+            if (videoLessons.any((element) => element.isVideoClip == false))
               Padding(
                 padding: const EdgeInsets.only(top: 12.0),
                 child: Text(
@@ -131,7 +127,7 @@ class _SavedLessonsPageState extends State<SavedLessonsPage> {
                 }
               },
             ),
-            if (videoLessons.any((element) => element.isVideoClip == false))
+            if (videoLessons.any((element) => element.isVideoClip == true))
               Padding(
                 padding: const EdgeInsets.only(top: 12.0),
                 child: Text(

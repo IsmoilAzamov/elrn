@@ -123,7 +123,7 @@ class _VideoLessonPageState extends State<VideoLessonPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 12),
+            // const SizedBox(height: 12),
             Container(
               height: 200,
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
@@ -136,6 +136,7 @@ class _VideoLessonPageState extends State<VideoLessonPage> {
                   offset: const Offset(2, 5),
                 ),
               ]),
+
               child: Card(
                 margin: EdgeInsets.zero,
                 elevation: 4,

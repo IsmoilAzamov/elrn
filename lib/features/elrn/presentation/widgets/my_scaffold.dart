@@ -1,13 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../di.dart';
-import '../bloc/connection/connection_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../main.dart';
-import '../bloc/connection/connection_state.dart';
-import '../bloc/theme/theme_bloc.dart';
 
 class MyScaffold extends StatefulWidget {
   final AppBar? appBar;
@@ -34,135 +27,45 @@ class MyScaffold extends StatefulWidget {
 }
 
 class _MyScaffoldState extends State<MyScaffold> {
-  bool _isDialogVisible = false;
-
-  final _bloc = sl<ConnectionBloc>();
 
 
   @override
   void initState() {
     super.initState();
     // Initialize the subscription
-
   }
 
-  void _showNoNetworkDialog() {
-    if (!_isDialogVisible) {
-      _isDialogVisible = true;
-      showDialog(
-        context: context,
 
-        barrierDismissible: false,
-        builder: (context) => PopScope(
-          canPop: false,
-          child: Scaffold(
-            backgroundColor: prefs.getString("theme") != 'light' ? AppColors.bgDark : AppColors.lightBgBlue,
-            body: Stack(
-              children: [
-                Positioned.fill(
-                  child: Image.asset(
-                    prefs.getString("theme") != 'light' ? 'assets/background_pattern.png' : 'assets/background_pattern_light.png',
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/images/no_internet.png',
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          height: MediaQuery.of(context).size.width * 0.5,
-                        ),
-                        const SizedBox(height: 32),
-                        Text(
-                          "network_connection_lost_try_again".tr(),
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          "check_internet_connection".tr(),
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 50),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-  }
-
-  void _closeNoNetworkDialog() {
-    if (_isDialogVisible) {
-      Navigator.of(context, rootNavigator: true).pop();
-      _isDialogVisible = false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     bool isDark = prefs.getString("theme") != 'light';
     print("=========================Theme: ${prefs.getString("theme")} --=========================");
     return SafeArea(
-      child: BlocProvider(
-        create: (context) => themeBloc,
-        child: BlocConsumer<ThemeBloc, ThemeState>(
-          bloc: themeBloc,
-          listener: (context, themeState) {
-            // print(themeState);
-            // showSuccessToast(themeState.toString());
-            setState(() {
-               isDark = prefs.getString("theme") != 'light';
-            });
-          },
-          builder: (context, themeState) {
-            return BlocProvider(
-              create: (context) => _bloc,
-              child: BlocConsumer<ConnectionBloc, ConnectionBlocState>(
-                listener: (context, state) {
-                  if (state is ConnectionFailureState) {
-                    _showNoNetworkDialog();
-                  } else if (state is ConnectionSuccess) {
-                    _closeNoNetworkDialog();
-                  }
-                },
-                builder: (context, state) {
-                  return Scaffold(
-                    key: widget.key,
-                    backgroundColor: isDark ? AppColors.bgDark : AppColors.lightBgBlue,
-                    appBar: widget.appBar,
-                    resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-                    body: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Image.asset(
-                            isDark ? 'assets/background_pattern.png' : 'assets/background_pattern_light.png',
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        widget.body ?? Container(),
-                      ],
-                    ),
-                    floatingActionButton: widget.floatingActionButton,
-                    bottomNavigationBar: widget.bottomNavigationBar,
-                    bottomSheet: widget.bottomSheet,
-                  );
-                },
+      child: Container( // Wrap the entire Scaffold with a Container
+        color: isDark ? AppColors.bgDark : AppColors.lightBgBlue, // Ensure no black is visible
+        child: Scaffold(
+          key: widget.key,
+          backgroundColor: Colors.transparent, // Set to transparent since the Container handles it
+          appBar: widget.appBar,
+          resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+          body: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  isDark ? 'assets/background_pattern.png' : 'assets/background_pattern_light.png',
+                  fit: BoxFit.fill,
+                ),
               ),
-            );
-          },
+              widget.body ?? Container(),
+            ],
+          ),
+          floatingActionButton: widget.floatingActionButton,
+          bottomNavigationBar: widget.bottomNavigationBar,
+          bottomSheet: widget.bottomSheet,
         ),
       ),
     );
   }
+
 }

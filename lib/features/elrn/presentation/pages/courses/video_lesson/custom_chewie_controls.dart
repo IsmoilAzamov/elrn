@@ -77,7 +77,8 @@ class _CustomChewieControlsState extends State<CustomChewieControls> {
                             "$LMS_DOMAIN/api/VideoLesson/DownloadFile/${widget.videoThumbnailId}",
                           ),
                           fit: BoxFit.cover,
-                        ):null)
+                        )
+                      : null)
                   : null),
           child: Stack(
             children: [
@@ -90,7 +91,11 @@ class _CustomChewieControlsState extends State<CustomChewieControls> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.replay_10, color: Colors.white,size: 32,),
+                        icon: const Icon(
+                          Icons.replay_10,
+                          color: Colors.white,
+                          size: 32,
+                        ),
                         onPressed: () {
                           if (!_controlsVisible) {
                             _resetHideControlsTimer();
@@ -125,17 +130,17 @@ class _CustomChewieControlsState extends State<CustomChewieControls> {
                               color: AppColors.bgDark.withOpacity(0.5),
                               border: Border.all(color: Colors.green),
                             ),
-                            child: Icon(
-                              videoPlayerController.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                              color: Colors.white,
-                              size: 32
-                            ),
+                            child: Icon(videoPlayerController.value.isPlaying ? Icons.pause : Icons.play_arrow, color: Colors.white, size: 32),
                           ),
                         ),
                       ),
                       const SizedBox(width: 10),
                       IconButton(
-                        icon: const Icon(Icons.forward_10, color: Colors.white,size: 32,),
+                        icon: const Icon(
+                          Icons.forward_10,
+                          color: Colors.white,
+                          size: 32,
+                        ),
                         onPressed: () {
                           if (!_controlsVisible) {
                             _resetHideControlsTimer();
@@ -218,4 +223,3 @@ class _CustomChewieControlsState extends State<CustomChewieControls> {
         : '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 }
-

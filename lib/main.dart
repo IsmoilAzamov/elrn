@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:chewie/chewie.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -9,6 +10,8 @@ import 'package:elrn/features/elrn/domain/entities/my_lesson/my_lesson_entity.da
 import 'package:elrn/features/elrn/presentation/pages/courses/modules/topics/course_topic_contents/course_topic_contents_page.dart';
 import 'package:elrn/features/elrn/presentation/pages/settings/language_page.dart';
 import 'package:elrn/features/elrn/presentation/pages/start/start_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toastification/toastification.dart';
 
 import 'core/constants/app_colors.dart';
+import 'core/logs/write_logs_to_storage.dart';
 import 'core/theme/theme_data.dart';
 import 'di.dart';
 import 'features/elrn/domain/entities/program/program_entity.dart';
@@ -24,11 +28,12 @@ import 'features/elrn/presentation/bloc/theme/theme_bloc.dart';
 import 'features/elrn/presentation/pages/home_page/home_page.dart';
 import 'features/elrn/presentation/pages/start/login_oauth2_page.dart';
 import 'features/elrn/presentation/pages/start/onboarding_page.dart';
+import 'firebase_options.dart';
 
 late SharedPreferences prefs;
 ChewieController? chewieController;
 
-const String APP_VERSION = '1.2.0';
+const String APP_VERSION = '0.0.1';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<ScaffoldState> myScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -41,46 +46,46 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
   await Hive.initFlutter();
   await registerAdapters();
   prefs = await SharedPreferences.getInstance();
   box = await Hive.openBox('elrn');
 
-  // //FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-  // await Future.delayed(const Duration(seconds: 1));
-  // try {
-  //   const fatalError = true;
-  //   FlutterError.onError = (errorDetails) {
-  //     writeLogsToStorage("${errorDetails.exception.toString()}\n${errorDetails.stack}");
-  //     if (fatalError) {
-  //       // If you want to record a "fatal" exception
-  //       FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  //       // ignore: dead_code
-  //     } else {
-  //       // If you want to record a "non-fatal" exception
-  //       FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
-  //     }
-  //   };
-  //   // Async exceptions
-  //   PlatformDispatcher.instance.onError = (error, stack) {
-  //     writeLogsToStorage("${error.toString()}\n${stack.toString()}");
-  //     if (fatalError) {
-  //       // If you want to record a "fatal" exception
-  //       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-  //       // ignore: dead_code
-  //     } else {
-  //       // If you want to record a "non-fatal" exception
-  //       FirebaseCrashlytics.instance.recordError(error, stack);
-  //     }
-  //     return true;
-  //   };
-  //
-  // } catch (e) {
-  //   writeLogsToStorage("initilaization error ====================================================================$e");
-  // }
+  //FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  await Future.delayed(const Duration(seconds: 1));
+  try {
+    const fatalError = true;
+    FlutterError.onError = (errorDetails) {
+      writeLogsToStorage("${errorDetails.exception.toString()}\n${errorDetails.stack}");
+      if (fatalError) {
+        // If you want to record a "fatal" exception
+        FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+        // ignore: dead_code
+      } else {
+        // If you want to record a "non-fatal" exception
+        FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+      }
+    };
+    // Async exceptions
+    PlatformDispatcher.instance.onError = (error, stack) {
+      writeLogsToStorage("${error.toString()}\n${stack.toString()}");
+      if (fatalError) {
+        // If you want to record a "fatal" exception
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        // ignore: dead_code
+      } else {
+        // If you want to record a "non-fatal" exception
+        FirebaseCrashlytics.instance.recordError(error, stack);
+      }
+      return true;
+    };
+
+  } catch (e) {
+    writeLogsToStorage("initilaization error ====================================================================$e");
+  }
 
   await initializeDependencies();
   //if system is in dark mode themeData = darkTheme else lightTheme
@@ -115,8 +120,9 @@ Future<void> registerAdapters() async {
   Hive.registerAdapter(VideoFileEntityAdapter());
   Hive.registerAdapter(AuthInfoEntityAdapter());
   Hive.registerAdapter(RegionEntityAdapter());
+  Hive.registerAdapter(ProgramDurationAdapter());
 
-  //last hiveTypeId = 9
+  //last hiveTypeId = 10
 }
 
 class MyApp extends StatefulWidget {
@@ -156,6 +162,7 @@ class _MyAppState extends State<MyApp> {
             });
           },
           builder: (context, state) {
+            // writeLogsToStorage("RunApp theme: ${prefs.getString("theme")}");
             return ToastificationWrapper(
               child: MaterialApp(
                 locale: context.locale,
@@ -165,10 +172,12 @@ class _MyAppState extends State<MyApp> {
                 themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
                 title: 'E-learning',
                 theme: isDark ? darkTheme : lightTheme,
+
                 debugShowCheckedModeBanner: false,
                 navigatorKey: navigatorKey,
                 routes: routes,
                 home: getStartPage(),
+                color: isDark ? AppColors.bgDark : AppColors.blueColor,
               ),
             );
           }),

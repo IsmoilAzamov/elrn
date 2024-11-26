@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1093459290188",
+    "project_id": "e-learning-istc",
+    "storage_bucket": "e-learning-istc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093459290188:android:7f00caa45494027b8eace9",
+        "android_client_info": {
+          "package_name": "uz.istc.elrn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQwsWHi5QUJwgqY8tK0DdjkZ25-vNHJk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

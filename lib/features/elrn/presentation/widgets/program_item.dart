@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../main.dart';
 import '../../domain/entities/program/program_entity.dart';
-import '../pages/main/main_page.dart';
 
 class ProgramItem extends StatelessWidget {
   const ProgramItem({super.key, required this.item,   this.showProgress});
@@ -109,7 +108,7 @@ class ProgramItem extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.35,
                         child: FittedBox(
                           child: Text(
-                            "${"duration".tr()}: ${item.programDuration ?? ""}",
+                            "${"duration".tr()}: ${(item.programDuration?.month??0)>0 ? "${item.programDuration?.month} ${"months".tr()}" : ""} ${(item.programDuration?.day??0)>0 ? "${item.programDuration?.day} ${"days".tr()}" : ""}",
                             maxLines: 1,
                             overflow: TextOverflow.visible,
                             style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.white),

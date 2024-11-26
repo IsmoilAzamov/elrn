@@ -168,7 +168,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       title: "telegram".tr(),
                       iconUrl: "assets/icons/send.png",
                       onTap: () {
-                        showSimpleToast("coming_soon".tr());
+                        showElrnDialog(context: context, onConfirm: (){
+                          launchUrl(Uri.parse("https://t.me/ihma_markazi"));
+                        }, title: "${"open".tr()}: \nhttps://t.me/ihma_markazi");
+
                       }),
                   const SizedBox(height: 12),
                   customDivider(height: 1),
@@ -180,7 +183,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         // Navigator.pushNamed(context, "/language");
                         showElrnDialog(context: context, onConfirm: (){
                           launchUrl(Uri.parse("tel:+998 55 512 00 66"));
-                        }, title: "${"do_you_want_to_call".tr()}: \n+998 55 512 00 66");
+                        }, title: "${"are_you_going_to_call".tr()}: \n+998 55 512 00 66");
                       }),
                   const SizedBox(height: 12),
                   customDivider(height: 1),

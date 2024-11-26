@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:elrn/core/constants/urls.dart';
 import 'package:elrn/features/elrn/domain/entities/my_lesson/my_lesson_entity.dart';
 import 'package:elrn/features/elrn/presentation/bloc/modules/topics/topic_children/topic_contents/topic_contents_bloc.dart';
+import 'package:elrn/features/elrn/presentation/widgets/image_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,7 +84,7 @@ class _CourseTopicContentsPageState extends State<CourseTopicContentsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (topicContent.videoLessons?.any((element) => element.isVideoClip == true) ?? false)
+            if (topicContent.videoLessons?.any((element) => element.isVideoClip == false) ?? false)
               Padding(
                 padding: const EdgeInsets.only(top: 12.0),
                 child: Text(
@@ -109,7 +110,7 @@ class _CourseTopicContentsPageState extends State<CourseTopicContentsPage> {
                 }
               },
             ),
-            if (topicContent.videoLessons?.any((element) => element.isVideoClip == false) ?? false)
+            if (topicContent.videoLessons?.any((element) => element.isVideoClip == true) ?? false)
               Padding(
                 padding: const EdgeInsets.only(top: 12.0),
                 child: Text(
@@ -163,7 +164,6 @@ class _CourseTopicContentsPageState extends State<CourseTopicContentsPage> {
   }
 }
 
-
 class VideoCard extends StatelessWidget {
   final VideoLessonEntity videoLesson;
 
@@ -208,20 +208,24 @@ class VideoCard extends StatelessWidget {
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(14.0),
-                  child: Image.network("$LMS_DOMAIN/api/VideoLesson/DownloadFile/${videoLesson.videoThumbnailId}",
-                      width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.width * 9 / 16, fit: BoxFit.cover, errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                        width: double.infinity,
-                        height: 200,
-                        color: AppColors.lightBlue,
-                        child: Center(
-                          child: Icon(
-                            Icons.image_outlined,
-                            color: AppColors.middleBlue,
-                            size: 40,
-                          ),
-                        ));
-                  }),
+                  child: ImageWidget(
+                    url: "$LMS_DOMAIN/api/VideoLesson/DownloadFile/${videoLesson.videoThumbnailId}",
+                    width: MediaQuery.of(context).size.width,
+
+                    height: MediaQuery.of(context).size.width * 9 / 16,
+                    errorWidget: Container(
+                      width: double.infinity,
+                      height: 200,
+                      color: AppColors.lightBlue,
+                      child: Center(
+                        child: Icon(
+                          Icons.image_outlined,
+                          color: AppColors.middleBlue,
+                          size: 40,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 if (!(videoLesson.locked ?? false))
                   Positioned(
@@ -231,13 +235,13 @@ class VideoCard extends StatelessWidget {
                     right: 0,
                     child: Center(
                       child: Container(
-                        width: 50,
-                        height: 50,
+                        width: 36,
+                        height: 36,
                         decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.bgDark.withOpacity(0.5), border: Border.all(color: AppColors.greenColor)),
                         child: Icon(
                           Icons.play_arrow,
                           color: Colors.white,
-                          size: 32,
+                          size: 24,
                         ),
                       ),
                     ),
@@ -407,10 +411,8 @@ class TestCard extends StatelessWidget {
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(14.0),
-                  child: Image.network("$LMS_DOMAIN/api/LessonTest/DownloadFile/${lessonTest.lessonTestThumbnailId}", width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.width * 9 / 16,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
+                  child: Image.network("$LMS_DOMAIN/api/LessonTest/DownloadFile/${lessonTest.lessonTestThumbnailId}",
+                      width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.width * 9 / 16, fit: BoxFit.cover, errorBuilder: (context, error, stackTrace) {
                     return Container(
                       color: AppColors.lightBlue,
                       height: 200,

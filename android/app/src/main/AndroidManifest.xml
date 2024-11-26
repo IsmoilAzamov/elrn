@@ -6,7 +6,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="E-Learning">
+        android:label="E-learning ISTC">
 
         <!-- Main Activity -->
         <activity

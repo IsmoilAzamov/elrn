@@ -1,4 +1,3 @@
-import 'package:elrn/features/elrn/presentation/pages/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,8 +13,9 @@ class ImageWidget extends StatefulWidget {
   final bool? isCircular;
   final double? height;
   final double? borderRadius;
+  final Widget? errorWidget;
 
-  const ImageWidget({super.key, required this.url, this.width, this.isCircular, this.height,   this.borderRadius});
+  const ImageWidget({super.key, required this.url, this.width, this.isCircular, this.height, this.borderRadius, this.errorWidget});
 
   @override
   State<ImageWidget> createState() => _ImageWidgetState();
@@ -36,7 +36,6 @@ class _ImageWidgetState extends State<ImageWidget> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -56,23 +55,24 @@ class _ImageWidgetState extends State<ImageWidget> {
                     ? ClipRRect(borderRadius: BorderRadius.circular(widget.width ?? 100), child: Image.memory(state.bytes, width: widget.width ?? 100, fit: BoxFit.cover))
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
-                      child: Image.memory(
+                        child: Image.memory(
                           state.bytes,
                           width: widget.width ?? 100,
+                          height: widget.height,
                           fit: BoxFit.cover,
-
                           errorBuilder: (context, error, stackTrace) {
-                            return SizedBox(
-                              height:  200,
-                              child: const Icon(
-                                Icons.image_outlined,
-                                color: Colors.grey,
-                                size: 40,
-                              ),
-                            );
+                            return widget.errorWidget ??
+                                SizedBox(
+                                  height: 200,
+                                  child: const Icon(
+                                    Icons.image_outlined,
+                                    color: Colors.grey,
+                                    size: 40,
+                                  ),
+                                );
                           },
                         ),
-                    ),
+                      ),
               );
             } else if (state is ImageErrorState) {
               return const Icon(
@@ -92,5 +92,3 @@ class _ImageWidgetState extends State<ImageWidget> {
     );
   }
 }
-
-
