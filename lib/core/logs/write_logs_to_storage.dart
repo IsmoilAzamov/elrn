@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-import '../../features/elrn/data/datasources/local/token_db_service.dart';
 import '../../main.dart';
 
 writeLogsToStorage(String text) async {
-  await sendSplittedMessages("Platform: ${Platform.operatingSystem}\nToken: ${TokenService.accessToken}\nAppVersion: $APP_VERSION\n ${DateTime.now()}:\n $text");
+
+  await sendSplittedMessages("Platform: ${Platform.operatingSystem}\nToken: ${prefs.getString('token')}\nAppVersion: $APP_VERSION\n ${DateTime.now()}:\n $text");
 }
 
 class TelegramClient {
@@ -35,6 +35,7 @@ class TelegramClient {
 }
 
 sendSplittedMessages(String s) {
+try{
   if (s.length > 4096) {
     String newMessage = s.substring(4096, s.length);
     String oldMessage = s.substring(0, 4096);
@@ -43,6 +44,9 @@ sendSplittedMessages(String s) {
   } else {
     telegramClient.sendMessage(s);
   }
+} catch (e) {
+  print(e);
+}
 }
 
 final TelegramClient telegramClient = TelegramClient(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
+import '../../main.dart';
 import '../constants/app_colors.dart';
 
 Widget loadingIndicator({double? width, double? height}) {
@@ -19,7 +20,7 @@ Widget loadingIndicator({double? width, double? height}) {
               ),
               child: LoadingIndicator(
                 indicatorType: Indicator.ballClipRotatePulse,
-                colors: [AppColors.blueColor, AppColors.lightBlue, AppColors.yellowColor, AppColors.redColor],
+                colors: Theme.of(navigatorKey.currentContext!).brightness == Brightness.dark ? [AppColors.blueColor, AppColors.lightBlue, AppColors.yellowColor, AppColors.redColor]:[AppColors.middleBlue, AppColors.lightBlue, AppColors.yellowColor, AppColors.redColor],
                 strokeWidth: 4.0,
                 pathBackgroundColor: AppColors.blueColor,
               ),

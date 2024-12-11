@@ -173,6 +173,9 @@ class VideoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        if((videoLesson.locked ?? false)){
+          return;
+        }
         Navigator.push(
           context,
           MaterialPageRoute(

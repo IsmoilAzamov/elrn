@@ -1,4 +1,3 @@
-
 import 'package:elrn/core/constants/app_colors.dart';
 import 'package:elrn/features/elrn/domain/entities/comment/comment_entity.dart';
 import 'package:elrn/features/elrn/domain/repositories/rating_repository.dart';
@@ -75,13 +74,10 @@ class _CommentsWidgetState extends State<CommentsWidget> {
     }
 
     return Container(
-      constraints: BoxConstraints(minHeight: 100, maxHeight: comments.isNotEmpty?400 : 150),
-
+      constraints: BoxConstraints(minHeight: 100, maxHeight: comments.isNotEmpty ? 400 : 150),
       margin: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark
-            ? AppColors.darkBlue.withOpacity(0.8)
-            : AppColors.blueColor.withOpacity(0.8),
+        color: Theme.of(context).brightness == Brightness.dark ? AppColors.darkBlue.withOpacity(0.8) : AppColors.blueColor.withOpacity(0.8),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
         border: Border.all(color: AppColors.lightBlue),
         boxShadow: [
@@ -145,9 +141,11 @@ class _CommentsWidgetState extends State<CommentsWidget> {
           // Text input for new comment
           Expanded(
             child: TextField(
+
               style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
               controller: _commentController,
               textInputAction: TextInputAction.done,
+              cursorColor: AppColors.middleBlue,
               decoration: InputDecoration(
                 hintText: 'insert_comment'.tr(),
                 filled: true,
@@ -263,46 +261,54 @@ class _CommentsWidgetState extends State<CommentsWidget> {
   }
 
   Widget dateWidget(String date) {
-    return Text(date, style: const TextStyle( fontSize: 14.0,  color: Colors.white),);
+    return Text(
+      date,
+      style: const TextStyle(fontSize: 14.0, color: Colors.white),
+    );
   }
 }
 
 String dateFormatHour(String dateString) {
+  try{
+    // Remove the 'GMT' part from the string
+    dateString = dateString.replaceAll('GMT', '').trim();
 
+    // Define the date format based on the input string
+    DateFormat dateFormat = DateFormat('EEE MMM dd yyyy HH:mm:ss Z');
 
-  // Remove the 'GMT' part from the string
-  dateString = dateString.replaceAll('GMT', '').trim();
+    // Parse the string to DateTime
+    DateTime date = dateFormat.parse(dateString);
 
-  // Define the date format based on the input string
-  DateFormat dateFormat = DateFormat('EEE MMM dd yyyy HH:mm:ss Z');
-
-  // Parse the string to DateTime
-  DateTime date = dateFormat.parse(dateString);
-
-  print(date); // Output: 2024-10-21 11:02:43.000
-  return "${date.hour < 10 ? '0${date.hour}' : date.hour.toString()}:${date.minute < 10 ? '0${date.minute}' : date.minute.toString()}";
+    // print(date); // Output: 2024-10-21 11:02:43.000
+    return "${date.hour < 10 ? '0${date.hour}' : date.hour.toString()}:${date.minute < 10 ? '0${date.minute}' : date.minute.toString()}";
+  } catch(e){
+    return "";
+  }
 }
 
 String dateFormatDate(String dateString) {
+  try {
+    // Remove the 'GMT' part from the string
+    dateString = dateString.replaceAll('GMT', '').trim();
 
-  // Remove the 'GMT' part from the string
-  dateString = dateString.replaceAll('GMT', '').trim();
+    // Define the date format based on the input string
+    DateFormat dateFormat = DateFormat('EEE MMM dd yyyy HH:mm:ss Z');
 
-  // Define the date format based on the input string
-  DateFormat dateFormat = DateFormat('EEE MMM dd yyyy HH:mm:ss Z');
+    // Parse the string to DateTime
+    DateTime date = dateFormat.parse(dateString);
+    // print(date.day);
+    //if date is today return today, if date is yesterday return yesterday, else return date
+    if (date.day == DateTime.now().day && date.month == DateTime.now().month && date.year == DateTime.now().year) {
+      return "today".tr();
+    } else if (date.day == DateTime.now().day - 1 && date.month == DateTime.now().month && date.year == DateTime.now().year) {
+      return "yesterday".tr();
+    }
 
-  // Parse the string to DateTime
-  DateTime date = dateFormat.parse(dateString);
-  print(date.day);
-  //if date is today return today, if date is yesterday return yesterday, else return date
-  if (date.day == DateTime.now().day && date.month == DateTime.now().month && date.year == DateTime.now().year) {
-    return "today".tr();
-  } else if (date.day == DateTime.now().day - 1 && date.month == DateTime.now().month && date.year == DateTime.now().year) {
-    return "yesterday".tr();
+    // print(date); // Output: 2024-10-21 11:02:43.000
+    return "${date.day < 10 ? '0${date.day}' : date.day.toString()}.${date.month < 10 ? '0${date.month}' : date.month.toString()}.${date.year}";
+  } catch (e) {
+    return "";
   }
-
-  print(date); // Output: 2024-10-21 11:02:43.000
-  return "${date.day < 10 ? '0${date.day}' : date.day.toString()}.${date.month < 10 ? '0${date.month}' : date.month.toString()}.${date.year}";
 }
 
 String dateReformat(DateTime dateTime) {

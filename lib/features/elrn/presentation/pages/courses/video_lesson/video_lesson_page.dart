@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elrn/core/constants/urls.dart';
 import 'package:elrn/core/widgets/loading_indicator.dart';
 import 'package:elrn/features/elrn/domain/entities/my_lesson/my_lesson_entity.dart';
+import 'package:elrn/features/elrn/domain/repositories/my_lesson_repository.dart';
 import 'package:elrn/features/elrn/presentation/bloc/video_lesson/video_lesson_bloc.dart';
 import 'package:elrn/features/elrn/presentation/widgets/app_bar.dart';
 import 'package:elrn/features/elrn/presentation/widgets/my_scaffold.dart';
@@ -16,6 +19,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../di.dart';
 import '../../../../data/datasources/local/saved_lessons_db_service.dart';
+import '../../../../data/datasources/local/segments_db_service.dart';
 import '../../../bloc/video_lesson/video_lesson_event.dart';
 import '../../../bloc/video_lesson/video_lesson_state.dart';
 import '../../../widgets/comments_widget.dart';
@@ -34,12 +38,29 @@ class VideoLessonPage extends StatefulWidget {
 class _VideoLessonPageState extends State<VideoLessonPage> {
   final _bloc = sl<VideoLessonBloc>();
 
+  Timer? timer;
+  VideoLessonEntity? lesson;
+
+  void startWatchedPercentUpdates() {
+    // Cancel any existing timer
+    timer?.cancel();
+
+    // Start a periodic timer
+    timer = Timer.periodic(const Duration(seconds: 15), (_) {
+      print("updateWatchedPercent");
+      sendWatchedSegments();
+      _bloc.add(VideoLessonRefreshEvent(lessonId: widget.videoLesson.id ?? ""));
+    });
+  }
+
   @override
   void initState() {
     WakelockPlus.enable();
-
+    print(widget.videoLesson.toJson());
     super.initState();
+    SegmentsDBService.clearSegments();
     _bloc.add(VideoLessonLoadEvent(lessonId: widget.videoLesson.id ?? ""));
+    startWatchedPercentUpdates();
   }
 
   @override
@@ -47,6 +68,7 @@ class _VideoLessonPageState extends State<VideoLessonPage> {
     // Dispose the ChewieController manually when the widget is disposed
     chewieController?.dispose();
     WakelockPlus.disable();
+    _bloc.close();
     super.dispose();
   }
 
@@ -61,7 +83,9 @@ class _VideoLessonPageState extends State<VideoLessonPage> {
             if (didPop) {
               return;
             }
+
             chewieController?.pause();
+            sendWatchedSegments();
             Navigator.pop(context);
           },
           child: MyScaffold(
@@ -72,9 +96,14 @@ class _VideoLessonPageState extends State<VideoLessonPage> {
                     title: "video".tr(),
                     onBackPressed: () {
                       chewieController?.pause();
+                      sendWatchedSegments();
                       Navigator.pop(context);
                     }),
-                BlocBuilder<VideoLessonBloc, VideoLessonState>(builder: (context, state) {
+                BlocConsumer<VideoLessonBloc, VideoLessonState>(listener: (context, state) {
+                  if (state is VideoLessonLoadedState) {
+                    lesson = state.videoLessonEntity;
+                  }
+                }, builder: (context, state) {
                   if (state is VideoLessonLoadingState) {
                     return Expanded(child: Center(child: loadingIndicator()));
                   }
@@ -99,113 +128,116 @@ class _VideoLessonPageState extends State<VideoLessonPage> {
 
   Widget loadedUI(VideoLessonLoadedState state) {
     return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-              child: Row(
-                children: [
-                  Expanded(
-
-                    child: Text(
-                      widget.videoLesson.title ?? "",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+      child: RefreshIndicator(
+        onRefresh: () async {
+          _bloc.add(VideoLessonRefreshEvent(lessonId: widget.videoLesson.id ?? ""));
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.videoLesson.title ?? "",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.left,
                       ),
-                      textAlign: TextAlign.left,
+                    ),
+                    //saved courses button
+                    savedCoursesButton(videoLessonEntity: state.videoLessonEntity),
+                  ],
+                ),
+              ),
+              // const SizedBox(height: 12),
+              Container(
+                height: 200,
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                width: double.infinity,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.lightBlue, width: 1), boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: const Offset(2, 5),
+                  ),
+                ]),
+                child: Card(
+                  margin: EdgeInsets.zero,
+                  elevation: 4,
+                  shadowColor: Colors.black.withOpacity(0.5),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Chewie(
+                      controller: state.chewieController,
                     ),
                   ),
-                  //saved courses button
-                  savedCoursesButton(videoLessonEntity: state.videoLessonEntity),
-                ],
-              ),
-            ),
-            // const SizedBox(height: 12),
-            Container(
-              height: 200,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-              width: double.infinity,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.lightBlue, width: 1), boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: const Offset(2, 5),
                 ),
-              ]),
-
-              child: Card(
-                margin: EdgeInsets.zero,
-                elevation: 4,
-                shadowColor: Colors.black.withOpacity(0.5),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Chewie(
-                    controller: state.chewieController,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                width: double.infinity,
+                child: LinearProgressIndicator(
+                  value: (state.videoLessonEntity.watchedPercent ?? 0) / 100,
+                  backgroundColor: AppColors.middleBlue,
+                  borderRadius: BorderRadius.circular(10),
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.greenColor),
+                  minHeight: 5,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                child: Text(
+                  "${"lesson_progress".tr()}: ${state.videoLessonEntity.watchedPercent?.toStringAsFixed(0)}%",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                   ),
+                  textAlign: TextAlign.left,
                 ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              width: double.infinity,
-              child: LinearProgressIndicator(
-                value: (state.videoLessonEntity.watchedPercent ?? 0) / 100,
-                backgroundColor: AppColors.middleBlue,
-                borderRadius: BorderRadius.circular(10),
-                valueColor: AlwaysStoppedAnimation<Color>(AppColors.greenColor),
-                minHeight: 5,
+              const SizedBox(height: 12),
+              for (MaterialFileEntity material in state.videoLessonEntity.materialFiles ?? []) materialWidget(material),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: customDivider(),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
-              child: Text(
-                "${"lesson_progress".tr()}: ${state.videoLessonEntity.watchedPercent?.toStringAsFixed(0)}%",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            const SizedBox(height: 12),
-            for (MaterialFileEntity material in state.videoLessonEntity.materialFiles ?? []) materialWidget(material),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: customDivider(),
-            ),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      "rating_lesson".tr(),
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "rating_lesson".tr(),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.left,
                       ),
-                      textAlign: TextAlign.left,
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  RatingWidget(lessonId: widget.videoLesson.id ?? "", canRate: state.videoLessonEntity.canRate ?? true, lessonTypeId: widget.videoLesson.lessonTypeId ?? 0),
-                ],
+                    const SizedBox(width: 8),
+                    RatingWidget(lessonId: lesson?.id ?? "", canRate: state.videoLessonEntity.canRate ?? true, lessonTypeId: widget.videoLesson.lessonTypeId ?? 0),
+                  ],
+                ),
               ),
-            ),
-            CommentsWidget(documentId: state.videoLessonEntity.id ?? "", lessonTypeId: widget.videoLesson.lessonTypeId ?? 0),
-          ],
+              CommentsWidget(documentId: state.videoLessonEntity.id ?? "", lessonTypeId: widget.videoLesson.lessonTypeId ?? 0),
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );
   }
-
 
   Widget savedCoursesButton({required VideoLessonEntity videoLessonEntity}) {
     final savedLessonsDBService = sl<SavedLessonsDBService>();
@@ -241,6 +273,26 @@ class _VideoLessonPageState extends State<VideoLessonPage> {
     });
   }
 
+  void sendWatchedSegments() async {
+    try {
+      final myLessonRepository = sl<MyLessonRepository>();
+
+      List<String> segments = await SegmentsDBService.getSegments();
+
+      if (mounted) {
+        await myLessonRepository.watchedSegments(
+            segments: segments,
+            currentTime: chewieController?.videoPlayerController.value.position.inSeconds.toDouble() ?? 0.0,
+            documentId: lesson?.id ?? "",
+            lessonId: lesson?.id ?? "",
+            lessonTypeId: widget.videoLesson.lessonTypeId ?? 0);
+
+        SegmentsDBService.clearSegments();
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
 
 Widget materialWidget(MaterialFileEntity material) {
@@ -303,4 +355,3 @@ Widget customDivider({double? height}) {
     ),
   );
 }
-

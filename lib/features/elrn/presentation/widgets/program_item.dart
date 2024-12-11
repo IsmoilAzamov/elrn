@@ -96,17 +96,20 @@ class ProgramItem extends StatelessWidget {
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Image.asset(
                         'assets/icons/hourglass.png',
                         width: 12,
                       ),
                       const SizedBox(
-                        width: 8,
+                        width: 4,
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.35,
                         child: FittedBox(
+                          fit: BoxFit.scaleDown,
+
                           child: Text(
                             "${"duration".tr()}: ${(item.programDuration?.month??0)>0 ? "${item.programDuration?.month} ${"months".tr()}" : ""} ${(item.programDuration?.day??0)>0 ? "${item.programDuration?.day} ${"days".tr()}" : ""}",
                             maxLines: 1,
@@ -118,6 +121,9 @@ class ProgramItem extends StatelessWidget {
                     ],
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 4,
               ),
               if(showProgress != false)
               Row(

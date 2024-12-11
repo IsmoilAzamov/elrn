@@ -135,7 +135,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               themeBloc.add(ToggleLight());
 
                             }
-                            print("theme: ${themeBloc.state}");
+                            // print("theme: ${themeBloc.state}");
                             setState(() {});
                           },
                         ),
@@ -203,7 +203,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       iconUrl: "assets/icons/logout.png",
                       iconBgColor: AppColors.redColor,
                       onTap: () async {
-                        print("=========================isDark: ${prefs.getString("theme")!='light'}=========================");
+                        // print("=========================isDark: ${prefs.getString("theme")!='light'}=========================");
 
                         showElrnDialog(
                           context: context,
@@ -217,9 +217,9 @@ class _SettingsPageState extends State<SettingsPage> {
                               if (context.mounted) Navigator.pushReplacementNamed(context, '/loginOauth2');
                               // Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
                             } on Error catch (e) {
-                              print("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
-                              print(e);
-                              print(e.stackTrace);
+                              // print("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+                              // print(e);
+                              // print(e.stackTrace);
 
                               showErrorToast('could_not_logout'.tr());
                               if (context.mounted) {

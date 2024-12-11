@@ -38,4 +38,7 @@ class MyLessonRepositoryImpl extends MyLessonRepository {
 
   @override
   Future<DataState<List<TestResultEntity>>> getMyTestResults() => getCheckedResponse(() => _myProgramApiService.getMyTestResults());
+
+  @override
+  Future<DataState> watchedSegments({required List<String> segments, required double currentTime, required String documentId, required String lessonId, required int lessonTypeId}) => getCheckedResponse(() => _myProgramApiService.watchedSegments(dto: {"action":"exit","currentTime":currentTime,"segment":segments,"documentId":documentId,"lessonId":lessonId, "lessonTypeId":lessonTypeId}));
 }

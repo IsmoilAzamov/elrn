@@ -17,9 +17,9 @@ class LessonTestBloc extends Bloc<LessonTestEvent, LessonTestState> {
   _start(LessonTestStartEvent event, Emitter<LessonTestState> emit) async {
     emit(LessonTestLoadingState());
     try {
-      print("11111111111111111111111111111111111111111111111111111111111111111111111111111111");
+      // print("11111111111111111111111111111111111111111111111111111111111111111111111111111111");
       final result = await _ratingRepository.startMyLessonTest(testId: event.testId);
-      print("222222222222222222222222222222222222222222222222222222222222222222222222222222");
+      // print("222222222222222222222222222222222222222222222222222222222222222222222222222222");
       if (result is DataSuccess && result.data != null) {
         emit(LessonTestLoadedState(result.data!));
         return;
@@ -32,7 +32,7 @@ class LessonTestBloc extends Bloc<LessonTestEvent, LessonTestState> {
       }
     } on Exception catch (e) {
       emit(LessonTestErrorState(e.toString()));
-      print("3333333333333333333333333333333333333333333333333333333333333333333333333333333");
+      // print("3333333333333333333333333333333333333333333333333333333333333333333333333333333");
     }
     emit(LessonTestErrorState("something_went_wrong".tr()));
   }

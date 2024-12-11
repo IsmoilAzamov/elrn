@@ -33,7 +33,7 @@ import 'firebase_options.dart';
 late SharedPreferences prefs;
 ChewieController? chewieController;
 
-const String APP_VERSION = '0.0.1';
+const String APP_VERSION = '0.0.2';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<ScaffoldState> myScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -158,7 +158,7 @@ class _MyAppState extends State<MyApp> {
           listener: (context, state) {
             setState(() {
               isDark = prefs.getString("theme") != 'light';
-              print("-------------------------------------RunApp theme: ${prefs.getString("theme")}------------------------------------");
+              // print("-------------------------------------RunApp theme: ${prefs.getString("theme")}------------------------------------");
             });
           },
           builder: (context, state) {

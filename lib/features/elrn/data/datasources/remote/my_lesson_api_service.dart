@@ -8,8 +8,6 @@ import '../../../domain/entities/test_result/test_result_entity.dart';
 
 part 'my_lesson_api_service.g.dart';
 
-
-
 @RestApi(baseUrl: DOMAIN)
 abstract class MyLessonApiService {
   factory MyLessonApiService(Dio dio) {
@@ -42,4 +40,11 @@ abstract class MyLessonApiService {
 
   @GET('/api/MyLesson/GetMyTestResults')
   Future<HttpResponse<List<TestResultEntity>>> getMyTestResults();
+
+  @POST('/api/MyLesson/WatchedSegments')
+  Future<HttpResponse> watchedSegments({ @Body() required Map<String, Object> dto});
+
 }
+
+
+

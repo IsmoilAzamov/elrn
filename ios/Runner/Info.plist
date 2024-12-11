@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Elrn</string>
+	<string>E-learning ISTC</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -45,15 +45,16 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>CFBundleURLTypes</key>
+    <key>CFBundleURLTypes</key>
     <array>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>elrn</string>
-        </array>
-      </dict>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>elrn</string>
+            </array>
+        </dict>
     </array>
-
 </dict>
 </plist>

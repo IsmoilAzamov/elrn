@@ -19,7 +19,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       try {
       final dataState = await _loginRepository.login();
-      print(dataState.data.toString());
+      // print(dataState.data.toString());
       if (dataState is DataSuccess) {
         final data = dataState.data;
         if (data != null && data.isNotEmpty) {
@@ -37,7 +37,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
       emit(LoginErrorState(DioException(requestOptions: RequestOptions(path: 'Error due to unknown exception'))));
     }on Error catch (e) {
-        print(e.toString());
+        // print(e.toString());
       if (e is SocketException) {
         emit(LoginErrorState(DioException(requestOptions: RequestOptions(path: 'Error due to SocketException: $e'))));
       } else {

@@ -17,10 +17,10 @@ class TokenService {
     try{
       await box.put('token', null);
       prefs.setString('token', '');
-      print('Token deleted');
+      // print('Token deleted');
       return true;
     } catch (e) {
-      print(e);
+      // print(e);
       return false;
     }
   }

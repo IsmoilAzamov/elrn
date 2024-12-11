@@ -36,7 +36,7 @@ class _RatingWidgetState extends State<RatingWidget> {
         if (state is RatingLoadedState) {
           stars = state.rating.ratingId ?? 0;
         }
-        print(state);
+        // print(state);
         if(state is RatedState){
           isRated = true;
           _bloc.add(RatingLoadEvent(lessonId: widget.lessonId));

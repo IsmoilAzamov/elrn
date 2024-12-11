@@ -52,7 +52,7 @@ class ModuleItem extends StatelessWidget {
                           isCircular: true,
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.52,
+                          width: MediaQuery.of(context).size.width * 0.5,
                           padding: const EdgeInsets.only(left: 12, right: 12),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

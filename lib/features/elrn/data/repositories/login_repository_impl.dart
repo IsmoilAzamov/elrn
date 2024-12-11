@@ -15,7 +15,7 @@ class LoginRepositoryImpl implements LoginRepository {
   Future<DataState<String>> login() async {
     try {
       final response = await _loginApiService.login();
-      print(response);
+      // print(response);
       return response;
   }
     on DioException catch (e) {

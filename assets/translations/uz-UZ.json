@@ -125,5 +125,6 @@
   "later": "Keyinroq",
   "update": "Yangilash",
 "version": "Versiya",
+  "timeout_message": "Kutish vaqti tugadi. Internetga aloqangizni tekshirib ko'ring.\nVPN o`chirilganligini tekshiring. \n\n Qayta urinib ko'ring",
   "continue": "Davom etish"
 }

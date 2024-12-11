@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:elrn/features/elrn/data/datasources/local/personal_info_db_service.dart';
 import 'package:elrn/features/elrn/data/datasources/local/prograam_db_service.dart';
+import 'package:elrn/features/elrn/data/datasources/local/segments_db_service.dart';
 import 'package:elrn/features/elrn/data/datasources/remote/account_api_service.dart';
 import 'package:elrn/features/elrn/data/datasources/remote/login_api_service.dart';
 import 'package:elrn/features/elrn/data/datasources/remote/my_comment_api_service.dart';

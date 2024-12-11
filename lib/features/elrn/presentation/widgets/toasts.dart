@@ -9,6 +9,8 @@ import '../../../../core/constants/app_colors.dart';
 //error toast
 
 void showErrorToast(String message) {
+  toastification.dismissAll();
+
   toastification.show(
     title: Text(
       message,
@@ -38,6 +40,7 @@ void showErrorToast(String message) {
 }
 
 void showSuccessToast(String message) {
+
   toastification.show(
     title: Text(
       message,

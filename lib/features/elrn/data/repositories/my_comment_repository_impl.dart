@@ -15,7 +15,8 @@ class MyCommentRepositoryImpl implements MyCommentRepository {
   @override
   Future<DataState<int>> create({required Map<String, dynamic> dto})async {
     try {
-      final response = await _myCommentApiService.create(dto: dto);  print(response.data);
+      final response = await _myCommentApiService.create(dto: dto);
+      // print(response.data);
       if (response.response.statusCode == 200) {
         return DataSuccess(response.data["id"]);
       } else {
@@ -23,7 +24,7 @@ class MyCommentRepositoryImpl implements MyCommentRepository {
         return DataError(error);
       }
     } on DioException catch (e) {
-      print("---->$e");
+      // print("---->$e");
       DioException error = errorHandler(e);
       return DataError(error);
     }

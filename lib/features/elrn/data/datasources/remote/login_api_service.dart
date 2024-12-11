@@ -10,7 +10,7 @@ import '../local/token_db_service.dart';
 
 class LoginApiService {
   Future<DataState<String>>  login() async {
-    print('#####################################56576###################################');
+    // print('#####################################56576###################################');
     try {
 
       const FlutterAppAuth appAuth = FlutterAppAuth();
@@ -23,15 +23,15 @@ class LoginApiService {
         discoveryUrl: LoginCredentials.discoveryUrl,
       ));
 
-      print("accessToken: ${result.accessToken}");
-      print("tokenType: ${result.tokenType}");
-      print("scopes: ${result.scopes}");
-      print("idToken: ${result.idToken}");
-      print("idToken: ${result.idToken}");
-      print("tokenAdditionalParameters: ${result.tokenAdditionalParameters}");
-      print("authorizationAdditionalParameters: ${result.authorizationAdditionalParameters}");
-      print("refreshToken: ${result.refreshToken}");
-      print("accessTokenExpirationDateTime: ${result.authorizationAdditionalParameters}");
+      // print("accessToken: ${result.accessToken}");
+      // print("tokenType: ${result.tokenType}");
+      // print("scopes: ${result.scopes}");
+      // print("idToken: ${result.idToken}");
+      // print("idToken: ${result.idToken}");
+      // print("tokenAdditionalParameters: ${result.tokenAdditionalParameters}");
+      // print("authorizationAdditionalParameters: ${result.authorizationAdditionalParameters}");
+      // print("refreshToken: ${result.refreshToken}");
+      // print("accessTokenExpirationDateTime: ${result.authorizationAdditionalParameters}");
 
       if (result.accessToken == null) {
         return DataError(DioException(requestOptions: RequestOptions(path: 'Error')));
@@ -49,8 +49,8 @@ class LoginApiService {
       await TokenService.saveToken(tokenModel);
       return DataSuccess(result.accessToken ?? '');
     } on Error catch (e) {
-      print('Error during authentication: $e');
-      print(e.stackTrace);
+      // print('Error during authentication: $e');
+      // print(e.stackTrace);
       return DataError(DioException(requestOptions: RequestOptions(path: 'Error')));
       // Handle other authentication errors
     }
@@ -58,19 +58,19 @@ class LoginApiService {
 
   Future<DataState<String>> logout() async {
     try {
-      print('#####################################56576###################################');
+      // print('#####################################56576###################################');
 
  // String password = await box.get('password')??'';
  // int passcodeStatus = await box.get('passcodeStatus')??0;
       String theme =  prefs.getString("theme")??'dark';
-      print('themeee: $theme');
+      // print('themeee: $theme');
        box.clear();
       // box.put('password', password);
       // box.put('passcodeStatus', passcodeStatus);
       prefs.setString('password', '');
       prefs.setInt('passcodeStatus', 0);
       prefs.setString('theme', theme);
-      print('############################21323$theme############################################');
+      // print('############################21323$theme############################################');
       const FlutterAppAuth appAuth = FlutterAppAuth();
       EndSessionResponse? result = await appAuth.endSession(
         EndSessionRequest(
@@ -86,14 +86,14 @@ class LoginApiService {
       );
       await TokenService.deleteToken();
 
-      print('############################21323############################################');
-      print(result.state);
+      // print('############################21323############################################');
+      // print(result.state);
       return const DataSuccess("success");
     }on PlatformException{
       return const DataSuccess("success");
     } on Error catch (e) {
-      print('Error during authentication: $e');
-      print(e.stackTrace);
+      // print('Error during authentication: $e');
+      // print(e.stackTrace);
       return const DataSuccess("success");
       // Handle other authentication errors
     }

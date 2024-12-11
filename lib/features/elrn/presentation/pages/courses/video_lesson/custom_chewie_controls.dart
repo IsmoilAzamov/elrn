@@ -6,6 +6,7 @@ import 'package:video_player/video_player.dart';
 
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/constants/urls.dart';
+import '../../../../data/datasources/local/segments_db_service.dart';
 
 class CustomChewieControls extends StatefulWidget {
   final String videoThumbnailId;
@@ -18,24 +19,28 @@ class CustomChewieControls extends StatefulWidget {
 
 class _CustomChewieControlsState extends State<CustomChewieControls> {
   late Timer _hideControlsTimer;
-  bool _controlsVisible = true;
+  bool _controlsVisible = false;
+  late Timer _periodicTimer;
 
   @override
   void initState() {
     super.initState();
     _startHideControlsTimer();
+    _startPeriodicTimer();
   }
+
 
   @override
   void dispose() {
     _hideControlsTimer.cancel();
+    _periodicTimer.cancel();
     super.dispose();
   }
 
   void _startHideControlsTimer() {
     _hideControlsTimer = Timer(const Duration(seconds: 3), () {
       setState(() {
-        if (ChewieController.of(context).videoPlayerController.value.isPlaying) {
+        if (ChewieController.of(context).videoPlayerController.value.isPlaying) {;
           _controlsVisible = false;
         }
       });
@@ -52,6 +57,15 @@ class _CustomChewieControlsState extends State<CustomChewieControls> {
     _startHideControlsTimer();
   }
 
+  void _startPeriodicTimer() {
+    _periodicTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      setState(() {
+        print(ChewieController.of(context).videoPlayerController.value.position);
+        getSeconds(ChewieController.of(context).videoPlayerController.value.position);
+
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final chewieController = ChewieController.of(context);
@@ -215,11 +229,24 @@ class _CustomChewieControlsState extends State<CustomChewieControls> {
 
   // Helper method to format duration into hh:mm:ss
   String _formatDuration(Duration duration) {
+
     final hours = duration.inHours;
     final minutes = duration.inMinutes.remainder(60);
     final seconds = duration.inSeconds.remainder(60);
-    return hours > 0
+    String result = hours > 0
         ? '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}'
         : '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+
+    print(result);
+    return result;
+  }
+
+
+  void getSeconds(Duration position) {
+    int seconds = position.inSeconds;
+    print("seconds: $seconds");
+    if(seconds%3==0){
+      SegmentsDBService.addSegment("index${int.parse((seconds/3).floor().toString())}.ts" );
+    }
   }
 }

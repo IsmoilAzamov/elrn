@@ -21,8 +21,8 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
       emit(ProgramsLoadedState( programs ));
       return;
     }on Error catch (e) {
-      print(e);
-      print(e.stackTrace);
+      // print(e);
+      // print(e.stackTrace);
 
       emit(ProgramsErrorState("something_went_wrong".tr()));
       return;

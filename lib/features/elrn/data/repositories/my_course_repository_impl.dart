@@ -20,7 +20,7 @@ class MyCourseRepositoryImpl implements MyCourseRepository {
         return DataError(error);
       }
     } on DioException catch (e) {
-      print("---->$e");
+      // print("---->$e");
       DioException error = errorHandler(e);
       return DataError(error);
     }

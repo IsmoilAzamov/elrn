@@ -40,7 +40,7 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   Widget build(BuildContext context) {
     bool isDark = prefs.getString("theme") != 'light';
-    print("=========================Theme: ${prefs.getString("theme")} --=========================");
+    // print("=========================Theme: ${prefs.getString("theme")} --=========================");
     return SafeArea(
       child: Container( // Wrap the entire Scaffold with a Container
         color: isDark ? AppColors.bgDark : AppColors.lightBgBlue, // Ensure no black is visible

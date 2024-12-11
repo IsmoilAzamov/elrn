@@ -6,3 +6,9 @@ class VideoLessonLoadEvent extends VideoLessonEvent {
 
   VideoLessonLoadEvent({required this.lessonId});
 }
+
+class VideoLessonRefreshEvent extends VideoLessonEvent {
+  final String lessonId;
+
+  VideoLessonRefreshEvent({required this.lessonId});
+}

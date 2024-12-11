@@ -125,5 +125,6 @@
   "later": "Keyin",
   "update": "Jańalay",
   "version": "Versiya",
+  "timeout_message": "Kútiw waqti tóledi. Internet baileńisin tekserip kóriń.\nVPN óshirilgenligini tekseriń.\n\nQayta orınıp kóriń.",
   "logout": "Cixıw"
 }

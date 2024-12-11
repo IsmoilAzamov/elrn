@@ -18,6 +18,7 @@ class VideoLessonBloc extends Bloc<VideoLessonEvent, VideoLessonState> {
 
   VideoLessonBloc(this.myLessonRepository) : super(VideoLessonLoadingState()) {
     on<VideoLessonLoadEvent>(_loadVideo);
+    on<VideoLessonRefreshEvent>(_refresh);
   }
 
   Future<void> _loadVideo(VideoLessonLoadEvent event, Emitter<VideoLessonState> emit) async {
@@ -26,12 +27,14 @@ class VideoLessonBloc extends Bloc<VideoLessonEvent, VideoLessonState> {
     if (dataState is DataSuccess && dataState.data != null) {
       try {
         final videoPlayerController = VideoPlayerController.networkUrl(
-            Uri.parse("$VIDEO_STREAM_DOMAIN/api/Stream/GetVideo/${dataState.data!.videoFiles?.firstOrNull?.id}/${dataState.data!.videoFiles?.firstOrNull?.fileName}"));
+          Uri.parse("$VIDEO_STREAM_DOMAIN/api/Stream/GetVideo/${dataState.data!.videoFiles?.firstOrNull?.id}/${dataState.data!.videoFiles?.firstOrNull?.fileName}"),
+        );
         await videoPlayerController.initialize();
+        print(videoPlayerController.toString());
 
         chewieController = ChewieController(
           videoPlayerController: videoPlayerController,
-          autoPlay: false,
+          autoPlay: true,
           looping: false,
           fullScreenByDefault: false,
           allowFullScreen: true,
@@ -48,7 +51,7 @@ class VideoLessonBloc extends Bloc<VideoLessonEvent, VideoLessonState> {
             backgroundColor: AppColors.bgDark,
             bufferedColor: Colors.black,
           ),
-          customControls: CustomChewieControls(videoThumbnailId: dataState.data!.videoThumbnailId??""),
+          customControls: CustomChewieControls(videoThumbnailId: dataState.data!.videoThumbnailId ?? ""),
         );
 
         emit(VideoLessonLoadedState(chewieController!, dataState.data!));
@@ -58,10 +61,22 @@ class VideoLessonBloc extends Bloc<VideoLessonEvent, VideoLessonState> {
     }
   }
 
+  Future<void> _refresh(VideoLessonRefreshEvent event, Emitter<VideoLessonState> emit) async {
+    final DataState<VideoLessonEntity> dataState = await myLessonRepository.getMyVideoLessons(lessonId: event.lessonId);
+    if (dataState is DataSuccess && dataState.data != null) {
+      try {
+        emit(VideoLessonLoadedState(chewieController!, dataState.data!));
+      } catch (e) {
+        emit(VideoLessonErrorState(e.toString()));
+      }
+    }
+  }
+
   // Manually dispose of the ChewieController
+
   void disposeChewieController() {
     chewieController?.dispose();
-    chewieController = null;  // Reset the controller after disposing.
+    chewieController = null; // Reset the controller after disposing.
   }
 
 // Ensure to dispose of the ChewieController manually in your widget lifecycle or wherever you need it.

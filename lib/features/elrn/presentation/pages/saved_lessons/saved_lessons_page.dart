@@ -47,7 +47,7 @@ class _SavedLessonsPageState extends State<SavedLessonsPage> {
           Expanded(
             child: RefreshIndicator(
               onRefresh: () async {
-                print("refresh");
+                // print("refresh");
                 _bloc.add(SavedLessonsLoadEvent());
                 return Future.value();
               },
@@ -82,7 +82,7 @@ class _SavedLessonsPageState extends State<SavedLessonsPage> {
   }
 
   Widget _loadedUI(List<dynamic> videoLessons) {
-    print(videoLessons.length);
+    // print(videoLessons.length);
     if (videoLessons.isEmpty) {
       return SizedBox(
         height: MediaQuery.of(context).size.height*0.85,

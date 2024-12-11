@@ -52,6 +52,7 @@ class _CertificatesPageState extends State<CertificatesPage> {
               },
 
             ),
+
             BlocProvider(
                 create: (context) => _bloc,
                 child: BlocBuilder<CertificatesBloc, CertificatesState>(builder: (context, state) {

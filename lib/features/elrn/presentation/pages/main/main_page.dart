@@ -1,6 +1,7 @@
 import 'package:app_links/app_links.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:elrn/core/logs/write_logs_to_storage.dart';
 import 'package:elrn/core/utils/get_logo.dart';
 import 'package:elrn/features/elrn/domain/entities/auth_info/auth_info_entity.dart';
 import 'package:elrn/features/elrn/domain/entities/program/program_entity.dart';
@@ -57,7 +58,7 @@ class _MainPageState extends State<MainPage> {
 
 
   Future<void> _handleInitialLink() async {
-    print('handleInitialLink--------------------------------------------');
+    // print('handleInitialLink--------------------------------------------');
     try {
       final Uri? initialUri = await _appLinks.getInitialLink();
       if (initialUri != null) {
@@ -69,7 +70,7 @@ class _MainPageState extends State<MainPage> {
         _showDeepLinkData();
       }
     } catch (e) {
-      print('Failed to process deep link: $e');
+      // print('Failed to process deep link: $e');
     }
   }
 
@@ -506,6 +507,7 @@ class _MainPageState extends State<MainPage> {
                 icon: "key.png",
                 title: "key_point".tr(),
                 onPressed: () {
+                  writeLogsToStorage("key_point".tr());
                   showSimpleToast("coming_soon".tr());
                 },
               ),

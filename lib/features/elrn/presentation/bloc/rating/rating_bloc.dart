@@ -18,9 +18,9 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
   _load(RatingLoadEvent event, Emitter<RatingState> emit) async {
     emit(RatingLoadedState(RatingEntity()));
     try{
-      print("11111111111111111111111111111111111111111111111111111111111111111111111111111111");
+      // print("11111111111111111111111111111111111111111111111111111111111111111111111111111111");
       final result = await _ratingRepository.getMyLessonRating(lessonId: event.lessonId);
-      print("222222222222222222222222222222222222222222222222222222222222222222222222222222");
+      // print("222222222222222222222222222222222222222222222222222222222222222222222222222222");
       if (result is DataSuccess && result.data != null) {
         emit(RatingLoadedState(result.data!));
         return;
@@ -34,7 +34,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     }
     on Exception catch (e) {
       emit(RatingErrorState(e.toString()));
-      print("3333333333333333333333333333333333333333333333333333333333333333333333333333333");
+      // print("3333333333333333333333333333333333333333333333333333333333333333333333333333333");
     }
     emit(RatingErrorState("something_went_wrong".tr()));
   }

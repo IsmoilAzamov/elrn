@@ -10,8 +10,8 @@ import '../../../../../main.dart';
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc() : super(prefs.getString("theme") != 'light' ? DarkTheme() : LightTheme()) {
     on<ThemeEvent>((event, emit) {
-      print(event);
-      print(ThemeEvent);
+      // print(event);
+      // print(ThemeEvent);
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: event is ToggleLight ? const Color(0xffFFFFFF) : AppColors.bgDark,
         statusBarIconBrightness: event is ToggleLight ? Brightness.dark : Brightness.light,

@@ -62,9 +62,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     box.watch(key: 'lang').listen((event) {
       setState(() {});
-      print("lang changed");
-      print(box.get('lang'));
-      print(context.locale.toString());
+      // print("lang changed");
+      // print(box.get('lang'));
+      // print(context.locale.toString());
       pages = [MainPage(), ResultsPage(), ProfilePage()];
     });
 

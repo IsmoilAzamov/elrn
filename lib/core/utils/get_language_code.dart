@@ -9,7 +9,7 @@ String getLangCode(){
     BuildContext context= navigatorKey.currentContext!;
     String langCode="";
     // print(context.locale);
-    print(context.locale.toString());
+    // print(context.locale.toString());
     switch(context.locale.toString()){
 
       case "uz_UZ":

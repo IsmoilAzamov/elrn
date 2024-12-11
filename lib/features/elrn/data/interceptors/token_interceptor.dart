@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:elrn/core/utils/get_language_code.dart';
 import 'package:flutter/material.dart';
 
@@ -31,10 +32,10 @@ class TokenInterceptor extends Interceptor {
     options.headers['Cookie'] = "Authorization=$token";
     options.headers['Lang'] = getLangCode();
     //content language: locale
-    print(options.uri);
-     print(options.headers);
+    // print(options.uri);
+    //  print(options.headers);
     log("request data: ${options.data}");
-    print("headers: ${options.headers}");
+    // print("headers: ${options.headers}");
     log(json.encode(options.data));
 
     // print('=================================');
@@ -47,6 +48,11 @@ class TokenInterceptor extends Interceptor {
     print(err.response?.data);
     print(err.requestOptions.uri);
     print(err.stackTrace);
+
+    //if error is timeout, print error
+    if(err.type == DioExceptionType.connectionTimeout) {
+      return super.onError(DioException(requestOptions: RequestOptions(path: err.requestOptions.path),message: "timeout_message".tr() ), handler);
+    }
     if(err.response?.statusCode == 401) {
       await TokenService.deleteToken();
       if(navigatorKey.currentContext!.mounted) {
@@ -58,8 +64,8 @@ class TokenInterceptor extends Interceptor {
 
   @override
   Future onResponse(Response response, ResponseInterceptorHandler handler) async {
-    // print(response.statusCode);
-    // log(response.data.toString());
+    print(response.statusCode);
+    log(response.data.toString());
     return super.onResponse(response, handler);
   }
 }

@@ -21,7 +21,7 @@ class RatingRepositoryImpl implements RatingRepository {
 
     try {
       var response = await _ratingApiService.createLessonRating(dto: dto);
-      print(response.data);
+      // print(response.data);
       if (response.response.statusCode == 200) {
         return DataSuccess(response.data["id"]);
       } else {
@@ -29,7 +29,7 @@ class RatingRepositoryImpl implements RatingRepository {
         return DataError(error);
       }
     } on DioException catch (e) {
-      print("---->$e");
+      // print("---->$e");
       DioException error = errorHandler(e);
       return DataError(error);
     }

@@ -41,8 +41,8 @@ DioException errorHandler(DioException e) {
     // print('Error: ${e.error}--------------------------');
     return (e);
   } on Error catch (handleError) {
-     print('Error: $handleError at errorHandler');
-     print(e.stackTrace);
+     // print('Error: $handleError at errorHandler');
+     // print(e.stackTrace);
  //   writeLogsToStorage(handleError.toString());
 
     return (e);
@@ -53,11 +53,11 @@ DioException errorHandler(DioException e) {
 Future<DataState<T>> getCheckedResponse<T>(
     Future<HttpResponse<T>> Function() func) async {
   try {
-    print("-----------------------------");
+    // print("-----------------------------");
 
     HttpResponse response = await func();
-    print("-----------------------------");
-    print(response.data);
+    // print("-----------------------------");
+    // print(response.data);
     if (response.response.statusCode == 200) {
       return DataSuccess(response.data);
     } else {
@@ -66,16 +66,16 @@ Future<DataState<T>> getCheckedResponse<T>(
         requestOptions: response.response.requestOptions,
         message: response.response.statusMessage ?? "Unknown error",
       ));
-      print("Error during request: ${response.response.requestOptions.uri}");
+      // print("Error during request: ${response.response.requestOptions.uri}");
       return DataError(error);
     }
   } on DioException catch (e) {
     DioException error = errorHandler(e);
-    print("DioException: ${e.message}");
-    print("Request options: ${e.requestOptions.uri}");
-    print("Response: ${e.response}");
-    print("Error: ${e.error}");
-    print("StackTrace: ${e.stackTrace}");
+    // print("DioException: ${e.message}");
+    // print("Request options: ${e.requestOptions.uri}");
+    // print("Response: ${e.response}");
+    // print("Error: ${e.error}");
+    // print("StackTrace: ${e.stackTrace}");
     return DataError(error);
   }
 }

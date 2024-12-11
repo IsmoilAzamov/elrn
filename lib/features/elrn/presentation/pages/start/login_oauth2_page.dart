@@ -59,6 +59,7 @@ class _LoginOauth2PageState extends State<LoginOauth2Page> {
                 text: "login".tr(),
                 buttonText: "login".tr(),
                 onPressed: () {
+                  print("pressed");
                   _bloc.add(LoginInitialEvent());
                 },
               );

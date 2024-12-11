@@ -14,7 +14,7 @@ String  getLogo(){
       return 'assets/images/elrn_logo_blue.png';
     }
   }  catch (e){
-    print(e);
+    // print(e);
     return 'assets/images/elrn_logo.png';
   }
 }
