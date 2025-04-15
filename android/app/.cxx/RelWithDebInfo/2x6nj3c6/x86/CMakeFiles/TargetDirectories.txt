@@ -1,0 +1,2 @@
+/Users/user/elrn/android/app/.cxx/RelWithDebInfo/2x6nj3c6/x86/CMakeFiles/edit_cache.dir
+/Users/user/elrn/android/app/.cxx/RelWithDebInfo/2x6nj3c6/x86/CMakeFiles/rebuild_cache.dir
